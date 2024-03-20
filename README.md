@@ -1,4 +1,4 @@
-# 🎮 LinkLearning
+# 🖥️ LinkLearning
 
 This project is a full-stack application that aims to be a 1-to-1 clone of a Disney website's item details [page](https://www.disneystore.com/star-wars-the-force-awakens-loungefly-backpack-disney100-442031181363.html), focusing on design accuracy and functionality replication. It uses an external PostgreSQL database for the backend and React/Next.js for the frontend.
 
