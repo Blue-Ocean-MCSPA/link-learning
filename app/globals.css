@@ -21,3 +21,8 @@
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: 'Fenix';
+  src: local('Fenix'), url(../public/fonts/fenix/Fenix-Regular.ttf) format('ttf');
+}
