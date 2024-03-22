@@ -1,8 +1,8 @@
 import { sql } from '@vercel/postgres';
  
 export default async function handler(request, response) {
-  const { name, age, id } = request.body;
-  //const { id } = request.query;
+  const { name, age } = request.body;
+  const { id } = request.query;
   console.log('ID is ' + id);
   console.log('Name is '+ name);
   console.log('Age is ' + age);
@@ -22,7 +22,19 @@ export default async function handler(request, response) {
     } catch (error) {
       return response.status(500).json({ error });
     } 
-  } else if (request.method === 'DELETE') {
+  } else if (request.method == 'GET') {
+    try {
+      const result = await sql `SELECT * FROM testing WHERE id = ${id}`;
+      return response.statsu(200).json({})
+    } catch (error) {
+      return response.status(500).json({ error });
+    }
+  }
+}
+
+
+
+/*else if (request.method === 'DELETE') {
     try {
       //const  = await sql`DELETE FROM testing WHERE id = ${id} RETURNING ALL`;
       //return response.status(200).json({ result });
@@ -37,5 +49,4 @@ export default async function handler(request, response) {
     }
   } else {
     return response.status(405).json({error: 'Method Not Allowed'});
-  }
-}
+  }*/
