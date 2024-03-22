@@ -84,3 +84,11 @@ CREATE TABLE messages (
     FOREIGN KEY (senderID) REFERENCES users(id),
     FOREIGN KEY (recipientID) REFERENCES users(id)
 );
+
+-- CREATE TABLE cohort_assignments (
+--     id SERIAL PRIMARY KEY,
+--     cohortID BIGINT NOT NULL,
+--     assignmentID BIGINT NOT NULL,
+--     FOREIGN KEY (cohortID) REFERENCES cohort (id),
+--     FOREIGN KEY (assignmentID) REFERENCES assignments (id)
+-- );
