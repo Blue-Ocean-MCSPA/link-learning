@@ -32,6 +32,17 @@ export default function Submit() {
         console.log(data);
     }
 
+    const handleDelete = async (studentID) => {
+        const res = await fetch(`/api/students/${id}`, {
+            method: 'DELETE',
+            });
+            if (res.ok) {
+                setStudents(students.filter(student => student.id !== studentID));
+            } else {
+                console.error('Failed to delete student');
+            }
+    }
+
     const handleName = (e) => {
         setName(e.target.value);
     }
@@ -71,11 +82,17 @@ export default function Submit() {
                     }
                 </DropdownMenu>
             </Dropdown>
-                <h3>Change student info</h3>
+                <h3>Update Student info</h3>
                 <form>
                     <input type="text" placeholder="First Name"/>
                     <input type="text" placeholder="Age"/>
                     <button>Update</button>
+                </form>
+            </div>
+            <div>
+                <form>
+                
+                <button>Remove</button>
                 </form>
             </div>
         </div>
