@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+<<<<<<< Updated upstream
 import Instructor from "./InstructorView/Instructor";
 import AppContext from "../Context/Context";
 
@@ -8,6 +9,16 @@ const HeaderTemplate = () => {
 
     return (
         <div className="flex flex-col justify-evenly h-full">
+=======
+import InstructorDashboard from "./InstructorDashboard";
+import Image from "next/image";
+import { MailIcon}  from '../../public/mail.svg';
+
+const HeaderTemplate = () => {
+
+    return (
+        <div className="flex flex-col font-Fenix">
+>>>>>>> Stashed changes
             <div className="banner flex justify-between items-center p-4 bg-slate-800">
                 <div className="left-div"></div>
                 <h1 className="centered-div">Instructor Dashboard</h1>
@@ -28,6 +39,7 @@ const HeaderTemplate = () => {
                     </ul>
                 </div>
             </div>
+<<<<<<< Updated upstream
             {selectedRole === 'admin' ? (
                     <Admin />
                 ) : selectedRole === 'instructor' ? (
@@ -36,8 +48,16 @@ const HeaderTemplate = () => {
                     <Student />
                 ) : null
             }
+=======
+            <InstructorDashboard />
+>>>>>>> Stashed changes
         </div>
     );
 }
 
+<<<<<<< Updated upstream
 export default HeaderTemplate;
+=======
+export default HeaderTemplate;
+
+>>>>>>> Stashed changes
