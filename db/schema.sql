@@ -13,7 +13,7 @@ CREATE TABLE users (
     certifications_and_training TEXT,
     performance_metrics TEXT,
     activity_log TEXT,
-    grade INT,
+    grade VARCHAR,
     assignments_completed INT,
     course_started TIMESTAMP,
     course_ended TIMESTAMP,
