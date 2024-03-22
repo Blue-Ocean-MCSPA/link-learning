@@ -53,7 +53,6 @@ export default function Submit() {
         e.preventDefault();
         const id = selected.id;
         console.log(editedAge, editedName, id)
-
             const res = await fetch(`/api/students`, {
                 method: 'PATCH',
                 headers: {

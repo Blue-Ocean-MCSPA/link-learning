@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
- 
+
 export default async function handler(request, response) {
   console.log(request.method)
   if (request.method == 'POST') {
@@ -21,10 +21,23 @@ export default async function handler(request, response) {
       return response.status(500).json({ error });
     }
   }
-  try {
-    const result = await sql`SELECT * FROM testing;`;
+  if (request.method == 'DELETE') {
+    const { id } = request.body;
+    console.log(id)
+    try {
+      const result = await sql`DELETE FROM testing WHERE id = ${id}`;
+      return response.status(200).json({ result });
+    } catch (error) {
+      return response.status(500).json({ error });
+    }
+  }
+  if(request.method === 'GET'){
+    try {
+    const result = await sql`SELECT * FROM testing`;
     return response.status(200).json({ result });
   } catch (error) {
     return response.status(500).json({ error });
   }
+  }
+
 }
