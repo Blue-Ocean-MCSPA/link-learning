@@ -1,13 +1,16 @@
 import React from 'react';
+import Users from './Users'; // Adjust the import path as necessary
+import MessageThread from './MessageThread'; // Adjust the import path as necessary
 
 const Messages = () => {
-  const users = ["Humberto", "Lance", "Matt", "Ruben", "Daniel", "Giselle", "Yerson", "Park", "Brandon"];
-
   return (
-    <div className="flex flex-col space-y-2 p-4">
-      {users.map((user, index) => (
-        <div key={index} className="bg-blue-500 text-white p-2 rounded shadow w-1/6 min-w-max"> {user} </div>
-      ))}
+    <div className="flex h-screen">
+      <div className="w-1/3 border-r border-gray-200 overflow-auto">
+        <Users />
+      </div>
+      <div className="w-2/3 overflow-auto">
+        <MessageThread />
+      </div>
     </div>
   );
 };
