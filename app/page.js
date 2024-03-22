@@ -1,14 +1,13 @@
 'use client'
-import Image from "next/image";
-import AppContext, { StudentProvider } from "./Context/context";
+import { AppProvider } from "./Context/Context";
 import HeaderTemplate from "./Components/HeaderTemplate";
 
 export default function Home() {
 	return (
     	<>
-			<StudentProvider>
+			<AppProvider>
 				<HeaderTemplate />
-			</StudentProvider>
+			</AppProvider>
     	</>
   	);
 }
