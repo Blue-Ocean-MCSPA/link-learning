@@ -1,24 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-<<<<<<< Updated upstream
-import Instructor from "./InstructorView/Instructor";
-import AppContext from "../Context/Context";
-
-const HeaderTemplate = () => {
-    const [selectedRole, setSelectedRole] = useState('instructor');
-    const [selectedCohort, setSelectedCohort] = useState(null);
-
-    return (
-        <div className="flex flex-col justify-evenly h-full">
-=======
 import InstructorDashboard from "./InstructorDashboard";
 import Image from "next/image";
-import { MailIcon}  from '../../public/mail.svg';
+import { MailIcon } from '../../public/mail.svg';
 
 const HeaderTemplate = () => {
 
     return (
         <div className="flex flex-col font-Fenix">
->>>>>>> Stashed changes
             <div className="banner flex justify-between items-center p-4 bg-slate-800">
                 <div className="left-div"></div>
                 <h1 className="centered-div">Instructor Dashboard</h1>
@@ -39,25 +27,10 @@ const HeaderTemplate = () => {
                     </ul>
                 </div>
             </div>
-<<<<<<< Updated upstream
-            {selectedRole === 'admin' ? (
-                    <Admin />
-                ) : selectedRole === 'instructor' ? (
-                    <Instructor />
-                ) : selectedRole === 'student' ? (
-                    <Student />
-                ) : null
-            }
-=======
             <InstructorDashboard />
->>>>>>> Stashed changes
         </div>
     );
 }
 
-<<<<<<< Updated upstream
-export default HeaderTemplate;
-=======
 export default HeaderTemplate;
 
->>>>>>> Stashed changes
