@@ -62,10 +62,9 @@ export default function Submit() {
                 body: JSON.stringify({ id, editedName, editedAge }),
             })
             const data = await res.json();
-            console.log('edit request sent')
-
-        setEditedAge('');
-        console.log(editedAge, editedName, id)
+            console.log(data);
+            setEditedAge('');
+            setEditedName('');
     }
 
     const handleDelete = async (e) => {
@@ -120,8 +119,8 @@ export default function Submit() {
             </Dropdown>
                 <h3>Change student info</h3>
                 <form>
-                    <input type="text" defaultValue={editedName} placeholder="First Name" onChange={(e) => setEditedName(e.target.value)}/>
-                    <input type="text" defaultValue={editedAge} placeholder="Age" onChange={(e) => setEditedAge(e.target.value)}/>
+                    <input type="text" value={editedName} placeholder="First Name" onChange={(e) => setEditedName(e.target.value)}/>
+                    <input type="text" value={editedAge} placeholder="Age" onChange={(e) => setEditedAge(e.target.value)}/>
                     <button onClick={handleEdit}>Update</button>
                     <button onClick={handleDelete}>DELETE</button>
                 </form>
