@@ -6,10 +6,10 @@ import Login from './components/Login.jsx';
 export default function Home() {
 	return (
     	<>
-			<AppProvider>
+			{/* <AppProvider>
 				<HeaderTemplate />
-				<Login />
-			</AppProvider>
+			</AppProvider> */}
+			<Login />
     	</>
   	);
 }
