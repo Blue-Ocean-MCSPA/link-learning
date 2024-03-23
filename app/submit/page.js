@@ -16,13 +16,15 @@ export default function Submit() {
         async function getStudents() {
             const res = await fetch('/api/students');
             const data = await res.json();
-            setStudents(data.result.rows);
+            console.log(data.data.rows)
+            setStudents(data.data.rows);
         }
         getStudents();
     }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(name, age)
         const res = await fetch('/api/students', {
             method: 'POST',
             headers: {
