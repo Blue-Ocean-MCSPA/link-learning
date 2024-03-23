@@ -12,7 +12,7 @@ const Login = () => {
                 </div>
                 <div className="flex flex-col h-full justify-center items-center w-full bg-light-cursor">
                     <div className="w-2/3 h-1/2">
-                    <div className="ml-2 mb-2 text-lg text-basic-white">Welcome back, student</div>
+                    <div className="ml-2 mb-2 text-sm text-light-active_selection">Welcome back, student</div>
                         <div className="ml-2 mb-5 text-2xl text-basic-white">Login to your account</div>
                         <div className="pb-2">
                             <label htmlFor="username" className="block text-base mb-2"></label>
