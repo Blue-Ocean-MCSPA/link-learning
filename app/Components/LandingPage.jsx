@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { useState } from "react";
 
@@ -24,11 +25,12 @@ const LandingPage = () => {
 
                     {isExpanded && (
                         <div>
-                            <div className="border px-2 py-1 cursor-pointer hover:bg-light-active_selection"
-                            //onClick= route <Link href="/login/admin"/>
-                            >
-                                Admin/Instructor</div>
-                            <div className="border px-2 py-1 text-center cursor-pointer hover:bg-light-active_selection">Student</div>
+                            <div className="border px-2 py-1 cursor-pointer hover:bg-light-active_selection">
+                                <Link href="/loginAdmin">Admin/Instructor</Link>
+                            </div>
+                            <div className="border px-2 py-1 text-center cursor-pointer hover:bg-light-active_selection">
+                                <Link href="/loginStudent">Student</Link>
+                            </div>
                         </div>
                     )}
                 </div>
