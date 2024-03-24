@@ -7,7 +7,7 @@ const Messages = ({ className }) => { // Accept className as a prop
   const containerClass = `flex h-screen ${className}`; 
 
   return (
-    <div className={containerClass}> {/* Use the computed class name */}
+    <div className={containerClass}> 
       <div className="w-1/3 border-r border-gray-200 overflow-auto">
         <Users />
       </div>
