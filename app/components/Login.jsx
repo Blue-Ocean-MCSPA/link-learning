@@ -24,7 +24,9 @@ const Login = () => {
         <div className="flex">
             <div className="w-2/5 flex flex-col justify-center items-center h-screen bg-light-background">
                 <div className="flex flex-col text-6xl w-full justify-center h-1/3">
-                    <h1 className="text-center tracking-wide font-sans text-light-foreground">Learning Link</h1>
+                    <div className="text-center tracking-wide font-sans text-light-foreground">
+                        Learning Link
+                    </div>
                 </div>
                 <div className="flex flex-col h-full justify-center items-center w-full bg-light-cursor">
                     <div className="w-2/3 h-1/2">
@@ -45,11 +47,11 @@ const Login = () => {
                             <input type="text" id="password" className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection" placeholder="Password"/>
                         </div>
                         <div className="flex justify-center">
-                            <div className="w-1/2 text-center mr-4 mt-3 py-1 text-base text-basic-white bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
+                            <div className="w-1/2 text-center mr-4 mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
                             onClick={handleLoginClick}
                             >Login
                             </div>
-                            <div className="border w-1/2 text-center mt-3 py-1 text-base hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full">Sign Up</div>
+                            <div className="border w-1/2 text-center mt-3 py-1 text-base text-light-background hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full">Sign Up</div>
                         </div>
                     </div>
                 </div>
