@@ -13,7 +13,7 @@ CREATE TABLE users (
     certifications_and_training TEXT,
     performance_metrics TEXT,
     activity_log TEXT,
-    grade INT,
+    grade VARCHAR,
     assignments_completed INT,
     course_started TIMESTAMP,
     course_ended TIMESTAMP,
@@ -84,3 +84,11 @@ CREATE TABLE messages (
     FOREIGN KEY (senderID) REFERENCES users(id),
     FOREIGN KEY (recipientID) REFERENCES users(id)
 );
+
+-- CREATE TABLE cohort_assignments (
+--     id SERIAL PRIMARY KEY,
+--     cohortID BIGINT NOT NULL,
+--     assignmentID BIGINT NOT NULL,
+--     FOREIGN KEY (cohortID) REFERENCES cohort (id),
+--     FOREIGN KEY (assignmentID) REFERENCES assignments (id)
+-- );
