@@ -5,13 +5,15 @@ import { sql } from '@vercel/postgres';
 
 export default function Submit() {
 
+    const [newMessage, setNewMessage] = useState('')
+    const [message, setMessages] = useState('')
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [students, setStudents] = useState([]);
     const [selected, setSelected] = useState('');
     const [editedName, setEditedName] = useState('');
     const [editedAge, setEditedAge] = useState('');
-
+console.log(message)
     useEffect(() => {
         async function getStudents() {
             const res = await fetch('/api/students');
@@ -20,7 +22,14 @@ export default function Submit() {
             setStudents(data.data.rows);
         }
         getStudents();
+        
     }, [])
+    const getMessage = async () => {
+        const res = await fetch('/api/messages');
+        const data = await res.json();
+        console.log(data.data.rows)
+        setMessages(data.data.rows);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,6 +45,22 @@ export default function Submit() {
         console.log(data);
         setAge('');
         setName('');
+    }
+
+    const handleMessage = async (e) => {
+        e.preventDefault();
+        console.log(newMessage)
+        const res = await fetch('/api/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: newMessage }), // Change to message: newMessage
+        });
+        const data = await res.json();
+        setMessages(prevMessages => [...prevMessages, { id: data.id, message: newMessage }]);
+        setNewMessage('');
+        console.log(newMessage)
     }
 
     const handleName = (e) => {
@@ -125,6 +150,17 @@ export default function Submit() {
                     <button onClick={handleEdit}>Update</button>
                     <button onClick={handleDelete}>DELETE</button>
                 </form>
+                <form onSubmit={handleMessage}>
+                    <input type="text" value={newMessage} placeholder="Enter your message" onChange={(e) => setNewMessage(e.target.value)}/>
+                    <button >Send</button>
+                </form>
+
+                <ul>
+    {message && message.map((msg) => (
+    <div key={msg.id}>{msg.message}</div>
+    ))}
+</ul>
+                
             </div>
         </div>
     )
