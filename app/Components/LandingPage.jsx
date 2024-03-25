@@ -40,10 +40,10 @@ const LandingPage = () => {
                         {isExpanded && (
                             <div className="border border-light-active_selection bg-light-active_selection dark:border-dark-active_selection dark:bg-dark-active_selection rounded-l-xl pl-4 py-1 mt-2">
                                 <div className="pr-2 cursor-pointer hover:text-light-cursor dark:text-dark-foreground dark:hover:text-dark-numbers">
-                                    <Link href="/loginAdmin">Admin/Instructor</Link>
+                                    <Link href="/login">Admin/Instructor</Link>
                                 </div>
                                 <div className="pr-2 pt-2 text-right cursor-pointer hover:text-light-cursor dark:text-dark-foreground dark:hover:text-dark-numbers">
-                                    <Link href="/loginStudent">Student</Link>
+                                    <Link href="/login">Student</Link>
                                 </div>
                             </div>
                         )}
