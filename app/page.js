@@ -1,5 +1,5 @@
 'use client';
-import Messages from "./components/messages.jsx";
+import Messages from "./components/Messages.jsx";
 import './styles.css';
 
 export default function Home() {
