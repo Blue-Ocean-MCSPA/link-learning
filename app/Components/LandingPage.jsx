@@ -3,12 +3,7 @@ import React from "react";
 import { useState } from "react";
 
 const LandingPage = () => {
-    const [ isExpanded, setIsExpanded ] = useState(false);
     const [ darkMode, setDarkMode ] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsExpanded(!isExpanded);
-    }
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);    
@@ -29,24 +24,9 @@ const LandingPage = () => {
                     <div className="flex-col">
                         
                         <div className="flex mt-2 w-[80px] justify-center ml-auto cursor-pointer hover:text-light-cursor text-light-foreground dark:text-dark-foreground dark:hover:text-dark-numbers"
-                        onClick={toggleDropdown}
                         >
-                            Login
-                            <img src="/dropdown-icon.svg" className={`w-2 transition-transform ${
-                                isExpanded ? "transform rotate-180" : ""
-                            }`}/>
+                            <Link href="/login">Login</Link>
                         </div>
-
-                        {isExpanded && (
-                            <div className="border border-light-active_selection bg-light-active_selection dark:border-dark-active_selection dark:bg-dark-active_selection rounded-l-xl pl-4 py-1 mt-2">
-                                <div className="pr-2 cursor-pointer hover:text-light-cursor dark:text-dark-foreground dark:hover:text-dark-numbers">
-                                    <Link href="/login">Admin/Instructor</Link>
-                                </div>
-                                <div className="pr-2 pt-2 text-right cursor-pointer hover:text-light-cursor dark:text-dark-foreground dark:hover:text-dark-numbers">
-                                    <Link href="/login">Student</Link>
-                                </div>
-                            </div>
-                        )}
                     </div>
 
                 </div>
