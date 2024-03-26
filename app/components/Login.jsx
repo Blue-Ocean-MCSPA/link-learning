@@ -87,7 +87,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-orange-50 w-3/5 h-full opacity-75">
+            <div className="bg-orange-50 w-3/5 h-screen opacity-75">
                 <img src="/fellowMugExtra2.webp" alt="placeholder" className="object-fill"></img>
             </div>
         </div>

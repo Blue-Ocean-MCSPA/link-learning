@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import InstructorDashboard from "./InstructorDashboard";
+import InstructorDashboard from "./InstructorView/InstructorDashboard";
 import Image from "next/image";
 import { MailIcon } from '../../public/mail.svg';
 
