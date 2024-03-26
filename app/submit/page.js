@@ -9,18 +9,22 @@ export default function Submit() {
     const [age, setAge] = useState('');
     const [students, setStudents] = useState([]);
     const [selected, setSelected] = useState('');
+    const [editedName, setEditedName] = useState('');
+    const [editedAge, setEditedAge] = useState('');
 
     useEffect(() => {
         async function getStudents() {
             const res = await fetch('/api/students');
             const data = await res.json();
-            setStudents(data.result.rows);
+            console.log(data.data.rows)
+            setStudents(data.data.rows);
         }
         getStudents();
     }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(name, age)
         const res = await fetch('/api/students', {
             method: 'POST',
             headers: {
@@ -30,6 +34,8 @@ export default function Submit() {
         });
         const data = await res.json();
         console.log(data);
+        setAge('');
+        setName('');
     }
 
     const handleDelete = async (studentID) => {
@@ -49,9 +55,50 @@ export default function Submit() {
     const handleAge = (e) => {
         setAge(e.target.value);
     }
-    const handleClick = (e) => {
-        console.log(e.target.getAttribute('data-id'));
-        console.log(e.target.textContent);
+
+    const handleClick = (student) => {
+        setSelected(student);
+        setEditedName(student.name);
+        setEditedAge(student.age);
+    }
+
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        const id = selected.id;
+        console.log(editedAge, editedName, id)
+            const res = await fetch(`/api/students`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, editedName, editedAge }),
+            })
+            const data = await res.json();
+            console.log(data);
+            setEditedAge('');
+            setEditedName('');
+    }
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        const id = selected.id;
+        console.log(id)
+        try {
+            const res = await fetch(`/api/students`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+            const data = await res.json();
+            console.log(data);
+            console.log('delete request sent')
+            setEditedName('');
+            setEditedAge('');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -72,11 +119,11 @@ export default function Submit() {
                     Select Student
                     </Button>
                 </DropdownTrigger>
-                <DropdownMenu aria-label="Static Actions" onClick={handleClick}>
+                <DropdownMenu aria-label="Static Actions">
                     {
                         students.map((student) => {
                             return (
-                                <DropdownItem key={student.id} data-id={student.id}>{student.name}</DropdownItem>
+                                <DropdownItem key={student.id} textValue={student.name} onClick={() => {handleClick(student)}}>{student.name}</DropdownItem>
                             )
                         })
                     }
@@ -84,9 +131,10 @@ export default function Submit() {
             </Dropdown>
                 <h3>Update Student info</h3>
                 <form>
-                    <input type="text" placeholder="First Name"/>
-                    <input type="text" placeholder="Age"/>
-                    <button>Update</button>
+                    <input type="text" value={editedName} placeholder="First Name" onChange={(e) => setEditedName(e.target.value)}/>
+                    <input type="text" value={editedAge} placeholder="Age" onChange={(e) => setEditedAge(e.target.value)}/>
+                    <button onClick={handleEdit}>Update</button>
+                    <button onClick={handleDelete}>DELETE</button>
                 </form>
             </div>
             <div>
@@ -97,4 +145,4 @@ export default function Submit() {
             </div>
         </div>
     )
-}
+} 
