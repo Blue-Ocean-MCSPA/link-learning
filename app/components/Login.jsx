@@ -11,14 +11,20 @@ const Login = () => {
 
     const handleLoginClick = async (event) => {
         try {
-            console.log(`Fetch with email: ${email}`)
-            const response = await fetch(`@/app/api/users/[${email}]`)
+            const response = await fetch(`/api/users`) // all the users
             const data = await response.json();
             console.log(data.data.rows);
+
+            data.data.rows.map((row) => {
+                if (row.email === email && row.password === password){
+                    console.log("Email found");
+                    console.log(row);
+
+                }
+            })
         }
         catch(err){
             console.error(err)
-            res.sendStatus(500);
         }
     }
 
