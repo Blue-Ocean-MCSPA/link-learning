@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -5,6 +6,7 @@ const Login = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ roleid, setRoleid ] = useState('');
     const router = useRouter();
 
     const handleEmailChange = (event) => {
@@ -23,17 +25,12 @@ const Login = () => {
             const matchedRows = data.data.rows.filter((row) => {
                 return row.email === email && row.password_hash === password;
             });
+
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
-                    console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    if (matchedRows[0].roleid === '1') {
-                        router.push('/admin');
-                    } else if (matchedRows[0].roleid === '2') {
-                        router.push('/instructor');
-                    } else {
-                        router.push('/student');
-                    }
-                    
+                    console.log(matchedRows);
+                    setRoleid(matchedRows[0].roleid);
+                    router.push(`/admin`)
                 } else {
                     alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.");
                 }
@@ -69,12 +66,12 @@ const Login = () => {
                         <div className="pb-2">
                             <label htmlFor="password" className="block text-base mb-2"></label>
                             <input 
-                                type="text"
-                                id="password"
-                                value={password}
-                                placeholder="Password"
-                                className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
-                                onChange={handlePasswordChange}
+                            type="text" 
+                            id="password"
+                            value={password}
+                            className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection" 
+                            placeholder="Password"
+                            onChange={handlePasswordChange}
                             />
                         </div>
                         <div className="flex justify-center">
