@@ -6,6 +6,7 @@ const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
 
+
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
@@ -18,21 +19,34 @@ const Login = () => {
         try {
             const response = await fetch(`/api/users`) // all the users
             const data = await response.json();
-
-            data.data.rows.map((row) => {
-                if (row.email === email && row.password_hash === password){
-                    console.log("Email and password matched");
-                    console.log(row);
-                }
-                else {
-                    console.log("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.")
-                }
-            })
+            // console.log(data.data.rows);
+            const matchedRows = data.data.rows.filter((row) => {
+                return row.email === email && row.password_hash === password;
+            });
+            if (matchedRows.length > 0) {
+                console.log("Email and password matched");
+                console.log(matchedRows);
+            } else {
+                alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.");
+            }
+            // let accountFound = false;
+            // data.data.rows.map((row) => {
+            //     if (row.email === email && row.password_hashed === password){
+            //         console.log("Email found");
+            //         console.log(row);
+            //         accountFound = true;
+            //     } else {
+            //         console.log("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.")
+            //     }
+            // })
+            // if (!accountFound){
+            //     alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.")
+            // }
+            }
+            catch(err){
+                console.error(err)
+            }
         }
-        catch(err){
-            console.error(err)
-        }
-    }
 
     return (
         <div className="flex">
