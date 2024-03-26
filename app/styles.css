@@ -1,0 +1,9 @@
+.nightOwlLight {
+    --background-color: #FAFAFA; /* Light grey background */
+    --text-color: #403F53; /* Darker text for contrast */
+    --accent-color: #0184BC; /* Blue for accents */
+    
+    background-color: var(--background-color);
+    color: var(--text-color);
+    
+  }
