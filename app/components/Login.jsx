@@ -4,22 +4,28 @@ import { useRouter } from "next/router";
 const Login = () => {
 
     const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
+    }
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
     }
 
     const handleLoginClick = async (event) => {
         try {
             const response = await fetch(`/api/users`) // all the users
             const data = await response.json();
-            console.log(data.data.rows);
 
             data.data.rows.map((row) => {
-                if (row.email === email && row.password === password){
-                    console.log("Email found");
+                if (row.email === email && row.password_hash === password){
+                    console.log("Email and password matched");
                     console.log(row);
-
+                }
+                else {
+                    console.log("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.")
                 }
             })
         }
@@ -52,7 +58,14 @@ const Login = () => {
                         </div>
                         <div className="pb-2">
                             <label htmlFor="password" className="block text-base mb-2"></label>
-                            <input type="text" id="password" className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection" placeholder="Password"/>
+                            <input 
+                                type="text"
+                                id="password"
+                                value={password}
+                                placeholder="Password"
+                                className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
+                                onChange={handlePasswordChange}
+                            />
                         </div>
                         <div className="flex justify-center">
                             <div className="w-1/2 text-center mr-4 mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
