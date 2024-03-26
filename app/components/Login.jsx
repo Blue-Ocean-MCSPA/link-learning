@@ -1,10 +1,13 @@
+import Link from "next/link";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-
+    const [ roleid, setRoleid ] = useState('');
+    const router = useRouter();
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -22,25 +25,15 @@ const Login = () => {
             const matchedRows = data.data.rows.filter((row) => {
                 return row.email === email && row.password_hash === password;
             });
-            if (matchedRows.length > 0) {
-                console.log("Email and password matched");
-                console.log(matchedRows);
-            } else {
-                alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.");
-            }
-            // let accountFound = false;
-            // data.data.rows.map((row) => {
-            //     if (row.email === email && row.password_hashed === password){
-            //         console.log("Email found");
-            //         console.log(row);
-            //         accountFound = true;
-            //     } else {
-            //         console.log("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.")
-            //     }
-            // })
-            // if (!accountFound){
-            //     alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.")
-            // }
+
+                if (matchedRows.length > 0) {
+                    console.log("Email and password matched");
+                    console.log(matchedRows);
+                    setRoleid(matchedRows[0].roleid);
+                    router.push(`/admin`)
+                } else {
+                    alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.");
+                }
             }
             catch(err){
                 console.error(err)
@@ -71,7 +64,8 @@ const Login = () => {
                             <label htmlFor="password" className="block text-base mb-2"></label>
                             <input 
                             type="text" 
-                            id="password" 
+                            id="password"
+                            value={password}
                             className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection" 
                             placeholder="Password"
                             onChange={handlePasswordChange}
