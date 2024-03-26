@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const Login = () => {
 
@@ -10,7 +11,8 @@ const Login = () => {
 
     const handleLoginClick = async (event) => {
         try {
-            const response = await fetch('/api/users')
+            console.log(`Fetch with email: ${email}`)
+            const response = await fetch(`@/app/api/users/[${email}]`)
             const data = await response.json();
             console.log(data.data.rows);
         }
@@ -32,7 +34,7 @@ const Login = () => {
                     <div className="w-2/3 h-1/2">
                         <div className="ml-2 mb-5 text-2xl text-light-active_selection">Login to your account</div>
                         <div className="pb-2">
-                            <label htmlFor="username" className="block text-base mb-2"></label>
+                            <label htmlFor="email" className="block text-base mb-2"></label>
                             <input
                                 type="email"
                                 id="email"
@@ -51,7 +53,7 @@ const Login = () => {
                             onClick={handleLoginClick}
                             >Login
                             </div>
-                            <div className="border w-1/2 text-center mt-3 py-1 text-base text-light-background hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full">Sign Up</div>
+                            <div className="border border-light-background w-1/2 text-center mt-3 py-1 text-base text-light-background hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full">Sign Up</div>
                         </div>
                     </div>
                 </div>
