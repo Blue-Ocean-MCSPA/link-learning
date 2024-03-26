@@ -29,8 +29,16 @@ const HeaderTemplate = () => {
             </div>
             <InstructorDashboard />
         </div>
-    );
-}
+      </div>
+      {selectedRole === "Admin" ? (
+        <Admin />
+      ) : selectedRole === "instructor" ? (
+        <Instructor />
+      ) : selectedRole === "student" ? (
+        <Student />
+      ) : null}
+    </div>
+  );
+};
 
 export default HeaderTemplate;
-
