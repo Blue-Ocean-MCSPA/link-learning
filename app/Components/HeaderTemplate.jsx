@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Instructor from "./InstructorView/Instructor";
-import Admin from "./AdminView/Admin";
+import Admin from "./Admin/Admin";
 import AppContext from "../Context/Context";
 
 const HeaderTemplate = () => {

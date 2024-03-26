@@ -1,18 +1,25 @@
-"use client";
-import { AppProvider } from "./Context/Context";
+// "use client";
+// import { AppProvider } from "./Context/Context";
+// import HeaderTemplate from "./Components/HeaderTemplate";
 
-("use client");
-import { StudentProvider } from "./Context/Context";
-import HeaderTemplate from "./Components/HeaderTemplate";
-import LandingPage from "./components/LandingPage.jsx";
-import InstructorDashboard from "./components/InstructorView/InstructorDashboard";
+// export default function Home() {
+//   return (
+//     <>
+//       <AppProvider>
+//         <HeaderTemplate />
+//       </AppProvider>
+//     </>
+//   );
+// }
+
+"use client";
+
+import LandingPage from "./Components/LandingPage";
 
 export default function Home() {
   return (
     <>
-      <AppProvider>
-        <HeaderTemplate />
-      </AppProvider>
+      <LandingPage />
     </>
   );
 }
