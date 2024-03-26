@@ -27,7 +27,7 @@ const Login = () => {
                     console.log("Email and password matched");
                     console.log("role id for this matched user: ", matchedRows[0].roleid);
                     if (matchedRows[0].roleid === '1') {
-                        router.push('/admin');
+                        router.push('/admin'); //use redirect
                     } else if (matchedRows[0].roleid === '2') {
                         router.push('/instructor');
                     } else {
