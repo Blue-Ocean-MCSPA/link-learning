@@ -21,7 +21,6 @@ const Login = () => {
             const response = await fetch(`/api/users`) // all the users
             const data = await response.json();
             const matchedRows = data.data.rows.filter((row) => {
-                console.log(matchedRows);
                 return row.email === email && row.password_hash === password;
             });
                 if (matchedRows.length > 0) {
