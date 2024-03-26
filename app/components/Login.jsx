@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
 
@@ -61,6 +61,7 @@ const Login = () => {
                                 id="email"
                                 value={email}
                                 placeholder="Email"
+                                autoComplete="email"
                                 className="bg-light-background border border-2 border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
                                 onChange={handleEmailChange}
                             />
