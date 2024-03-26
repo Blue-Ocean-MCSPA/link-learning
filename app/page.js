@@ -1,9 +1,10 @@
 
 'use client'
-import { StudentProvider } from "./Context/Context";
-import HeaderTemplate from "./Components/HeaderTemplate";
+import { StudentProvider } from "./context/Context";
+import HeaderTemplate from "./components/HeaderTemplate";
 import LandingPage from './components/LandingPage.jsx'
 import InstructorDashboard from "./components/InstructorView/InstructorDashboard";
+import Messages from "./components/messages";
 
 export default function Home() {
 	return (
@@ -11,8 +12,10 @@ export default function Home() {
 			{/* <AppProvider>
 				<HeaderTemplate />
 				<InstructorDashboard />
-			</AppProvider> */}
-			<LandingPage />
+			</AppProvider> 
+			<LandingPage />*/}
+
+			<Messages />
     	</>
   	);
 
