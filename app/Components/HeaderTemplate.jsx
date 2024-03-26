@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import InstructorDashboard from "./InstructorDashboard";
-import Image from "next/image";
-import { MailIcon } from '../../public/mail.svg';
+import Instructor from "./InstructorView/Instructor";
 
 const HeaderTemplate = () => {
 
@@ -27,7 +25,7 @@ const HeaderTemplate = () => {
                     </ul>
                 </div>
             </div>
-            <InstructorDashboard />
+            <Instructor />
         </div>
     );
 }
