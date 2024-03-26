@@ -1,4 +1,3 @@
-
 'use client'
 import { StudentProvider } from "./context/Context";
 import HeaderTemplate from "./components/HeaderTemplate";
@@ -8,7 +7,7 @@ import Messages from "./components/messages";
 
 export default function Home() {
 	return (
-    	<>
+		<>
 			{/* <AppProvider>
 				<HeaderTemplate />
 				<InstructorDashboard />
@@ -16,14 +15,14 @@ export default function Home() {
 			<LandingPage />*/}
 
 			<Messages />
-    	</>
-  	);
+		</>
+	);
 
-// 		<>
-// 			<StudentProvider>
-// 				<HeaderTemplate />
-// 			</StudentProvider>
-// 		</>
-// 	);
+	// 		<>
+	// 			<StudentProvider>
+	// 				<HeaderTemplate />
+	// 			</StudentProvider>
+	// 		</>
+	// 	);
 
 }
