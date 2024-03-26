@@ -1,9 +1,9 @@
 'use client'
 import HeaderTemplate from "../components/HeaderTemplate";
 import InstructorDashboard from "../components/InstructorView/InstructorDashboard";
-import AppContext, { AppProvider } from "@/app/Context/Context";
+import AppContext, { AppProvider } from "@/app/Context/Context.jsx";
 
-const InstructorDash = () => {
+const Instructor = () => {
     return (
         <AppProvider>
             <HeaderTemplate />
@@ -12,4 +12,4 @@ const InstructorDash = () => {
     )
 }
 
-export default InstructorDash;
+export default Instructor;

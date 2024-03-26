@@ -8,19 +8,7 @@ import InstructorDashboard from "./components/InstructorView/InstructorDashboard
 export default function Home() {
 	return (
     	<>
-			{/* <AppProvider>
-				<HeaderTemplate />
-				<InstructorDashboard />
-			</AppProvider> */}
 			<LandingPage />
     	</>
   	);
-
-// 		<>
-// 			<StudentProvider>
-// 				<HeaderTemplate />
-// 			</StudentProvider>
-// 		</>
-// 	);
-
 }

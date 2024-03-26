@@ -17,9 +17,9 @@ const Login = () => {
 
     const handleLoginClick = async (event) => {
         try {
+            
             const response = await fetch(`/api/users`) // all the users
             const data = await response.json();
-
             const matchedRows = data.data.rows.filter((row) => {
                 console.log(matchedRows);
                 return row.email === email && row.password_hash === password;
