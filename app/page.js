@@ -1,28 +1,24 @@
-'use client'
-import { StudentProvider } from "./context/Context";
-import HeaderTemplate from "./components/HeaderTemplate";
-import LandingPage from './components/LandingPage.jsx'
-import InstructorDashboard from "./components/InstructorView/InstructorDashboard";
-import Messages from "./components/messages";
+"use client";
+
+import LandingPage from "./components/LandingPage.jsx";
 
 export default function Home() {
-	return (
-		<>
-			{/* <AppProvider>
+  return (
+    <>
+      {/* <AppProvider>
 				<HeaderTemplate />
 				<InstructorDashboard />
 			</AppProvider> 
 			<LandingPage />*/}
 
-			<Messages />
-		</>
-	);
+      <Messages />
+    </>
+  );
 
-	// 		<>
-	// 			<StudentProvider>
-	// 				<HeaderTemplate />
-	// 			</StudentProvider>
-	// 		</>
-	// 	);
-
+  // 		<>
+  // 			<StudentProvider>
+  // 				<HeaderTemplate />
+  // 			</StudentProvider>
+  // 		</>
+  // 	);
 }
