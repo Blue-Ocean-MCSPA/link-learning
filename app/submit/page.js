@@ -22,7 +22,7 @@ console.log(message)
             setStudents(data.data.rows);
         }
         getStudents();
-        
+        getMessage();
     }, [])
     const getMessage = async () => {
         const res = await fetch('/api/messages');
