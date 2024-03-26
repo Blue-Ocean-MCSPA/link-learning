@@ -2,8 +2,8 @@
 'use client'
 import { UserProvider } from "./Context/Context";
 import HeaderTemplate from "./Components/HeaderTemplate";
-import LandingPage from './components/LandingPage.jsx'
-import InstructorDashboard from "./components/InstructorView/InstructorDashboard";
+import LandingPage from './Components/LandingPage.jsx'
+import Instructor from "./Components/InstructorView/Instructor";
 
 export default function Home() {
 	return (
