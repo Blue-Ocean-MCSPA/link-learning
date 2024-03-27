@@ -47,23 +47,23 @@ const SelectInstructors = ({ setSelectedCohort, setSelectedInstructor }) => {
         <button className=" ml-10" onClick={handleClick}>
           Back to Dashboard
         </button>
-        <div className="border flex-col ml-auto p-6 bg-white rounded-lg px-3 py-1 items-center">
+        <div className="flex items-center ml-auto bg-white rounded-lg p-1">
           <FaSearch className="text-black" />
           <input
-            className="bg-transparent border-none h-full w-full focus:outline-none ml-5 text-black item-center"
+            className="bg-transparent border-none h-full w-full focus:outline-none ml-5 text-black items-center border"
             type="text"
             placeholder=" type to search..."
             value={input}
             onChange={(e) => handleChange(e.target.value)}
           />
-          <div className="search bg-white flex flex-col shadow-white rounded-lg overflow-y-scroll hover: bg-gray-200">
-            {searchInfo.map((search, id) => {
-              return <div key={id}>{search.name}</div>;
-            })}
-          </div>
+        </div>
+        <div className="absolute bg-white shadow-white rounded-lg overflow-y-scroll hover: bg-gray-200 right-10 top-40">
+          {searchInfo.map((search, id) => {
+            return <div key={id}>{search.name}</div>;
+          })}
         </div>
       </div>
-      <div className="flex flex-col w-15">
+      <div className="flex flex-col w-15 border ">
         <InfiniteScroll dataLength={dataSource.length}>
           {dataSource.map((item, index) => {
             return <div className="bg-600 p-7 border">Instructor: {item}</div>;
