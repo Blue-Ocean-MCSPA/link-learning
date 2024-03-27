@@ -6,7 +6,8 @@ import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@ne
 export default function Submit() {
     const senderId = 4;
     const recipientId = 10;
-    const time_stamp = '2023-04-05'
+    const time_stamp = new Date();
+    const [deleteMessage, setDeleteMessage] = useState('');
     const [newMessage, setNewMessage] = useState('')
     const [message, setMessages] = useState('')
     const [name, setName] = useState('');
@@ -15,7 +16,7 @@ export default function Submit() {
     const [selected, setSelected] = useState('');
     const [editedName, setEditedName] = useState('');
     const [editedAge, setEditedAge] = useState('');
-console.log(message)
+
     useEffect(() => {
         async function getStudents() {
             const res = await fetch('/api/students');
@@ -23,8 +24,8 @@ console.log(message)
             console.log(data.data.rows)
             setStudents(data.data.rows);
         }
-        getStudents();
         getMessage();
+        getStudents();
     }, [])
     const getMessage = async () => {
         const res = await fetch('/api/messages');
@@ -32,7 +33,6 @@ console.log(message)
         console.log(data.data.rows)
         setMessages(data.data.rows);
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(name, age)
@@ -66,7 +66,6 @@ console.log(message)
         });
     
         const data = await res.json();
-        console.log(data);
     
         setMessages(prevMessages => [
             ...prevMessages, 
@@ -94,6 +93,7 @@ console.log(message)
         setSelected(student);
         setEditedName(student.name);
         setEditedAge(student.age);
+        setDeleteMessage(message);
     }
 
     const handleEdit = async (e) => {
@@ -134,6 +134,33 @@ console.log(message)
             console.log(error);
         }
     }
+
+    const handleDeleteMessages = async (e) => {
+        e.preventDefault();
+        const id = deleteMessage.id; // Assuming deleteMessage contains the message to delete
+        console.log(id);
+        try {
+            const res = await fetch(`/api/messages`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }), // Send the ID in the request body
+            });
+            
+            setDeleteMessage("")
+            if (res.ok) {
+                console.log('delete request sent successfully');
+            } else {
+                // If response status is not OK, handle the error
+                console.error('Failed to delete message');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    
 
     return (
         <div>
@@ -176,9 +203,16 @@ console.log(message)
                 </form>
 
                 <ul>
-    {message && message.map((msg) => (
-    <div key={msg.id}>{msg.message}</div>
-    ))}
+    {message && message.map((msg) => {
+        console.log(msg) 
+        return (<>
+     <li key={msg.id}>{msg.message}</li>
+     <button onClick={handleDeleteMessages}>DELETE</button>
+    </>
+    )
+   }
+    
+    )}
 </ul>
                 
             </div>

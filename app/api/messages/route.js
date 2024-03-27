@@ -48,7 +48,7 @@ export async function DELETE(request) {
         // Parse the request body to extract the ID of the message to be deleted
         const { id, message } = await request.json();
         // Execute SQL query to delete the message from the 'messages' table by its ID
-        const result = await client.sql`DELETE FROM message WHERE id = ${id}`;
+        const result = await client.sql`DELETE FROM messages WHERE id = ${id}`;
         // Return a JSON response with the result of the deletion and a 200 status code
         return NextResponse.json({ result }, { status: 200 });
     } finally {
