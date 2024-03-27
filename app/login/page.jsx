@@ -1,11 +1,9 @@
-'use client'
+"use client";
 import React from "react";
-import Login from "../components/Login";
+import Login from "./Login";
 
 const mainLogin = () => {
-    return (
-        <Login />
-    )
-}
+  return <Login />;
+};
 
 export default mainLogin;

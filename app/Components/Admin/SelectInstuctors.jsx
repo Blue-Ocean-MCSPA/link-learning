@@ -1,29 +1,36 @@
-import React, { useState, useContext, useEffect } from "react";
-
-import InfiniteScroll from "react-infinite-scroll-component";
+import React, { useState, useEffect } from "react";
 
 import { FaSearch } from "react-icons/fa";
-// npm install --save react-infinite-scroll-component
+
 //npm install react-icons
 
-const SelectInstructors = ({ setSelectedCohort, setSelectedInstructor }) => {
-  const [selectedTab, setSelectedTab] = useState("students");
-
-  const [dataSource, setDataSource] = useState(Array.from({ length: 20 }));
-
+const SelectInstructors = ({ setSelectedInstructor }) => {
+  //These next 3 state lines are for fetch data
+  const [dataSource, setDataSource] = useState([]);
+  // Array.from({ length: 20 })
   const [input, setInput] = useState("");
   const [searchInfo, setSearchInfo] = useState([]);
+  const [selectName, setSelectName] = useState(null);
+
+  useEffect(() => {
+    //Fetch instructors when the component mounts
+    fetchInstructors("a");
+  }, []); // Empty dependency array ensures this effect runs only once
 
   function handleClick() {
     setSelectedInstructor(null);
   }
   function handleChange(value) {
     setInput(value);
-    fetchData(value);
+    fetchSearch(value);
+  }
+
+  function handleClickInstructor(e) {
+    setSelectName(e.target.textContent);
   }
 
   // this is filtering on the front end side. What you want to do is send 'value' to the back end and get the data from the backend .. "but for now we're filtering on the front end "
-  function fetchData(value) {
+  function fetchSearch(value) {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((json) => {
@@ -39,8 +46,18 @@ const SelectInstructors = ({ setSelectedCohort, setSelectedInstructor }) => {
       });
   }
 
+  function fetchInstructors(value) {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((json) => {
+        const result = json;
+        console.log(result);
+        setDataSource(result);
+      });
+  }
+
   return (
-    <div className="bg-slate-600 ">
+    <div className="bg-black h-full border border-red-500">
       <div className="flex p-5 bg-slate-500 items-center ">
         <div className="">Assigned Cohort</div>
         <button className=" ml-10" onClick={handleClick}>
@@ -56,21 +73,58 @@ const SelectInstructors = ({ setSelectedCohort, setSelectedInstructor }) => {
             onChange={(e) => handleChange(e.target.value)}
           />
         </div>
-        <div className="absolute bg-white shadow-white rounded-lg overflow-y-scroll hover: bg-gray-200 right-10 top-40">
+        <div className="absolute bg-white shadow-white rounded-lg overflow-y-scroll right-10 top-40">
           {searchInfo.map((search, id) => {
-            return <div key={id}>{search.name}</div>;
+            return (
+              <div key={id} className=" hover:bg-gray-200 hover:cursor-pointer">
+                {search.name}
+              </div>
+            );
           })}
         </div>
       </div>
-      <div className="flex flex-col w-15 border ">
-        <InfiniteScroll dataLength={dataSource.length}>
-          {dataSource.map((item, index) => {
-            return <div className="bg-600 p-7 border">Instructor: {item}</div>;
-          })}
-        </InfiniteScroll>
+      <div className="left-0 h-80 w-52 ">
+        {dataSource.map((instructor, id) => {
+          return (
+            <div
+              key={id}
+              className="border hover:cursor-pointer"
+              onClick={handleClickInstructor}
+            >
+              {instructor.name}
+            </div>
+          );
+        })}
       </div>
+      <div className="border flex ">{selectName}</div>
     </div>
   );
 };
 
 export default SelectInstructors;
+
+{
+  /* <InfiniteScroll dataLength={dataSource.length}>
+          {dataSource.map((item, index) => {
+            return (
+              <ul className="bg-600 p-7 border" key={index}>
+                <li>Instructor: {item.name}</li>
+              </ul>
+            );
+          })}
+        </InfiniteScroll> */
+}
+
+// function HandleClickSearch() {
+//   return <div>{e.target.value}</div>;
+// }
+
+// <div className="absolute bg-white shadow-white rounded-lg overflow-y-scroll right-10 top-40">
+//   {searchInfo.map((search, id) => {
+//     return (
+//       <div key={id} className=" hover:bg-gray-200" onClick={HandleClickSearch}>
+//         {search.name}
+//       </div>
+//     );
+//   })}
+// </div>;

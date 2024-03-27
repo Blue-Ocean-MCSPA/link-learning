@@ -1,9 +1,10 @@
-import LandingPage from "./Components/LandingPage";
+"use client";
+import React from "react";
 
-export default function Home() {
-  return (
-    <>
-      <LandingPage />
-    </>
-  );
-}
+import LandingPage from "./LandingPage";
+
+const mainLogin = () => {
+  return <LandingPage />;
+};
+
+export default mainLogin;
