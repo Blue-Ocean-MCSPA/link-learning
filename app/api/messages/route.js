@@ -26,11 +26,11 @@ export async function POST(request) {
         // Connect to the database
         client = await sql.connect();
         // Parse the request body to extract the message
-        const { message } = await request.json();
+        const { senderid, recipientid, time_stamp, message } = await request.json();
         // Log the received message - useful for debugging
         console.log(message);
         // Execute SQL query to insert the new message into the 'messages' table
-        const data = await client.sql`INSERT INTO messages (message) VALUES (${message})`;
+        const data = await client.sql` INSERT INTO messages (senderid, recipientid, time_stamp, message) VALUES (${senderid}, ${recipientid}, ${time_stamp}, ${message})`;
         // Return a JSON response with the inserted data and a 200 status code
         return NextResponse.json({ data }, { status: 200 });
     } finally {

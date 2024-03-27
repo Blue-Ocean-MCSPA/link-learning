@@ -1,10 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
-import { sql } from '@vercel/postgres';
+
 
 export default function Submit() {
-
+    const senderId = 4;
+    const recipientId = 10;
+    const time_stamp = '2023-04-05'
     const [newMessage, setNewMessage] = useState('')
     const [message, setMessages] = useState('')
     const [name, setName] = useState('');
@@ -49,19 +51,37 @@ console.log(message)
 
     const handleMessage = async (e) => {
         e.preventDefault();
-        console.log(newMessage)
+        console.log(newMessage);
         const res = await fetch('/api/messages', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ message: newMessage }), // Change to message: newMessage
+            body: JSON.stringify({
+                senderid: senderId,
+                recipientid: recipientId,
+                time_stamp: time_stamp,
+                message: newMessage
+            })
         });
+    
         const data = await res.json();
-        setMessages(prevMessages => [...prevMessages, { id: data.id, message: newMessage }]);
+        console.log(data);
+    
+        setMessages(prevMessages => [
+            ...prevMessages, 
+            {
+                id: data.id, 
+                senderid: data.senderid, 
+                recipientid: data.recipientid, 
+                time_stamp: data.time_stamp, 
+                message: data.message
+            }
+        ]);
+    
         setNewMessage('');
-        console.log(newMessage)
     }
+    
 
     const handleName = (e) => {
         setName(e.target.value);
@@ -165,3 +185,8 @@ console.log(message)
         </div>
     )
 } 
+
+// const [user1, setUser1] = useState({recipient})
+//const [user2, setUser2] = useState({sender)};
+//
+
