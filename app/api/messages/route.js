@@ -46,9 +46,9 @@ export async function DELETE(request) {
         // Connect to the database
         client = await sql.connect();
         // Parse the request body to extract the ID of the message to be deleted
-        const { id } = await request.json();
+        const { id, message } = await request.json();
         // Execute SQL query to delete the message from the 'messages' table by its ID
-        const result = await client.sql`DELETE FROM messages WHERE id = ${id}`;
+        const result = await client.sql`DELETE FROM message WHERE id = ${id}`;
         // Return a JSON response with the result of the deletion and a 200 status code
         return NextResponse.json({ result }, { status: 200 });
     } finally {
@@ -64,9 +64,9 @@ export async function PATCH(request) {
         // Connect to the database
         client = await sql.connect();
         // Parse the request body to extract the ID and new values for the message
-        const { id, editedAge, editedName } = await request.json();
+        const { id, message} = await request.json();
         // Execute SQL query to update the specified fields of the message in the 'messages' table
-        const data = await client.sql`UPDATE messages SET name = ${editedName}, age = ${editedAge} WHERE id = ${id}`;
+        const data = await client.sql`UPDATE messages SET name = ${message} WHERE id = ${id}`;
         // Return a JSON response with the updated data and a 200 status code
         return NextResponse.json({ data }, { status: 200 });
     } finally {
