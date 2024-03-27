@@ -16,7 +16,7 @@ export function UserProvider({ children }) {
     const [selectedTab, setSelectedTab] = useState('students');
 
     // Function to fetch users from the database and add them to state
-    const fetchInstructorCohorts = async (id, callback) => {
+    const fetchInstructorCohorts = async (id) => {
         try {
             const response = await fetch(`http://localhost:3000/api/cohort/${id}`);
             if (!response.ok) {
@@ -24,7 +24,6 @@ export function UserProvider({ children }) {
             }
             const data = await response.json();
             setCohorts(data.instructorCohorts.rows);
-            callback();
         } catch (error) {
             console.error('Error fetching cohorts:', error);
             setCohorts([]);

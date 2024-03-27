@@ -6,10 +6,10 @@ import LandingPage from './Components/LandingPage.jsx'
 export default function Home() {
 	return (
     	<>
-			{/* <UserProvider>
+			<UserProvider>
 				<HeaderTemplate />
-			</UserProvider> */}
-			<LandingPage />
+			</UserProvider>
+			{/* <LandingPage /> */}
     	</>
   	);
 }

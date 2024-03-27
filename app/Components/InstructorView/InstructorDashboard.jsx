@@ -1,28 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/context/Context";
+import AppContext from "@/app/Context/Context";
 
 export default function InstructorDashboard() {
     const { 
         cohorts,
-        setCohorts,
-        selectedCohort,
         setSelectedCohort,
-        fetchCohorts,
         fetchInstructorCohorts,
     } = useContext(AppContext);
-    const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
-        fetchInstructorCohorts(5, () => {
-            setFetched(true);
-        });
+        fetchInstructorCohorts(5)
     }, []);
-
-    useEffect(() => {
-        if (fetched) {
-            console.log('Cohorts fetched:', cohorts);
-        }
-    }, [fetched]);
 
     const cohortClick = (cohort) => {
         setSelectedCohort(cohort.id);

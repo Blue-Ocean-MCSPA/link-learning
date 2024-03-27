@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useContext, useEffect } from "react";
 import Instructor from "./InstructorView/Instructor";
 
