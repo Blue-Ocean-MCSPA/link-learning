@@ -1,17 +1,25 @@
 import React, { useState, useContext, useEffect } from "react";
+import AppContext from "@/app/Context/Context";
 
 const StudentsOverview = () => {
+    const { 
+        students,
+        setStudents,
+        selectedStudent,
+        setSelectedStudent,
+        fetchStudentsInCohort,
+        selectedCohort,
+    } = useContext(AppContext);
     
-    const [students, setStudents] = useState([
-        { name: 'John Doe', grade: 'A', absences: 2, contactInfo: 'john@example.com' },
-        { name: 'Jane Doe', grade: 'B', absences: 3, contactInfo: 'jane@example.com' },
-        { name: 'John Smith', grade: 'C', absences: 1, contactInfo: 'john.smith@example.com' },
-        // Add more student objects as needed
-    ]);
-    const [selectedStudent, setSelectedStudent] = useState(null);
+    useEffect(() => {
+        fetchStudentsInCohort(selectedCohort);
+    }, []);
+
+    const [studentsOverviewSelected, setStudentsOverviewSelected] = useState(true); // New state to track whether Assignments Overview is selected
     
     const handleStudentClick = (student) => {
         setSelectedStudent(student);
+        setStudentsOverviewSelected(true); // Ensure that Assignments Overview remains selected
     }
 
     return (
@@ -22,7 +30,7 @@ const StudentsOverview = () => {
                         return (
                             <li>
                                 <button key={index} className="bg-slate-800 px-14 py-6 m-4 border rounded focus:bg-blue-700" onClick={() => handleStudentClick(student)}>
-                                    <h2>{student.name}</h2>
+                                    <h2>{student.first_name} {student.last_name}</h2>
                                 </button>
                             </li>
                         )
@@ -34,8 +42,8 @@ const StudentsOverview = () => {
                     <>
                         <h2>{selectedStudent.name}</h2>
                         <p>Grade: {selectedStudent.grade}</p>
-                        <p>Absences: {selectedStudent.absences}</p>
-                        <p>Contact Info: {selectedStudent.contactInfo}</p>
+                        <p>Absences: {selectedStudent.absent_days}</p>
+                        <p>Contact Info: {selectedStudent.contact_info}</p>
                     </>
                 )}
             </div>

@@ -1,0 +1,1 @@
+// student information except for email and password

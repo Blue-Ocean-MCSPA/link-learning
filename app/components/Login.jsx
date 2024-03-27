@@ -19,18 +19,24 @@ const Login = () => {
 
     const handleLoginClick = async (event) => {
         try {
+            
             const response = await fetch(`/api/users`) // all the users
             const data = await response.json();
-
             const matchedRows = data.data.rows.filter((row) => {
                 return row.email === email && row.password_hash === password;
             });
 
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
-                    console.log(matchedRows);
-                    setRoleid(matchedRows[0].roleid);
-                    router.push(`/admin`)
+                    console.log("role id for this matched user: ", matchedRows[0].roleid);
+                    if (matchedRows[0].roleid === '1') {
+                        router.push('/admin'); //use redirect
+                    } else if (matchedRows[0].roleid === '2') {
+                        router.push('/instructor');
+                    } else {
+                        router.push('/student');
+                    }
+                    
                 } else {
                     alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.");
                 }
@@ -85,7 +91,7 @@ const Login = () => {
                 </div>
             </div>
             <div className="bg-orange-50 w-3/5 h-full opacity-75">
-                <img src="/fellowMugExtra2.webp" alt="placeholder" className="object-fill"></img>
+                <img src="/fellowMugExtra2.webp" alt="placeholder" className="object-cover"></img>
             </div>
         </div>
         

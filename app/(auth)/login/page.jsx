@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import Login from "../components/Login";
+import Login from "@/app/Components/Login.jsx";
 
 const mainLogin = () => {
     return (
