@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import StudentsOverview from "./StudentsOverview";
-import AssignmentOverview from "./AssignmentOverview";
+
 import InfiniteScroll from "react-infinite-scroll-component";
-import { data } from "autoprefixer";
+
 import { FaSearch } from "react-icons/fa";
 // npm install --save react-infinite-scroll-component
 //npm install react-icons
