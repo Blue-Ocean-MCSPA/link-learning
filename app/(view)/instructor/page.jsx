@@ -1,13 +1,14 @@
 'use client'
-import { UserProvider } from "@/app/Context/Context.jsx";
+import UserProvider from "@/app/context/Context.jsx";
 import HeaderTemplate from "@/app/Components/HeaderTemplate.jsx";
 
 export default function InstructorView() {
 	return (
     	<>
-			<UserProvider>
+			<h1>INSTRUCTOR PAGE</h1>
+			{/* <UserProvider>
 				<HeaderTemplate />
-			</UserProvider>
+			</UserProvider> */}
 		</>
   	);
 }
