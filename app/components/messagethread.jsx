@@ -1,33 +1,24 @@
-import { useState } from 'react'; // Import useState hook 
+import { useState, useEffect } from 'react'; // Import useState hook 
 
 // Message Thread component 
 const MessageThread = () => {
-
-  const [messages, setMessages] = useState([ // Create and initialize the state for messages. In this case, an array of two objects.
-    {
-      id: 1,
-      user: "Humberto Palacios",
-      avatar: "https://via.placeholder.com/50",
-      timestamp: "10:00 AM",
-      text: "What's up, bro? How is the project coming along?",
-      edited: false,
-      editedTimestamp: null
-    },
-    {
-      id: 2,
-      user: "Daniel Grady",
-      avatar: "https://via.placeholder.com/50",
-      timestamp: "10:02 AM",
-      text: "Good, man. Just working on some new features.",
-      edited: false,
-      editedTimestamp: null
-    },
-  ]);
-
+  const [messages, setMessages] = useState([]); // Create and initialize the state for messages. 
   const [newMessage, setNewMessage] = useState(''); // Create and initialize the state that that tracks new messages. 
   const [editingId, setEditingId] = useState(null); // Create and initialize the state that tracks the id of the message that's being edited.
   const [editMessageText, setEditMessageText] = useState(''); // Create and initialize the state that tracks the text of the edit message.
   const [hoveredMessageId, setHoveredMessageId] = useState(null); // Create and initialize the state that tracks the id of the message that the mouse is currently hovering over.
+
+  useEffect(() => {
+    // Function to fetch messages from your API
+    const fetchMessages = async () => {
+      const response = await fetch('/api/messages'); // Adjust this URL based on your actual API endpoint
+      const jsonResponse = await response.json();
+      const fetchedMessages = jsonResponse.data.rows; // Accessing the nested messages correctly
+      setMessages(fetchedMessages);
+    };
+  
+    fetchMessages();
+  }, []); // Empty dependency array means this effect runs once on mount
  
   // Event handler function that handles when the mouse hovers over a message.
   const handleMouseEnter = (id) => {
@@ -39,24 +30,46 @@ const MessageThread = () => {
     setHoveredMessageId(null); // Set the state of hoveredMessageId to null.
   };
 
-  // Function to handle adding a new message
-  const handleAddMessage = () => {
-    const nextId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1; // Adds a new unique ID
-    // New message object
-    const newMessageObj = {
-      id: nextId, // Generate a unique ID for the new message
-      user: "Your Name", // Static user name for demonstration, can be dynamic
-      avatar: "https://via.placeholder.com/50", // Static avatar for demonstration, can be dynamic
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), // Current time as timestamp
-      text: newMessage // Message text from input
+  const handleAddMessage = async () => {
+    // Assuming the API generates a unique ID
+    const messageToSend = {
+      senderID: 1, // Static senderID for the example
+      recipientID: 2, // Static recipientID for the example
+      time_stamp: new Date().toISOString().split('T')[0], // Use ISO date format
+      message: newMessage
     };
-    setMessages([...messages, newMessageObj]); // Add the new message to the messages state
-    setNewMessage(''); // Reset the input field
+  
+    try {
+      const response = await fetch('/api/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageToSend),
+      });
+  
+      if (!response.ok) throw new Error('Failed to send message');
+  
+      const addedMessage = await response.json();
+      setMessages([...messages, addedMessage]); // Assuming the API returns the added message
+      setNewMessage(''); // Reset the input field
+    } catch (error) {
+      console.error("Error adding message:", error);
+    }
   };
 
-  // Event handler function that deletes a message. 
-  const handleDeleteMessage = (id) => {
-    setMessages(messages.filter(message => message.id !== id)); // Filter over messages and returns all the messages that don't have a given ID.
+  const handleDeleteMessage = async (id) => {
+    try {
+      const response = await fetch(`/api/messages/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) throw new Error('Failed to delete message');
+  
+      setMessages(messages.filter(message => message.id !== id));
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
   };
 
   // Event handler function that handles editing a message.
@@ -66,17 +79,29 @@ const MessageThread = () => {
     setEditMessageText(message.text); // Set the editMessageText the current text of the message
   };
 
-  // Event handler function that handles when a user submits an edited message. 
-  const handleEditSubmit = (id) => {
-    const now = new Date(); // Capture the exact time and store it in a const. 
-    setMessages(messages.map(message => { // Map through messages 
-      if (message.id === id) { // If the current message ID matches with the editedId
-        return { ...message, text: editMessageText, edited: true, editedTimestamp: now.toISOString() }; // Return the message with updated values
-      }
-      return message; // Else, return message as if. 
-    }));
-    setEditingId(null); // Set the editing ID to null.
-    setEditMessageText(''); // And the editing text to an empty string. 
+  const handleEditSubmit = async (id) => {
+    const messageToUpdate = {
+      message: editMessageText, // New message content
+    };
+  
+    try {
+      const response = await fetch(`/api/messages/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageToUpdate),
+      });
+  
+      if (!response.ok) throw new Error('Failed to update message');
+  
+      const updatedMessage = await response.json();
+      setMessages(messages.map(message => message.id === id ? updatedMessage : message)); // Assuming the API returns the updated message
+      setEditingId(null);
+      setEditMessageText('');
+    } catch (error) {
+      console.error("Error updating message:", error);
+    }
   };
 
   // Function to handle input field changes.
@@ -87,7 +112,6 @@ const MessageThread = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex flex-col space-y-4 p-4 overflow-auto">
-        {/* Map through the messages array and display them. */}
         {messages.map(message => (
           <div
             key={message.id}
@@ -95,50 +119,30 @@ const MessageThread = () => {
             onMouseEnter={() => handleMouseEnter(message.id)}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="flex space-x-3">
-              {/* Display the image */}
-              <img src={message.avatar} alt={`${message.user}'s avatar`} className="w-10 h-10 rounded-full" />
-              <div className="flex-1">
-                <div className="text-sm text-gray-500">
-                  {/* Display the user name, timestamp */}
-                  {message.user} <span className="font-semibold">{message.timestamp}</span>
-                  {message.edited && (
-                    <span title={`Edited: ${new Date(message.editedTimestamp).toLocaleString()}`} className="text-xs text-gray-500">
-                      (Edited)
-                    </span>
-                  )}
-                </div>
-                {editingId === message.id ? (
-                  <input
-                    type="text"
-                    value={editMessageText}
-                    onChange={(e) => setEditMessageText(e.target.value)}
-                    className="border-2 border-gray-300 rounded p-2 w-1/2"
-                  />
-                ) : (
-                  <div className="text-gray-800">{message.text}</div>
-                )}
-              </div>
+            <div className="text-sm text-gray-500">
+              {`Message ID: ${message.id}`} <span className="font-semibold">{message.time_stamp}</span>
             </div>
+            {editingId === message.id ? (
+              <input
+                type="text"
+                value={editMessageText}
+                onChange={(e) => setEditMessageText(e.target.value)}
+                className="border-2 border-gray-300 rounded p-2 w-1/2"
+              />
+            ) : (
+              <div className="text-gray-800">{message.message}</div>
+            )}
             {hoveredMessageId === message.id && (
               <div className="absolute top-0 right-0 p-2 flex space-x-2">
                 {editingId === message.id ? (
                   <>
-                    <button onClick={() => handleEditSubmit(message.id)} className="text-green-500">
-                      &#10003; {/* Check mark for submit */}
-                    </button>
-                    <button onClick={() => setEditingId(null)} className="text-red-500">
-                      &#10005; {/* X-mark for cancel */}
-                    </button>
+                    <button onClick={() => handleEditSubmit(message.id)} className="text-green-500">&#10003;</button>
+                    <button onClick={() => setEditingId(null)} className="text-red-500">&#10005;</button>
                   </>
                 ) : (
                   <>
-                    <button onClick={() => handleEditStart(message.id)} className="text-blue-500">
-                      &#x270E; {/* Pencil icon for edit */}
-                    </button>
-                    <button onClick={() => handleDeleteMessage(message.id)} className="text-red-500">
-                      &#x1F5D1; {/* Trash icon for delete */}
-                    </button>
+                    <button onClick={() => handleEditStart(message.id)} className="text-blue-500">&#x270E;</button>
+                    <button onClick={() => handleDeleteMessage(message.id)} className="text-red-500">&#x1F5D1;</button>
                   </>
                 )}
               </div>
@@ -147,21 +151,19 @@ const MessageThread = () => {
         ))}
       </div>
       <div className="mt-auto">
-        {/* Input text*/}
         <input
-          type="text"
-          value={newMessage}
-          onChange={handleInputChange}
-          placeholder="Type your message here..."
-          className="border-2 border-gray-300 rounded p-2 mr-2 w-full"
-        />
-        <button onClick={handleAddMessage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block w-full mt-2">
-          Send
-        </button>
-      </div>
+        type="text"
+        value={newMessage}
+        onChange={handleInputChange}
+        placeholder="Type your message here..."
+        className="border-2 border-gray-300 rounded p-2 mr-2 w-full"
+      />
+      <button onClick={handleAddMessage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block w-full mt-2">
+        Send
+      </button>
     </div>
-  );
+  </div>
+);
 };
 
 export default MessageThread;
-
