@@ -14,6 +14,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
 
   useEffect(() => {
     //Fetch instructors when the component mounts
+    // i forgot what i have an 'a' in here. but its what renders all the names
     fetchInstructors("a");
   }, []); // Empty dependency array ensures this effect runs only once
 
@@ -57,8 +58,8 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   }
 
   return (
-    <div className="bg-black h-full border border-red-500">
-      <div className="flex p-5 bg-slate-500 items-center ">
+    <div className="bg-black border h-screen">
+      <div className="flex p-5 bg-slate-600 items-center">
         <div className="">Assigned Cohort</div>
         <button className=" ml-10" onClick={handleClick}>
           Back to Dashboard
@@ -76,27 +77,36 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         <div className="absolute bg-white shadow-white rounded-lg overflow-y-scroll right-10 top-40">
           {searchInfo.map((search, id) => {
             return (
-              <div key={id} className=" hover:bg-gray-200 hover:cursor-pointer">
+              <div
+                key={id}
+                onClick={handleClickInstructor}
+                className=" hover:bg-gray-200 hover:cursor-pointer"
+              >
                 {search.name}
               </div>
             );
           })}
         </div>
       </div>
-      <div className="left-0 h-80 w-52 ">
-        {dataSource.map((instructor, id) => {
-          return (
-            <div
-              key={id}
-              className="border hover:cursor-pointer"
-              onClick={handleClickInstructor}
-            >
-              {instructor.name}
-            </div>
-          );
-        })}
+      {/* this div is suppose to house the lower elements and flex them */}
+      <div className="flex h-screen border-2 border-blue-500">
+        <div className="w-52 border-2 border-green-500">
+          {dataSource.map((instructor, id) => {
+            return (
+              <div
+                key={id}
+                className="border hover:cursor-pointer"
+                onClick={handleClickInstructor}
+              >
+                {instructor.name}
+              </div>
+            );
+          })}
+        </div>
+        <div className="border flex flex-col justify-evenly items-center w-full bg-gray-200">
+          {selectName}
+        </div>
       </div>
-      <div className="border flex ">{selectName}</div>
     </div>
   );
 };

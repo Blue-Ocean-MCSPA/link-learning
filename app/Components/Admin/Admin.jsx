@@ -4,13 +4,19 @@ import AdminDash from "./AdminDash";
 import CohortOverview from "./CohortOverview";
 import SelectInstructors from "./SelectInstuctors";
 
+//This page is green. This is the page that shows all the buttons to click on view all
+//instructors, students, cohorts
+
+//This is the main parent it looks like
+//I have a red big border in this one
+
 const Admin = () => {
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedInstructor, setSelectedInstructor] = useState(null);
   const { cohorts, setCohorts } = useContext(AppContext);
 
   return (
-    <div>
+    <div className="border-4 border-red-400">
       {(() => {
         switch (true) {
           case !!selectedCohort:

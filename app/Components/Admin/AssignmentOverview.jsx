@@ -14,13 +14,13 @@ const AssignmentOverview = () => {
   };
 
   return (
-    <div className="flex items-center bg-white">
-      <div className="assignment-listflex flex-col items-center bg-slate-600">
+    <div className="flex items-center bg-white border border-red-400">
+      <div className="assignment-listflex flex-col items-center bg-slate-600 ">
         {assignments.map((assignment, index) => {
           return (
             <div
               key={index}
-              className="bg-slate-800 p-4 m-4 border rounded"
+              className="bg-slate-800 p-4 m-4"
               onClick={() => handleAssignmentClick(assignment)}
             >
               <h2>{assignment.name}</h2>
