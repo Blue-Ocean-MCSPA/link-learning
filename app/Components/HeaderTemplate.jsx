@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Instructor from "./InstructorView/Instructor";
-import Admin from "./Admin/Admin";
+import Admin from "../(view)/Admin/Admin";
 import AppContext from "../Context/Context";
 
 //The header template is the big daddy container housing :

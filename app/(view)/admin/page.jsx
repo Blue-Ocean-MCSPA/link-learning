@@ -1,13 +1,25 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+import { AppProvider } from "../../Context/Context";
+import HeaderTemplate from "../../Components/HeaderTemplate";
 
-const Admin = () => {
-    return (
-        <div className="bg-light-comment">
-            <div className="text-base">ADMIN PAGE</div>
-        </div>
-    )
-    
+export default function AdminPage() {
+  return (
+    <>
+      <AppProvider>
+        <HeaderTemplate />
+      </AppProvider>
+    </>
+  );
 }
 
-export default Admin;
+// 'use client'
+// import React from "react";
+// import Login from "../components/Login";
+
+// const mainLogin = () => {
+//     return (
+//         <Login />
+//     )
+// }
+
+// export default mainLogin;
