@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/Context/Context";
+import AppContext from "../../context/Context.jsx";
 import SelectIntructors from "./SelectInstuctors";
 
 //This screen ig is the clickable functionalilty

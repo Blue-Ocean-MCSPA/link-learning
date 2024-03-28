@@ -13,7 +13,6 @@ import SelectInstructors from "./SelectInstuctors";
 const Admin = () => {
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedInstructor, setSelectedInstructor] = useState(null);
-  const { cohorts, setCohorts } = useContext(AppContext);
 
   return (
     <div className="">
