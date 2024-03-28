@@ -1,15 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
 import StudentsOverview from "./StudentsOverview";
-import AssignmentsOverview from "./AssignmentsOverview";
-import AppContext from "@/app/Context/Context";
+import AssignmentOverview from "./AssignmentOverview";
 
-const CohortOverview = () => {
+//This is the main main page for if you click a cohort
+
+const CohortOverview = ({ setSelectedCohort }) => {
   const [selectedTab, setSelectedTab] = useState("students");
+
+  function handleClick() {
+    setSelectedCohort(null);
+  }
 
   return (
     <div className="flex flex-col justify-evenly">
-      <div className="flex items-center p-4 bg-slate-500">
-        <div>Assigned Cohort</div>
+      <div className="flex items-center p-4 bg-slate-500 ">
+        <div className="border flex  p-4 bg-slate-700">Assigned Cohort</div>
+        <button
+          className="border ml-10  p-4 bg-slate-700"
+          onClick={handleClick}
+        >
+          Back to Dashboard
+        </button>
       </div>
       <div className="flex items-center p-4 bg-slate-600">
         <ul className="flex space-x-6">
@@ -28,7 +39,7 @@ const CohortOverview = () => {
       </div>
       <div>
         {selectedTab === "students" && <StudentsOverview />}
-        {selectedTab === "assignments" && <AssignmentsOverview />}
+        {selectedTab === "assignments" && <AssignmentOverview />}
       </div>
     </div>
   );
