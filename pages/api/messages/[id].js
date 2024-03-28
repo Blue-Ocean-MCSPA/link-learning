@@ -30,19 +30,24 @@ export default async function handler(req, res) {
       }
       break;
 
-    case 'PATCH':
-      try {
-        // Correcting the way to access the request body
-        const { message } = req.body;
-        const client = await sql.connect();
-        await client.sql`UPDATE messages SET message = ${message} WHERE id = ${id}`;
-        client.release();
-        res.status(200).json({ message: 'Message updated successfully' });
-      } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Failed to update message' });
-      }
-      break;
+      case 'PATCH':
+        try {
+          const { message } = req.body;
+          const client = await sql.connect();
+          const result = await client.sql`
+            UPDATE messages SET message = ${message} WHERE id = ${id}
+            RETURNING *`; // Returns the updated row
+          client.release();
+          if (result.rows.length > 0) {
+            res.status(200).json(result.rows[0]); // Send back the updated message
+          } else {
+            res.status(404).json({ error: 'Message not found' });
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          res.status(500).json({ error: 'Failed to update message' });
+        }
+        break;
 
     default:
       res.setHeader('Allow', ['GET', 'DELETE', 'PATCH']);

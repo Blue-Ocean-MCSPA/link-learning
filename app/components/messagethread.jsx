@@ -108,6 +108,19 @@ const MessageThread = () => {
     setNewMessage(event.target.value); // Set new message text to whatever the user is typing. 
   };
 
+  const formatDate = (isoDateString) => {
+    const date = new Date(isoDateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex flex-col space-y-4 p-4 overflow-auto">
@@ -119,7 +132,7 @@ const MessageThread = () => {
             onMouseLeave={handleMouseLeave}
           >
             <div className="text-sm text-gray-500">
-              {`Message ID: ${message.id}`} <span className="font-semibold">{message.time_stamp}</span>
+              {`Message ID: ${message.id}`} <span className="font-semibold">{formatDate(message.time_stamp)}</span>
             </div>
             {editingId === message.id ? (
               <input

@@ -17,12 +17,13 @@ export default async function handler(req, res) {
       case 'POST':
         // Create a new message
         const { senderid, recipientid, time_stamp, message } = req.body;
-        await client.sql`
-          INSERT INTO messages (senderid, recipientid, time_stamp, message)
-          VALUES (${senderid}, ${recipientid}, ${time_stamp}, ${message})`;
-        // Assuming you want to return the created message or some confirmation
-        res.status(201).json({ senderid, recipientid, time_stamp, message });
+        const result = await client.sql`
+        INSERT INTO messages (senderid, recipientid, time_stamp, message)
+        VALUES (${senderid}, ${recipientid}, ${time_stamp}, ${message})
+        RETURNING *`; // This will return all columns of the newly inserted row
+      res.status(201).json(result.rows[0]); // Send back the inserted message including its ID
         break;
+
 
       default:
         res.setHeader('Allow', ['GET', 'POST']);
