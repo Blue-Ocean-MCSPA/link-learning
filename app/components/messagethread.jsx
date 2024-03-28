@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'; // Import useState hook 
+import React from 'react'
 
 // Message Thread component 
 const MessageThread = () => {
