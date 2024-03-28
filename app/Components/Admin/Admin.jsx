@@ -16,7 +16,7 @@ const Admin = () => {
   const { cohorts, setCohorts } = useContext(AppContext);
 
   return (
-    <div className="border-4 border-red-400">
+    <div className="">
       {(() => {
         switch (true) {
           case !!selectedCohort:

@@ -14,7 +14,7 @@ const HeaderTemplate = () => {
   return (
     <div className="border-3 border-blue-500">
       <div className=" flex items-center p-4 bg-slate-800">
-        <div className=" ml-auto">{selectedRole}</div>
+        <div className=" ml-auto text-white">{selectedRole}</div>
         <div className="ml-auto bg-slate-100">
           <ul className="flex justify-center items-center">
             <li>
