@@ -3,19 +3,14 @@ import AppContext from "../Context/Context";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-    // const { loggedInUser, setLoggedInUser } = useContext(AppContext); // [user, setUser
+    const { role, changeRole } = useContext(AppContext); // [user, setUser
 
     //try moving this state from Context here instead of consuming from AppContext like above
-    const [loggedInUser, setLoggedInUser] = useState([]);
+    // const [loggedInUser, changeLoggedInUser] = useState([]);
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const router = useRouter();
-
-    const handleLoggedInUser = (roleid) => {
-        console.log('setting roleid from match to: ', roleid)
-        setLoggedInUser(roleid);
-    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -36,11 +31,12 @@ const Login = () => {
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
                     console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    handleLoggedInUser(matchedRows[0].roleid);
+                    changeRole(matchedRows[0].roleid);
                     console.log(matchedRows[0])
                     if (matchedRows[0].roleid === '1') {
                         router.push('/admin');
                     } else if (matchedRows[0].roleid === '2') {
+                        console.log("Instructor route pushed");
                         router.push('/instructor');
                     } else {
                         router.push('/student');

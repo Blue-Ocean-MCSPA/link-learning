@@ -35,7 +35,7 @@ const HeaderTemplate = () => {
             </div>
         </div>
       <div>
-      {selectedRole === "Admin" ? (
+      {selectedRole === "admin" ? (
         <Admin />
       ) : selectedRole === "instructor" ? (
         <Instructor />

@@ -7,25 +7,20 @@ const AppContext = createContext();
 // Function that stores fetch data from users API hit into state.
 export function UserProvider({ children }) {
     const [users, setUsers] = useState([]);
-    //const [loggedInUser, setLoggedInUser] = useState([]); // [user, setUser
+    const [loggedInUser, setLoggedInUser] = useState(''); // [user, setUser
     const [cohorts, setCohorts] = useState([]);
     const [cohortId, setCohortId] = useState(null);
     const [students, setStudents] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [selectedCohort, setSelectedCohort] = useState(null);
     const [selectedTab, setSelectedTab] = useState('students');
+    //from headertemplate matt
+    const [selectedRole, setSelectedRole] = useState("Admin");
 
-    // useEffect(() => {
-    //     // Log state values after setting them
-    //     console.log('Users:', users);
-    //     console.log('LoggedInUser:', loggedInUser);
-    //     console.log('Cohorts:', cohorts);
-    //     console.log('CohortId:', cohortId);
-    //     console.log('Students:', students);
-    //     console.log('SelectedStudent:', selectedStudent);
-    //     console.log('SelectedCohort:', selectedCohort);
-    //     console.log('SelectedTab:', selectedTab);
-    // }, [users, loggedInUser, cohorts, cohortId, students, selectedStudent, selectedCohort, selectedTab]);
+    const changeLoggedInUser = (roleid) => {
+        console.log("set role id in context file");
+        setLoggedInUser(roleid);
+    }
 
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id) => {
@@ -95,8 +90,8 @@ export function UserProvider({ children }) {
         <AppContext.Provider value={{
             users,
             setUsers,
-            //loggedInUser,
-            //setLoggedInUser,
+            loggedInUser,
+            changeLoggedInUser,
             cohorts,
             setCohorts,
             selectedCohort,
@@ -113,6 +108,25 @@ export function UserProvider({ children }) {
             fetchUsers,
             selectedTab,
             setSelectedTab,
+            selectedRole,
+            setSelectedRole
+        }}>
+            {children}
+        </AppContext.Provider>
+    );
+}
+
+export function loginProvider({ children }) {
+    const [role, setRole] = useState('2');
+
+    const changeRole = (id) => {
+        setRole(id);
+    }
+
+    return (
+        <AppContext.Provider value={{
+            role,
+            changeRole
         }}>
             {children}
         </AppContext.Provider>
