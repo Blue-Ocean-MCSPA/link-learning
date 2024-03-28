@@ -7,7 +7,7 @@ const AppContext = createContext();
 // Function that stores fetch data from users API hit into state.
 export function UserProvider({ children }) {
     const [users, setUsers] = useState([]);
-    const [loggedInUser, setLoggedInUser] = useState([]); // [user, setUser
+    //const [loggedInUser, setLoggedInUser] = useState([]); // [user, setUser
     const [cohorts, setCohorts] = useState([]);
     const [cohortId, setCohortId] = useState(null);
     const [students, setStudents] = useState([]);
@@ -15,17 +15,17 @@ export function UserProvider({ children }) {
     const [selectedCohort, setSelectedCohort] = useState(null);
     const [selectedTab, setSelectedTab] = useState('students');
 
-    useEffect(() => {
-        // Log state values after setting them
-        console.log('Users:', users);
-        console.log('LoggedInUser:', loggedInUser);
-        console.log('Cohorts:', cohorts);
-        console.log('CohortId:', cohortId);
-        console.log('Students:', students);
-        console.log('SelectedStudent:', selectedStudent);
-        console.log('SelectedCohort:', selectedCohort);
-        console.log('SelectedTab:', selectedTab);
-    }, [users, loggedInUser, cohorts, cohortId, students, selectedStudent, selectedCohort, selectedTab]);
+    // useEffect(() => {
+    //     // Log state values after setting them
+    //     console.log('Users:', users);
+    //     console.log('LoggedInUser:', loggedInUser);
+    //     console.log('Cohorts:', cohorts);
+    //     console.log('CohortId:', cohortId);
+    //     console.log('Students:', students);
+    //     console.log('SelectedStudent:', selectedStudent);
+    //     console.log('SelectedCohort:', selectedCohort);
+    //     console.log('SelectedTab:', selectedTab);
+    // }, [users, loggedInUser, cohorts, cohortId, students, selectedStudent, selectedCohort, selectedTab]);
 
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id) => {
@@ -95,8 +95,8 @@ export function UserProvider({ children }) {
         <AppContext.Provider value={{
             users,
             setUsers,
-            loggedInUser,
-            setLoggedInUser,
+            //loggedInUser,
+            //setLoggedInUser,
             cohorts,
             setCohorts,
             selectedCohort,

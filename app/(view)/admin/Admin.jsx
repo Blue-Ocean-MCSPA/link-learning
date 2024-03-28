@@ -33,10 +33,10 @@ const Admin = () => {
             );
           default:
             return (
-              <AdminDash
-                setSelectedCohort={setSelectedCohort}
-                setSelectedInstructor={setSelectedInstructor}
-              />
+                <AdminDash
+                  setSelectedCohort={setSelectedCohort}
+                  setSelectedInstructor={setSelectedInstructor}
+                />
             );
         }
       })()}

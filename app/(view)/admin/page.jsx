@@ -1,13 +1,13 @@
 "use client";
-import { AppProvider } from "../../Context/Context";
+import AppContext from "../../Context/Context";
 import HeaderTemplate from "../../Components/HeaderTemplate";
 
 export default function AdminPage() {
   return (
     <>
-      <AppProvider>
+      <AppContext.Provider>
         <HeaderTemplate />
-      </AppProvider>
+      </AppContext.Provider>
     </>
   );
 }
