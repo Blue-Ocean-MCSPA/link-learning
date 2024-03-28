@@ -1,20 +1,15 @@
 'use client'
-import React, { useEffect, useContext } from "react";
-import { AppContext } from "../../Context/Context";
-import CohortsPage from "@/app/cohorts/page";
+import React from "react";
+import { UserProvider } from "../../Context/Context";
+import Instructor from "@/app/Components/InstructorView/Instructor";
 
-const InstructorDashboard = () => {
-    const { fetchInstructorCohorts, cohorts } = useContext(AppContext);
-
-    useEffect(() => {
-        fetchInstructorCohorts(1);
-    }, []);
+export default function InstructorDashboard() {
 
     return (
         <div>
-            <CohortsPage />
+            <UserProvider>
+                <Instructor />
+            </UserProvider>
         </div>
     );
 }
-
-export default InstructorDashboard;

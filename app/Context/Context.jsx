@@ -1,4 +1,3 @@
-'use client'
 import { createContext, useState } from 'react';
 
 // Import AppContext into your component along with useContext to access state
@@ -8,6 +7,7 @@ const AppContext = createContext();
 // Function that stores fetch data from users API hit into state.
 export function UserProvider({ children }) {
     const [users, setUsers] = useState([]);
+    const [loggedInUser, setLoggedInUser] = useState([]); // [user, setUser
     const [cohorts, setCohorts] = useState([]);
     const [cohortId, setCohortId] = useState(null);
     const [students, setStudents] = useState([]);
@@ -83,6 +83,8 @@ export function UserProvider({ children }) {
         <AppContext.Provider value={{
             users,
             setUsers,
+            loggedInUser,
+            setLoggedInUser,
             cohorts,
             setCohorts,
             selectedCohort,

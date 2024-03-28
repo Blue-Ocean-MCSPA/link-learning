@@ -1,19 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "@/app/Context/Context";
+import { useRouter } from "next/router";
 
 export default function InstructorDashboard() {
     const { 
         cohorts,
         setSelectedCohort,
         fetchInstructorCohorts,
+        loggedInUser,
     } = useContext(AppContext);
 
     useEffect(() => {
-        fetchInstructorCohorts(5)
-    }, []);
+        fetchInstructorCohorts(5);
+    }, [loggedInUser]);
 
     const cohortClick = (cohort) => {
-        setSelectedCohort(cohort.id);
+        setSelectedCohort(cohort);
     }
 
     return (

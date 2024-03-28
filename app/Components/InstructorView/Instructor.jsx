@@ -9,8 +9,9 @@ export default function Instructor() {
     } = useContext(AppContext);
 
     return (
-        <div>
+        <div className="h-screen bg-black">
             {selectedCohort ? (
+
                 <CohortOverview />
             ) : (
                 <InstructorDashboard />

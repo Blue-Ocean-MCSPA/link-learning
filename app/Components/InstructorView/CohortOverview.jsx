@@ -33,10 +33,10 @@ const CohortOverview = () => {
     }
 
     return (
-        <div className="flex flex-col justify-evenly text-white">
+        <div className="flex flex-col flex-grow text-white h-full">
             <div className="flex items-center p-4 bg-slate-500">
-                <div>{selectedCohort}</div>
-                <button className="pl-6" onClick={handleReturnToCohortClick}>Return to Cohort Selection</button>
+                <div className="border rounded p-4">{selectedCohort.cohort_name}</div>
+                <button className="m-2 p-4 border rounded" onClick={handleReturnToCohortClick}>Return to Cohort Selection</button>
             </div>
             <div className="flex items-center p-4 bg-slate-600">
                 <ul className="flex space-x-6">
