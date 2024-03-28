@@ -15,11 +15,12 @@
 "use client";
 
 import LandingPage from "./Components/LandingPage";
+import Messages from "./components/messages";
 
 export default function Home() {
   return (
     <>
-      <LandingPage />
+      <Messages />
     </>
   );
 
