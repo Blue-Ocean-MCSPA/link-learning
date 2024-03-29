@@ -23,12 +23,6 @@ export function AppWrapper({ children }) {
         setDarkMode(!darkMode);
       };
 
-    const changeLoggedInRole = (roleid) => {
-        console.log("set role id to: ", roleid);
-        setLoggedInRole(roleid);
-        console.log("New loggedInRole: ", loggedInRole)
-    }
-
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id) => {
         try {
@@ -98,7 +92,7 @@ export function AppWrapper({ children }) {
             // users,
             // setUsers,
             loggedInRole,
-            changeLoggedInRole,
+            setLoggedInRole,
             cohorts,
             setCohorts,
             // selectedCohort,

@@ -1,16 +1,22 @@
 'use client'
 
 import React, { useState, useContext } from "react";
-import { useAppContext } from "../context";
+import { AppContext, useAppContext } from "../context";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
 
-    const { loggedInRole, changeLoggedInRole } = useAppContext();
+    const { loggedInRole, setLoggedInRole } = useContext(AppContext);
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const router = useRouter();
+
+    const changeLoggedInRole = (roleid) => {
+        console.log("set role id to: ", roleid);
+        setLoggedInRole(roleid);
+        console.log("New loggedInRole: ", loggedInRole)
+    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);

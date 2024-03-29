@@ -14,14 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <AppWrapper>
+        {/* <AppWrapper> */}
           {/* <div className="navbar">
             <Link href="/">Home</Link>
             <Link href="/api/students">Student</Link>
             <Link href="/submit">Submit</Link>
           </div> */}
           {children}
-        </AppWrapper>
+        {/* </AppWrapper> */}
       </body>
     </html>
   );
