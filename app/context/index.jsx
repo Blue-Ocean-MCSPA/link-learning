@@ -23,6 +23,7 @@ export function AppWrapper({ children }) {
         // console.log("Before change: ", loggedInRole);
         setLoggedInRole(string);
         // console.log("After change: ", loggedInRole);
+        return string;
     }
 
     const toggleDarkMode = () => {

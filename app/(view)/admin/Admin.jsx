@@ -15,8 +15,6 @@ const Admin = () => {
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedInstructor, setSelectedInstructor] = useState(null);
 
-  console.log("Expected: 1", "actual: ", loggedInRole)
-
   return (
     <div className="">
       {(() => {

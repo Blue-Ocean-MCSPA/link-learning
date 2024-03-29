@@ -12,13 +12,6 @@ const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const router = useRouter();
-    
-    const handleLoggedInRole = async (roleid) => {
-        console.log("current loggedInRole: ", loggedInRole)
-        console.log("set role id to: ", roleid);
-        await changeLoggedInRole(roleid);
-        console.log("New loggedInRole: ", loggedInRole)
-    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -39,14 +32,14 @@ const Login = () => {
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
                     console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    await handleLoggedInRole(matchedRows[0].roleid);
-                    console.log("expected: ", matchedRows[0].roleid, "actual: ", loggedInRole)
-                    if (loggedInRole === '1') {
+                    const newRole = await changeLoggedInRole(matchedRows[0].roleid);
+                    console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole)
+                    if (newRole === '1') {
                         router.push('/admin');
-                    } else if (loggedInRole === '2') {
+                    } else if (newRole === '2') {
                         console.log("Instructor route pushed");
                         router.push('/instructor');
-                    } else if (loggedInRole === '3') {
+                    } else if (newRole === '3') {
                         router.push('/student');
                     }
                     
