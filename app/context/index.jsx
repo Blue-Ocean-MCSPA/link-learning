@@ -3,13 +3,13 @@
 import { createContext, useContext, useState } from 'react';
 
 // Import AppContext into your component along with useContext to access state
-export const AppContext = createContext('');
+export const AppContext = createContext();
 
 /****************Context functions****************/
 // Function that stores fetch data from users API hit into state.
 export function AppWrapper({ children }) {
     // const [users, setUsers] = useState([]);
-    const [loggedInRole, setLoggedInRole] = useState('role'); // [user, setUser
+    const [loggedInRole, setLoggedInRole] = useState('0'); // [user, setUser
     const [cohorts, setCohorts] = useState('cohorts');
     // const [cohortId, setCohortId] = useState(null);
     // const [students, setStudents] = useState([]);
@@ -23,10 +23,11 @@ export function AppWrapper({ children }) {
         setDarkMode(!darkMode);
       };
 
-    // const changeLoggedInRole = (roleid) => {
-    //     console.log("set role id in context file");
-    //     setLoggedInRole(roleid);
-    // }
+    const changeLoggedInRole = (roleid) => {
+        console.log("set role id to: ", roleid);
+        setLoggedInRole(roleid);
+        console.log("New loggedInRole: ", loggedInRole)
+    }
 
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id) => {
@@ -97,7 +98,7 @@ export function AppWrapper({ children }) {
             // users,
             // setUsers,
             loggedInRole,
-            setLoggedInRole,
+            changeLoggedInRole,
             cohorts,
             setCohorts,
             // selectedCohort,

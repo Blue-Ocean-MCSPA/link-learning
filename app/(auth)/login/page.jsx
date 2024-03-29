@@ -1,25 +1,16 @@
 'use client'
 import React from "react";
-import Login from "@/app/Components/Login.jsx";
-import { useAppContext } from "@/app/context";
-import { AppWrapper } from "@/app/context";
+import Login from "@/app/Components/Login";
+import { useAppContext } from '@/app/context/index.jsx';
+import { AppWrapper } from '@/app/context/index.jsx';
 
 const mainLogin = () => {
-    const { 
-		cohorts, 
-		setCohorts,
-		loggedInRole,
-		setLoggedInRole,
-
-	} = useAppContext();
 
     return (
-        <>
-            <AppWrapper>
-                <Login />
-            </AppWrapper>
-        </>
-    )
+        <AppWrapper>
+            <Login />
+        </AppWrapper>
+    );
 }
 
 export default mainLogin;

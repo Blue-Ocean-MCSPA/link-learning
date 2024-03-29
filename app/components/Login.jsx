@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
 
-    const { cohorts, loggedInRole, setLoggedInRole } = useAppContext;
-
-    console.log(typeof cohorts);
+    const { loggedInRole, changeLoggedInRole } = useAppContext();
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -33,8 +31,8 @@ const Login = () => {
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
                     console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    setLoggedInRole(matchedRows[0].roleid);
-                    console.log(matchedRows[0], loggedInRole)
+                    changeLoggedInRole(matchedRows[0].roleid);
+                    console.log("expected: ", matchedRows[0].roleid, "actual: ", loggedInRole)
                     if (matchedRows[0].roleid === '1') {
                         router.push('/admin');
                     } else if (matchedRows[0].roleid === '2') {
