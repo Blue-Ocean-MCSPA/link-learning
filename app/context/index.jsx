@@ -9,7 +9,7 @@ export const AppContext = createContext();
 // Function that stores fetch data from users API hit into state.
 export function AppWrapper({ children }) {
     // const [users, setUsers] = useState([]);
-    const [loggedInRole, setLoggedInRole] = useState('0'); // [user, setUser
+    const [loggedInRole, setLoggedInRole] = useState('string'); // [user, setUser
     const [cohorts, setCohorts] = useState('cohorts');
     // const [cohortId, setCohortId] = useState(null);
     // const [students, setStudents] = useState([]);
@@ -18,6 +18,12 @@ export function AppWrapper({ children }) {
     // const [selectedTab, setSelectedTab] = useState('students');
     // const [selectedRole, setSelectedRole] = useState("Admin");
     const [ darkMode, setDarkMode ] = useState(false);
+
+    const changeLoggedInRole = (string) => {
+        // console.log("Before change: ", loggedInRole);
+        setLoggedInRole(string);
+        // console.log("After change: ", loggedInRole);
+    }
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
@@ -92,7 +98,7 @@ export function AppWrapper({ children }) {
             // users,
             // setUsers,
             loggedInRole,
-            setLoggedInRole,
+            changeLoggedInRole,
             cohorts,
             setCohorts,
             // selectedCohort,
@@ -123,7 +129,7 @@ export function useAppContext(){
     const context = useContext(AppContext);
     if(!context){
         throw new Error (
-            "useAppContect must be used within an AppContextProvider"
+            "useAppContext must be used within an AppContextProvider"
         )
     }
     return context;

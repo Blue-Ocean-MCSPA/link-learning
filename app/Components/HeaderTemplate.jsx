@@ -34,15 +34,13 @@ const HeaderTemplate = () => {
                 </ul>
             </div>
         </div>
-      <div>
-      {selectedRole === "admin" ? (
+      {/* {selectedRole === "admin" ? (
         <Admin />
       ) : selectedRole === "instructor" ? (
         <Instructor />
       ) : selectedRole === "student" ? (
         <Student />
-      ) : null}
-    </div>
+      ) : null} */}
       </>
   );
 };

@@ -6,15 +6,17 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
 
-    const { loggedInRole, setLoggedInRole } = useContext(AppContext);
+    const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
 
+    
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const router = useRouter();
-
-    const changeLoggedInRole = (roleid) => {
+    
+    const handleLoggedInRole = async (roleid) => {
+        console.log("current loggedInRole: ", loggedInRole)
         console.log("set role id to: ", roleid);
-        setLoggedInRole(roleid);
+        await changeLoggedInRole(roleid);
         console.log("New loggedInRole: ", loggedInRole)
     }
 
@@ -37,14 +39,14 @@ const Login = () => {
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
                     console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    changeLoggedInRole(matchedRows[0].roleid);
+                    await handleLoggedInRole(matchedRows[0].roleid);
                     console.log("expected: ", matchedRows[0].roleid, "actual: ", loggedInRole)
-                    if (matchedRows[0].roleid === '1') {
+                    if (loggedInRole === '1') {
                         router.push('/admin');
-                    } else if (matchedRows[0].roleid === '2') {
+                    } else if (loggedInRole === '2') {
                         console.log("Instructor route pushed");
                         router.push('/instructor');
-                    } else {
+                    } else if (loggedInRole === '3') {
                         router.push('/student');
                     }
                     
