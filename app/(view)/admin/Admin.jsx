@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/context";
+import AppContext, { useAppContext } from "@/app/context";
 import AdminDash from "./AdminDash";
 import CohortOverview from "./CohortOverview";
 import SelectInstructors from "./SelectInstuctors";
@@ -11,6 +11,7 @@ import SelectInstructors from "./SelectInstuctors";
 //I have a red big border in this one
 
 const Admin = () => {
+  const { loggedInRole } = useAppContext(); 
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedInstructor, setSelectedInstructor] = useState(null);
 
