@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/Context/Context";
+import AppContext from "@/app/context";
 import AdminDash from "./AdminDash";
 import CohortOverview from "./CohortOverview";
 import SelectInstructors from "./SelectInstuctors";

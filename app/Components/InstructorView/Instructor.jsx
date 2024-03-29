@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import AppContext from "@/app/Context/Context";
 import InstructorDashboard from "./InstructorDashboard";
 import CohortOverview from "./CohortOverview";
+import { useAppContext } from "@/app/context";
 
 export default function Instructor() {
     const {
         selectedCohort,
-    } = useContext(AppContext);
+    } = useAppContext;
 
     return (
         <div className="h-screen bg-black">

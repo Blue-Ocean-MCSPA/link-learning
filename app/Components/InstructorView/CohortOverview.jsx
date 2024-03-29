@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import StudentsOverview from "./StudentsOverview";
 import AssignmentsOverview from "./AssignmentsOverview";
-import AppContext from "@/app/Context/Context";
+import {useAppContext} from "@/app/context";
 
 const CohortOverview = () => {
     const {

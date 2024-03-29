@@ -1,17 +1,18 @@
 'use client'
-import HeaderTemplate from './Components/HeaderTemplate.jsx';
-import LandingPage from './Components/LandingPage.jsx'
-import { UserProvider } from './Context/Context.jsx';
+import LandingPage from './Components/LandingPage.jsx';
+import { useAppContext } from './context/index.jsx';
+import { AppWrapper } from './context/index.jsx';
 
 export default function Home() {
+	const { 
+		darkMode,
+		toggleDarkMode
+
+	} = useAppContext();
+
 	return (
-    	<>
-			{/* <UserProvider>
-				<HeaderTemplate />
-			</UserProvider> */}
-			<UserProvider>
-				<LandingPage />
-			</UserProvider>
-    	</>
+		<AppWrapper>
+			<LandingPage />
+		</AppWrapper>
   	);
 }

@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
-import { AppContext } from "../Context/Context";
+import { AppContext } from "../context";
 
 export default function CohortsPage() {
     const { cohorts, fetchCohorts } = useContext(AppContext);

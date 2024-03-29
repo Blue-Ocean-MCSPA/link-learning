@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import Instructor from "./InstructorView/Instructor";
 import Admin from "../(view)/admin/Admin";
-import AppContext from "../Context/Context";
+import AppContext from "../context";
 
 //The header template is the big daddy container housing :
 // Admin, AdmiDash
 // i will display it in Blue
 
 const HeaderTemplate = () => {
-  const [selectedRole, setSelectedRole] = useState("Admin");
+  const [selectedRole, setSelectedRole] = useState("admin");
   const [selectedCohort, setSelectedCohort] = useState(null);
 
     return (

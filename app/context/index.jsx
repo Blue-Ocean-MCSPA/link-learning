@@ -1,26 +1,32 @@
-import { createContext, useState } from 'react';
+'use client'
+
+import { createContext, useContext, useState } from 'react';
 
 // Import AppContext into your component along with useContext to access state
-const AppContext = createContext();
+export const AppContext = createContext('');
 
 /****************Context functions****************/
 // Function that stores fetch data from users API hit into state.
-export function UserProvider({ children }) {
-    const [users, setUsers] = useState([]);
-    const [loggedInUser, setLoggedInUser] = useState(''); // [user, setUser
-    const [cohorts, setCohorts] = useState([]);
-    const [cohortId, setCohortId] = useState(null);
-    const [students, setStudents] = useState([]);
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const [selectedCohort, setSelectedCohort] = useState(null);
-    const [selectedTab, setSelectedTab] = useState('students');
-    //from headertemplate matt
-    const [selectedRole, setSelectedRole] = useState("Admin");
+export function AppWrapper({ children }) {
+    // const [users, setUsers] = useState([]);
+    const [loggedInRole, setLoggedInRole] = useState('role'); // [user, setUser
+    const [cohorts, setCohorts] = useState('cohorts');
+    // const [cohortId, setCohortId] = useState(null);
+    // const [students, setStudents] = useState([]);
+    // const [selectedStudent, setSelectedStudent] = useState(null);
+    // const [selectedCohort, setSelectedCohort] = useState(null);
+    // const [selectedTab, setSelectedTab] = useState('students');
+    // const [selectedRole, setSelectedRole] = useState("Admin");
+    const [ darkMode, setDarkMode ] = useState(false);
 
-    const changeLoggedInUser = (roleid) => {
-        console.log("set role id in context file");
-        setLoggedInUser(roleid);
-    }
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+      };
+
+    // const changeLoggedInRole = (roleid) => {
+    //     console.log("set role id in context file");
+    //     setLoggedInRole(roleid);
+    // }
 
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id) => {
@@ -88,49 +94,42 @@ export function UserProvider({ children }) {
     // Return student data and fetch function.
     return (
         <AppContext.Provider value={{
-            users,
-            setUsers,
-            loggedInUser,
-            changeLoggedInUser,
+            // users,
+            // setUsers,
+            loggedInRole,
+            setLoggedInRole,
             cohorts,
             setCohorts,
-            selectedCohort,
-            setSelectedCohort,
-            cohortId,
-            setCohortId,
-            fetchCohorts,
-            fetchInstructorCohorts,
-            students,
-            setStudents,
-            selectedStudent,
-            setSelectedStudent,
-            fetchStudentsInCohort,
-            fetchUsers,
-            selectedTab,
-            setSelectedTab,
-            selectedRole,
-            setSelectedRole
+            // selectedCohort,
+            // setSelectedCohort,
+            // cohortId,
+            // setCohortId,
+            // fetchCohorts,
+            // fetchInstructorCohorts,
+            // students,
+            // setStudents,
+            // selectedStudent,
+            // setSelectedStudent,
+            // fetchStudentsInCohort,
+            // fetchUsers,
+            // selectedTab,
+            // setSelectedTab,
+            // selectedRole,
+            // setSelectedRole,
+            darkMode,
+            toggleDarkMode
         }}>
             {children}
         </AppContext.Provider>
     );
 }
 
-export function loginProvider({ children }) {
-    const [role, setRole] = useState('2');
-
-    const changeRole = (id) => {
-        setRole(id);
+export function useAppContext(){
+    const context = useContext(AppContext);
+    if(!context){
+        throw new Error (
+            "useAppContect must be used within an AppContextProvider"
+        )
     }
-
-    return (
-        <AppContext.Provider value={{
-            role,
-            changeRole
-        }}>
-            {children}
-        </AppContext.Provider>
-    );
+    return context;
 }
-
-export default AppContext;

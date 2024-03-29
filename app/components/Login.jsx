@@ -1,12 +1,14 @@
+'use client'
+
 import React, { useState, useContext } from "react";
-import AppContext from "../Context/Context";
+import { useAppContext } from "../context";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-    const { role, changeRole } = useContext(AppContext); // [user, setUser
 
-    //try moving this state from Context here instead of consuming from AppContext like above
-    // const [loggedInUser, changeLoggedInUser] = useState([]);
+    const { cohorts, loggedInRole, setLoggedInRole } = useAppContext;
+
+    console.log(typeof cohorts);
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -31,8 +33,8 @@ const Login = () => {
                 if (matchedRows.length > 0) {
                     console.log("Email and password matched");
                     console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    changeRole(matchedRows[0].roleid);
-                    console.log(matchedRows[0])
+                    setLoggedInRole(matchedRows[0].roleid);
+                    console.log(matchedRows[0], loggedInRole)
                     if (matchedRows[0].roleid === '1') {
                         router.push('/admin');
                     } else if (matchedRows[0].roleid === '2') {

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/Context/Context";
+import { useAppContext } from "@/app/context";
 
 const StudentsOverview = () => {
     const { 

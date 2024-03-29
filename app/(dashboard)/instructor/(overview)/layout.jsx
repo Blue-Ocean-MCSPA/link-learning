@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AppContext from "@/app/Context/Context";
+import AppContext from "@/app/context";
 import CohortOverviewNavLink from "@/app/Components/CohortOverviewNavLink";
 
 const OverviewLayout = ({ children }) => {
