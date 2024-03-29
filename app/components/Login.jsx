@@ -19,33 +19,32 @@ const Login = () => {
 
     const handleLoginClick = async (event) => {
         try {
-            
-            const response = await fetch(`/api/users`) // all the users
-            const data = await response.json();
-            const matchedRows = data.data.rows.filter((row) => {
-                return row.email === email && row.password_hash === password;
+            console.log(email, password)
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
             });
-
-                if (matchedRows.length > 0) {
-                    console.log("Email and password matched!!" +  matchedRows[0].roleid);
-                    console.log("role id for this matched user: ", matchedRows[0].roleid);
-                    if (matchedRows[0].roleid === '1') {
-                        router.push('/admin'); //use redirect
-                    } else if (matchedRows[0].roleid === '2') {
-                        router.push('/instructor');
-                    } else {
-                        router.push('/student');
-                    }
-                    
-                } else {
-                    alert("STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit.");
+            const data = await response.json();
+            console.log(data);
+            if (response.ok) {
+                // 1 = admin, 2 = instructor, 3 = student
+                if (roleid == 1) {
+                    router.push('/admin');
+                } else if (roleid == 2) {
+                    router.push('/instructor');
+                } else if (roleid == 3) {
+                    router.push('/student');
                 }
             }
-            catch(err){
-                console.error(err)
-            }
-        }
 
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className="flex">
             <div className="w-2/5 flex flex-col justify-center items-center h-screen bg-light-background">
