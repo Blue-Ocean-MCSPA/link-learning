@@ -7,7 +7,7 @@ const mainLogin = () => {
 
     return (
         <AppWrapper>
-            <Login />
+            <Login/>
         </AppWrapper>
     );
 }

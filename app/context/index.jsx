@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 // Import AppContext into your component along with useContext to access state
 export const AppContext = createContext();
@@ -19,6 +19,13 @@ export function AppWrapper({ children }) {
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
   const [instructorNum, setInstructorNum] = useState('');
+
+  let savedNum = instructorNum;
+
+  useEffect(() => {
+    savedNum = localStorage.getItem("emailNum")
+    changeInstructorNum(savedNum);
+  }, []);
 
   const changeLoggedInRole = (string) => {
     // console.log("Before change: ", loggedInRole);

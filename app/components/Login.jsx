@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext, useAppContext } from "../context";
 import { useRouter } from "next/navigation";
 
@@ -10,8 +10,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
-
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -74,6 +72,7 @@ const Login = () => {
           console.log("instructorNum extracted: ", emailNum)
           const waiting = await changeInstructorNum(emailNum); // Set instructor number in state
           console.log("value after change instructorNum: ", waiting);
+          localStorage.setItem("emailNum", emailNum);
           router.push("/instructor");
         } else if (newRole === "3") {
           // Student
