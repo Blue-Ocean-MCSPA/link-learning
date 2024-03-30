@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
   const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
+  const { setSelectedRole } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,8 +32,10 @@ const Login = () => {
         console.log("role id for this matched user: ", matchedRows[0].roleid);
         const newRole = await changeLoggedInRole(matchedRows[0].roleid);
         console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole);
+
         if (newRole === "1") {
           router.push("/admin");
+          setSelectedRole("Admin");
         } else if (newRole === "2") {
           console.log("Instructor route pushed");
           router.push("/instructor");

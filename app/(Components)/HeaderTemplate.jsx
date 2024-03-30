@@ -1,19 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/index";
 
 //The header template is the big daddy container housing :
 // Admin, AdmiDash
 // i will display it in Blue
 
 const HeaderTemplate = () => {
-  const [selectedRole, setSelectedRole] = useState("admin");
-  const [selectedCohort, setSelectedCohort] = useState(null);
+  //selected role need to be updated when the user logs in and
+  // then we can use the selected role state
+  //Header Template is wrapped in AppWrapper i just checked
+  const { selectedRole } = useContext(AppContext);
 
   return (
     <>
       <div className="banner flex justify-between items-center p-4 bg-slate-800">
         <div className="left-div"></div>
-        <h1 className="centered-div text-white">Instructor Dashboard</h1>
+        <h1 className="centered-div text-white">{selectedRole}</h1>
         <div className="right-div flex bg-slate-100 border rounded">
           <ul className="flex justify-center items-center">
             <li>
@@ -49,13 +52,6 @@ const HeaderTemplate = () => {
           </ul>
         </div>
       </div>
-      {/* {selectedRole === "admin" ? (
-        <Admin />
-      ) : selectedRole === "instructor" ? (
-        <Instructor />
-      ) : selectedRole === "student" ? (
-        <Student />
-      ) : null} */}
     </>
   );
 };
