@@ -1,8 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Instructor from "./InstructorView/Instructor";
-import Admin from "./admin/Admin";
-import AppContext from "../context";
 
 //The header template is the big daddy container housing :
 // Admin, AdmiDash

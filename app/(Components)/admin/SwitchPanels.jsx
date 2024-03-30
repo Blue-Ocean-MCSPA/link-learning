@@ -5,13 +5,9 @@ import AdminDash from "./AdminDash";
 import CohortOverview from "./CohortOverview";
 import SelectInstructors from "./SelectInstuctors";
 
-//This page is green. This is the page that shows all the buttons to click on view all
-//instructors, students, cohorts
+// This component is responsible for rendering different views based on the state of selectedCohort and selectedInstructor.
 
-//This is the main parent it looks like
-//I have a red big border in this one
-
-const Admin = () => {
+const SwitchPanels = () => {
   const { loggedInRole } = useContext(AppContext);
   const { selectedCohort, setSelectedCohort } = useContext(AppContext);
   const { selectedInstructor, setSelectedInstructor } = useContext(AppContext);
@@ -27,6 +23,7 @@ const Admin = () => {
                 setSelectedCohort={setSelectedCohort}
               />
             );
+          //i think having the wrappers here are pointless but im too tired to find out right now
           case !!selectedInstructor:
             return (
               <AppWrapper>
@@ -51,7 +48,7 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default SwitchPanels;
 
 // switch case instead of turnary
 // use a pice of state specifically for rendering in that switch case
