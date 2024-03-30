@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 // Import AppContext into your component along with useContext to access state
 export const AppContext = createContext();
@@ -130,10 +130,10 @@ export function AppWrapper({ children }) {
   );
 }
 
-export function useAppContext() {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error("useAppContext must be used within an AppContextProvider");
-  }
-  return context;
-}
+// export function useAppContext() {
+//   const context = useContext(AppContext);
+//   if (!context) {
+//     throw new Error("useAppContext must be used within an AppContextProvider");
+//   }
+//   return context;
+// }

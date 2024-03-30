@@ -1,54 +1,52 @@
-// import React, { useState, useContext, useEffect } from "react";
-// import AppContext, { AppWrapper, useAppContext } from "@/app/context";
-// import AdminDash from "./AdminDash";
-// import CohortOverview from "./CohortOverview";
-// import SelectInstructors from "./SelectInstuctors";
+import React, { useContext } from "react";
+import { AppContext, AppWrapper } from "../../context/index";
 
-// //This page is green. This is the page that shows all the buttons to click on view all
-// //instructors, students, cohorts
+import AdminDash from "./AdminDash";
+import CohortOverview from "./CohortOverview";
+import SelectInstructors from "./SelectInstuctors";
 
-// //This is the main parent it looks like
-// //I have a red big border in this one
+//This page is green. This is the page that shows all the buttons to click on view all
+//instructors, students, cohorts
 
-// const Admin = () => {
-//   const { loggedInRole } = useAppContext();
-//   const [selectedCohort, setSelectedCohort] = useState(null);
-//   const [selectedInstructor, setSelectedInstructor] = useState(null);
+//This is the main parent it looks like
+//I have a red big border in this one
 
-//   return (
-//     <div className="">
-//       {(() => {
-//         switch (true) {
-//           case !!selectedCohort:
-//             return (
-//               <CohortOverview
-//                 selectedCohort={selectedCohort}
-//                 setSelectedCohort={setSelectedCohort}
-//               />
-//             );
-//           case !!selectedInstructor:
-//             return (
-//               <SelectInstructors
-//                 setSelectedInstructor={setSelectedInstructor}
-//               />
-//             );
-//           default:
-//             return (
-//               <AppWrapper>
-//                 <AdminDash
-//                   setSelectedCohort={setSelectedCohort}
-//                   setSelectedInstructor={setSelectedInstructor}
-//                 />
-//               </AppWrapper>
-//             );
-//         }
-//       })()}
-//     </div>
-//   );
-// };
+const Admin = () => {
+  const { loggedInRole } = useContext(AppContext);
+  const { selectedCohort, setSelectedCohort } = useContext(AppContext);
+  const { selectedInstructor, setSelectedInstructor } = useContext(AppContext);
 
-// export default Admin;
+  return (
+    <div className="">
+      {(() => {
+        switch (true) {
+          case !!selectedCohort:
+            return (
+              <CohortOverview
+                selectedCohort={selectedCohort}
+                setSelectedCohort={setSelectedCohort}
+              />
+            );
+          case !!selectedInstructor:
+            return (
+              <SelectInstructors
+                setSelectedInstructor={setSelectedInstructor}
+              />
+            );
+          default:
+            return (
+              <AppWrapper>
+                <AdminDash />
+              </AppWrapper>
+            );
+        }
+      })()}
+    </div>
+  );
+};
 
-// // switch case instead of turnary
-// // use a pice of state specifically for rendering in that switch case
-// //more useful if piece of state is string
+export default Admin;
+
+// switch case instead of turnary
+// use a pice of state specifically for rendering in that switch case
+//more useful if piece of state is string
