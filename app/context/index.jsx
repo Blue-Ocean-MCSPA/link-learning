@@ -13,7 +13,7 @@ export function AppWrapper({ children }) {
   const [cohorts, setCohorts] = useState([]);
   const [cohortId, setCohortId] = useState(null);
   const [students, setStudents] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedStudents, setSelectedStudents] = useState(false);
   const [selectedInstructor, setSelectedInstructor] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedTab, setSelectedTab] = useState("students");
@@ -114,8 +114,8 @@ export function AppWrapper({ children }) {
         fetchInstructorCohorts,
         students,
         setStudents,
-        selectedStudent,
-        setSelectedStudent,
+        selectedStudents,
+        setSelectedStudents,
         fetchStudentsInCohort,
         fetchUsers,
         selectedTab,

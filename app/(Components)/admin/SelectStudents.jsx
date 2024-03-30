@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 
 //npm install react-icons
 
-const SelectInstructors = ({ setSelectedInstructor }) => {
+const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
   //These next 3 state lines are for fetch data
   const [dataSource, setDataSource] = useState([]);
   // Array.from({ length: 20 })
@@ -19,7 +19,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   }, []); // Empty dependency array ensures this effect runs only once
 
   function handleClick() {
-    setSelectedInstructor(null);
+    setSelectedStudents(null);
   }
   function handleChange(value) {
     setInput(value);
@@ -117,4 +117,4 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   );
 };
 
-export default SelectInstructors;
+export default SelectStudents;
