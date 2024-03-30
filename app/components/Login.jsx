@@ -5,11 +5,13 @@ import { AppContext, useAppContext } from "../context";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
+  const { loggedInRole, changeLoggedInRole, instructorNum, changeInstructorNum } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -19,6 +21,36 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
+  // const handleLoginClick = async (event) => {
+  //   try {
+  //     const response = await fetch(`/api/users`); // all the users
+  //     const data = await response.json();
+  //     const matchedRows = data.data.rows.filter((row) => {
+  //       return row.email === email && row.password_hash === password;
+  //     });
+  //     if (matchedRows.length > 0) {
+  //       console.log("Email and password matched");
+  //       console.log("role id for this matched user: ", matchedRows[0].roleid);
+  //       const newRole = await changeLoggedInRole(matchedRows[0].roleid);
+  //       console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole);
+  //       if (newRole === "1") {
+  //         router.push("/Components/admin");
+  //       } else if (newRole === "2") {
+  //         console.log("Instructor route pushed");
+  //         router.push("/instructor");
+  //       } else if (newRole === "3") {
+  //         router.push("/student");
+  //       }
+  //     } else {
+  //       alert(
+  //         "STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit."
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   const handleLoginClick = async (event) => {
     try {
       const response = await fetch(`/api/users`); // all the users
@@ -27,16 +59,27 @@ const Login = () => {
         return row.email === email && row.password_hash === password;
       });
       if (matchedRows.length > 0) {
+        const { roleid } = matchedRows[0];
         console.log("Email and password matched");
-        console.log("role id for this matched user: ", matchedRows[0].roleid);
-        const newRole = await changeLoggedInRole(matchedRows[0].roleid);
-        console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole);
+        console.log("Role id for this matched user: ", roleid);
+        const newRole = await changeLoggedInRole(roleid); // Change logged-in role in context
+        console.log("New Role: ", newRole);
         if (newRole === "1") {
-          router.push("/Components/admin");
+          // Admin
+          router.push("/admin");
         } else if (newRole === "2") {
-          console.log("Instructor route pushed");
+          // Instructor
+          const emailNumArr = email.match(/(\d+)/); // Extract instructor number from email into array
+          const emailNum = emailNumArr[0] // get only matched number
+          console.log("instructorNum extracted: ", emailNum)
+          const waiting = await changeInstructorNum(emailNum); // Set instructor number in state
+          console.log("value after change instructorNum: ", waiting);
           router.push("/instructor");
         } else if (newRole === "3") {
+          // Student
+          const studNumArr = email.match(/(\d+)/); // Extract student number from email into array
+          const studNum = studNumArr[0] // get only matched number
+          await setStudentNumber(studNum); // Set student number in state
           router.push("/student");
         }
       } else {

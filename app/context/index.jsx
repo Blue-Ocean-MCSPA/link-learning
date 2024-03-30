@@ -14,16 +14,24 @@ export function AppWrapper({ children }) {
   const [cohortId, setCohortId] = useState(null);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [selectedCohort, setSelectedCohort] = useState(null);
+  const [selectedCohort, setSelectedCohort] = useState('none');
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
+  const [instructorNum, setInstructorNum] = useState('');
 
   const changeLoggedInRole = (string) => {
     // console.log("Before change: ", loggedInRole);
     setLoggedInRole(string);
     // console.log("After change: ", loggedInRole);
     return string;
+  };
+
+  const changeInstructorNum = (stringnum) => {
+    console.log("Before change: ", stringnum);
+    setInstructorNum(stringnum);
+    console.log("After change: ", stringnum);
+    return stringnum;
   };
 
   const toggleDarkMode = () => {
@@ -123,6 +131,8 @@ export function AppWrapper({ children }) {
         setSelectedRole,
         darkMode,
         toggleDarkMode,
+        instructorNum,
+        changeInstructorNum
       }}
     >
       {children}

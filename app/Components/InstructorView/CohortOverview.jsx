@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import StudentsOverview from "./StudentsOverview";
 import AssignmentsOverview from "./AssignmentsOverview";
-import {useAppContext} from "@/app/context";
+import {AppContext, AppWrapper, useAppContext} from "@/app/context";
 
 const CohortOverview = () => {
     const {
@@ -12,6 +12,10 @@ const CohortOverview = () => {
         selectedTab,
         setSelectedTab
     } = useContext(AppContext);
+
+    console.log("cohorts: ", cohorts)
+    console.log("selectedCohort: ", selectedCohort)
+    console.log("selectedTab: ", selectedTab)
     
     
     const [studentsOverviewSelected, setStudentsOverviewSelected] = useState(true); // New state to track whether Students Overview is selected
@@ -57,8 +61,16 @@ const CohortOverview = () => {
                 </ul>
             </div>
             <div>
-                {selectedTab === 'students' && <StudentsOverview />}
-                {selectedTab === 'assignments' && <AssignmentsOverview />}
+                {selectedTab === 'students' && 
+                <AppWrapper>
+                    <StudentsOverview />
+                </AppWrapper>
+                }
+                {selectedTab === 'assignments' && 
+                <AppWrapper>
+                    <AssignmentsOverview />
+                </AppWrapper>
+                }
             </div>
         </div>
     )

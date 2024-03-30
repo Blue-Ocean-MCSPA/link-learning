@@ -3,12 +3,18 @@ import { useAppContext } from "@/app/context";
 import { useRouter } from "next/router";
 
 export default function InstructorDashboard() {
-  const { cohorts, setSelectedCohort, fetchInstructorCohorts, loggedInUser } =
-    useAppContext();
+  const { 
+    cohorts, 
+    setSelectedCohort, 
+    fetchInstructorCohorts, 
+    instructorNum } = useAppContext();
+
+  console.log("InstructorDashboard cohorts: ", cohorts);
+  console.log("instructorNum: ", instructorNum);
 
   useEffect(() => {
-    fetchInstructorCohorts(5);
-  }, [loggedInUser]);
+    fetchInstructorCohorts();// <- fetch needs to take in instructor id
+  }, []);
 
   const cohortClick = (cohort) => {
     setSelectedCohort(cohort);

@@ -5,11 +5,12 @@ import { useAppContext } from "@/app/context";
 import { AppWrapper } from "@/app/context";
 
 export default function Instructor() {
-  const { selectedCohort } = useAppContext;
+  const { selectedCohort } = useAppContext();
+  console.log("Instructor selected cohort: ", selectedCohort);
 
   return (
     <div className="h-screen bg-black">
-      {selectedCohort ? (
+      {selectedCohort !== 'none' ? (
         <AppWrapper>
           <CohortOverview />
         </AppWrapper>
