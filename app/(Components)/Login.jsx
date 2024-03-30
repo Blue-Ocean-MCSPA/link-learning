@@ -32,7 +32,7 @@ const Login = () => {
         const newRole = await changeLoggedInRole(matchedRows[0].roleid);
         console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole);
         if (newRole === "1") {
-          router.push("/Components/admin");
+          router.push("/admin");
         } else if (newRole === "2") {
           console.log("Instructor route pushed");
           router.push("/instructor");
