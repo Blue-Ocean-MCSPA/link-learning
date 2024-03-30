@@ -9,7 +9,7 @@ export default function AdminPage() {
     <>
       <AppWrapper>
         <HeaderTemplate />
-        <Admin />
+        <AdminDash />
       </AppWrapper>
     </>
   );
