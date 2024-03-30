@@ -14,6 +14,7 @@ export function AppWrapper({ children }) {
   const [cohortId, setCohortId] = useState(null);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedInstructor, setSelectedInstructor] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
@@ -123,17 +124,11 @@ export function AppWrapper({ children }) {
         setSelectedRole,
         darkMode,
         toggleDarkMode,
+        selectedInstructor,
+        setSelectedInstructor,
       }}
     >
       {children}
     </AppContext.Provider>
   );
 }
-
-// export function useAppContext() {
-//   const context = useContext(AppContext);
-//   if (!context) {
-//     throw new Error("useAppContext must be used within an AppContextProvider");
-//   }
-//   return context;
-// }

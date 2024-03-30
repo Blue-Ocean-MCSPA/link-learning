@@ -7,10 +7,10 @@ import SelectIntructors from "./SelectInstuctors.jsx";
 // this page is the AdminDash and also Admin....
 // I have Purple border aroundt this one
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ selectedInstructor, setSelectedInstructor }) => {
   const { cohorts, setCohorts } = useContext(AppContext);
   const { selectedCohort, setSelectedCohort } = useContext(AppContext);
-  const { selectedInstructor, setSelectedInstructor } = useContext(AppContext);
+  // const { selectedInstructor, setSelectedInstructor } = useContext(AppContext);
 
   const fetchCohorts = async () => {
     try {

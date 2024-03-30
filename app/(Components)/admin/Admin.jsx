@@ -29,14 +29,20 @@ const Admin = () => {
             );
           case !!selectedInstructor:
             return (
-              <SelectInstructors
-                setSelectedInstructor={setSelectedInstructor}
-              />
+              <AppWrapper>
+                <SelectInstructors
+                  selectedInstructor={selectedInstructor}
+                  setSelectedInstructor={setSelectedInstructor}
+                />
+              </AppWrapper>
             );
           default:
             return (
               <AppWrapper>
-                <AdminDash />
+                <AdminDash
+                  selectedInstructor={selectedInstructor}
+                  setSelectedInstructor={setSelectedInstructor}
+                />
               </AppWrapper>
             );
         }
