@@ -8,7 +8,6 @@ import { AppContext } from "../../context/index";
 const AdminDash = ({ selectedInstructor, setSelectedInstructor }) => {
   const { cohorts, setCohorts } = useContext(AppContext);
   const { selectedCohort, setSelectedCohort } = useContext(AppContext);
-  // const { selectedInstructor, setSelectedInstructor } = useContext(AppContext);
 
   const fetchCohorts = async () => {
     try {
@@ -40,9 +39,6 @@ const AdminDash = ({ selectedInstructor, setSelectedInstructor }) => {
     <>
       <div className="flex flex-wrap justify-center items-center h-screen bg-slate-600 border-4 border-purple-500">
         <div className="flex justify-center  p-5 m-4">
-          {/* <button className="bg-slate-800 p-6 m-4 border rounded">
-              view all Cohorts
-            </button> */}
           <button
             className="bg-slate-800 p-6 m-4 border rounded"
             onClick={() => instructorsListClick()}

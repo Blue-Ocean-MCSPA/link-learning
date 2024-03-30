@@ -14,36 +14,22 @@ const SwitchPanels = () => {
 
   return (
     <div className="">
-      {(() => {
-        switch (true) {
-          case !!selectedCohort:
-            return (
-              <CohortOverview
-                selectedCohort={selectedCohort}
-                setSelectedCohort={setSelectedCohort}
-              />
-            );
-          //i think having the wrappers here are pointless but im too tired to find out right now
-          case !!selectedInstructor:
-            return (
-              <AppWrapper>
-                <SelectInstructors
-                  selectedInstructor={selectedInstructor}
-                  setSelectedInstructor={setSelectedInstructor}
-                />
-              </AppWrapper>
-            );
-          default:
-            return (
-              <AppWrapper>
-                <AdminDash
-                  selectedInstructor={selectedInstructor}
-                  setSelectedInstructor={setSelectedInstructor}
-                />
-              </AppWrapper>
-            );
-        }
-      })()}
+      {selectedCohort ? (
+        <CohortOverview
+          selectedCohort={selectedCohort}
+          setSelectedCohort={setSelectedCohort}
+        />
+      ) : selectedInstructor ? (
+        <SelectInstructors
+          selectedInstructor={selectedInstructor}
+          setSelectedInstructor={setSelectedInstructor}
+        />
+      ) : (
+        <AdminDash
+          selectedInstructor={selectedInstructor}
+          setSelectedInstructor={setSelectedInstructor}
+        />
+      )}
     </div>
   );
 };
