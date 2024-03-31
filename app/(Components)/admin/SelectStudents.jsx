@@ -32,20 +32,45 @@ const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
 
   // this is filtering on the front end side. What you want to do is send 'value' to the back end and get the data from the backend .. "but for now we're filtering on the front end "
   function fetchSearch(value) {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("/api/users")
       .then((response) => response.json())
       .then((json) => {
-        const result = json.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
-          );
-        });
-        setSearchInfo(result);
+        // Check if json.data.rows exists and is an array
+        if (json.data && json.data.rows && Array.isArray(json.data.rows)) {
+          const result = json.data.rows.filter((user) => {
+            // Check if user object and first_name property exist
+            return (
+              value &&
+              user &&
+              user.first_name &&
+              user.first_name.toLowerCase().includes(value.toLowerCase())
+            );
+          });
+          setSearchInfo(result);
+        } else {
+          console.error("Invalid data format:", json);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching or filtering data:", error);
       });
   }
+
+  // function fetchSearch(value) {
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       const result = json.filter((user) => {
+  //         return (
+  //           value &&
+  //           user &&
+  //           user.name &&
+  //           user.name.toLowerCase().includes(value)
+  //         );
+  //       });
+  //       setSearchInfo(result);
+  //     });
+  // }
 
   function fetchInstructors(value) {
     fetch("https://jsonplaceholder.typicode.com/users")

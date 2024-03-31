@@ -39,6 +39,7 @@ const Login = () => {
         } else if (newRole === "2") {
           console.log("Instructor route pushed");
           router.push("/instructor");
+          setSelectedRole("instructor");
         } else if (newRole === "3") {
           router.push("/student");
         }

@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useAppContext } from "@/app/context";
+import { AppContext } from "@/app/context";
 import { useRouter } from "next/router";
 
 export default function InstructorDashboard() {
   const { cohorts, setSelectedCohort, fetchInstructorCohorts, loggedInUser } =
-    useAppContext();
+    useContext(AppContext);
 
   useEffect(() => {
     fetchInstructorCohorts(5);
