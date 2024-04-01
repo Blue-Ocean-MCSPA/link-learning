@@ -128,7 +128,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
           {/* underneath is where im putting the div  */}
           <div className="flex justify-center items-center w-full student-info">
             {selectName && (
-              <div className="flex flex-col justify-center border rounded p-8">
+              <div className="flex flex-col justify-center rounded p-8">
                 <div className="flex justify-evenly items-center text-xl py-4 border border-gray-500">
                   <div>
                     Name: {selectName.first_name} {selectName.last_name}
