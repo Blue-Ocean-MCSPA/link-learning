@@ -144,8 +144,8 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         </div>
       </div>
       {/* this div is suppose to house the lower elements and flex them */}
-      <div className="flex h-screen border-2 ">
-        <div className=" w-52 border-2 hover:scroll-smooth">
+      <div className="flex h-screen">
+        <div className=" w-52 hover:scroll-smooth">
           {instructorNames
             .filter((instructor) => instructor.email.includes("instructor"))
             .map((instructor, id) => {

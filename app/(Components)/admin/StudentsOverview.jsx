@@ -29,7 +29,7 @@ const StudentsOverview = () => {
   };
 
   return (
-    <div className="flex border-2 border-red-500">
+    <div className="flex">
       <div className="bg-slate-500">
         <ul>
           {students.map((student, index) => {
