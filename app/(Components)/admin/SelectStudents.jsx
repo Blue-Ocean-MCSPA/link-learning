@@ -167,6 +167,10 @@ const SelectStudents = ({ setSelectedStudents }) => {
                     </div>
                   </div>
                 </div>
+                <div className="flex justify-evenly p-5 mt-6 border-4 border-red-500 text-lx">
+                  <button>Edit</button>
+                  <button>Delete</button>
+                </div>
               </div>
             )}
           </div>
