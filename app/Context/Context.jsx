@@ -1,5 +1,5 @@
-'use client'
-import { createContext, useState } from 'react';
+"use client";
+import { createContext, useState } from "react";
 
 // Import AppContext into your component along with useContext to access state
 const AppContext = createContext();
@@ -18,7 +18,14 @@ export function UserProvider({ children }) {
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id, callback) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/cohort/${id}`);
+            const response = await fetch(`http://localhost:3000/api/cohort/${id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
             if (!response.ok) {
                 throw new Error('Failed to fetch cohorts');
             }
@@ -33,7 +40,14 @@ export function UserProvider({ children }) {
 
     const fetchCohorts = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/cohort/');
+            const response = await fetch('http://localhost:3000/api/cohort/', 
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
             if (!response.ok) {
                 throw new Error('Failed to fetch cohorts');
             }

@@ -1,25 +1,31 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { jwtVerify } from "jose";
+import { getJwtSecretKey } from '@/lib/auth';
+
+import dotenv from "dotenv";
+dotenv.config();
 
 const Login = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ roleid, setRoleid ] = useState('');
+    const [ token, setToken ] = useState('');
+    const [ secret, setSecret ] = useState('');
     const router = useRouter();
-
+    
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
-
+    
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     }
 
-    const handleLoginClick = async (event) => {
+    const handleLoginClick = async () => {
         try {
-            console.log(email, password)
             const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: {
@@ -27,19 +33,38 @@ const Login = () => {
                 },
                 body: JSON.stringify({ email, password })
             });
-            const data = await response.json();
-            console.log(data);
-            if (response.ok) {
-                // 1 = admin, 2 = instructor, 3 = student
-                if (roleid == 1) {
-                    router.push('/admin');
-                } else if (roleid == 2) {
-                    router.push('/instructor');
-                } else if (roleid == 3) {
-                    router.push('/student');
-                }
+            console.log(response.status)
+            if (response.status === 401) {
+                alert('Incorrect email or password');
             }
-
+            const data = await response.json();
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('roleid', data.decodedToken.payload.roleid);
+            }
+            // console.log(data);
+            console.log(data.decodedToken.payload.roleid, 'testing!!')
+            console.log(data.user,'hihihhi')
+                if (data.decodedToken.payload.roleid == 1) {
+                    router.push('/admin');
+                    router.refresh();
+                } else if (data.decodedToken.payload.roleid == 2) {
+                    router.push('/instructor');
+                    router.refresh();
+                } else if (data.decodedToken.payload.roleid == 3) {
+                    router.push('/student');
+                    router.refresh();
+                }
+                // if (data.user.roleid == 1) {
+                //     router.push('/admin');
+                //     router.refresh();
+                // } else if (data.user.roleid == 2) {
+                //     router.push('/instructor');
+                //     router.refresh();
+                // } else if (data.user.roleid == 3) {
+                //     router.push('/student');
+                //     router.refresh();
+                // }
         }
         catch (error) {
             console.error(error);

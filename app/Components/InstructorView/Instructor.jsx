@@ -2,8 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "@/app/Context/Context";
 import InstructorDashboard from "./InstructorDashboard";
 import CohortOverview from "./CohortOverview";
+import withAuth from "../withAuth";
 
-export default function Instructor() {
+function Instructor({ roleid }) {
     const {
         cohorts, 
         setCohorts,
@@ -18,6 +19,9 @@ export default function Instructor() {
             ) : (
                 <InstructorDashboard />
             )}
+            {roleid && <div>Role ID: {roleid}</div>}
         </div>
     );
 }
+
+export default withAuth(Instructor, [2]);
