@@ -119,10 +119,10 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
         </button>
-        <div className="flex items-center ml-auto bg-white rounded-lg p-1">
+        <div className="flex items-center ml-auto bg-white rounded-lg p-1 relative">
           <FaSearch className="text-black" />
           <input
-            className="bg-transparent border-none h-full w-full focus:outline-none ml-5 text-black items-center border"
+            className="bg-transparent border-none h-full w-full focus:outline-none ml-5 text-black items-center "
             type="text"
             placeholder=" type to search..."
             value={input}
