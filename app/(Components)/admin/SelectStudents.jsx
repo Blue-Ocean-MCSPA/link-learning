@@ -4,9 +4,9 @@ import { FaSearch } from "react-icons/fa";
 
 //npm install react-icons
 
-const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
+const SelectStudents = ({ setSelectedStudents }) => {
   //These next 3 state lines are for fetch data
-  const [dataSource, setDataSource] = useState([]);
+  const [studentNames, setStudentNames] = useState([]);
   // Array.from({ length: 20 })
   const [input, setInput] = useState("");
   const [searchInfo, setSearchInfo] = useState([]);
@@ -15,7 +15,7 @@ const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
     // i forgot what i have an 'a' in here. but its what renders all the names
-    fetchInstructors("a");
+    fetchStudents("a");
   }, []); // Empty dependency array ensures this effect runs only once
 
   function handleClick() {
@@ -26,61 +26,48 @@ const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
     fetchSearch(value);
   }
 
-  function handleClickInstructor(instructor) {
-    setSelectName(instructor);
+  function handleClickStudents(students) {
+    setSelectName(students);
   }
 
-  // this is filtering on the front end side. What you want to do is send 'value' to the back end and get the data from the backend .. "but for now we're filtering on the front end "
-  function fetchSearch(value) {
-    fetch("/api/users")
-      .then((response) => response.json())
-      .then((json) => {
-        // Check if json.data.rows exists and is an array
-        if (json.data && json.data.rows && Array.isArray(json.data.rows)) {
-          const result = json.data.rows.filter((user) => {
-            // Check if user object and first_name property exist
-            return (
-              value &&
-              user &&
-              user.first_name &&
-              user.first_name.toLowerCase().includes(value.toLowerCase())
-            );
-          });
-          setSearchInfo(result);
-        } else {
-          console.error("Invalid data format:", json);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching or filtering data:", error);
-      });
+  function updateStudentState(input) {
+    setStudentNames(input);
   }
 
-  // function fetchSearch(value) {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const result = json.filter((user) => {
-  //         return (
-  //           value &&
-  //           user &&
-  //           user.name &&
-  //           user.name.toLowerCase().includes(value)
-  //         );
-  //       });
-  //       setSearchInfo(result);
-  //     });
-  // }
+  async function fetchSearch(value) {
+    try {
+      const response = await fetch("http://localhost:3000/api/users");
+      const json = await response.json();
+      const users = json.data.rows; // accessing the array of users
 
-  function fetchInstructors(value) {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => {
-        const result = json;
-        console.log(result);
-        setDataSource(result);
-      });
+      const result = users.filter(
+        // replaces json.filter
+        (user) =>
+          value &&
+          user &&
+          user.first_name &&
+          user.first_name.toLowerCase().includes(value) &&
+          user.email.includes("student")
+      );
+      setSearchInfo(result);
+      console.log(result);
+    } catch (error) {
+      console.log("error fetching search", error);
+    }
   }
+  const fetchStudents = async (value) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/users`); // all the users
+      const data = await response.json();
+      const matchedRows = data.data.rows;
+      console.log("fetch student names = ", matchedRows);
+      //matchedRows = {id, email, pwrd, fname, lasname, }
+      updateStudentState(matchedRows);
+      // console.log("state updated = ", instructorNames);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className=" border h-screen">
@@ -104,10 +91,10 @@ const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
             return (
               <div
                 key={id}
-                onClick={() => handleClickInstructor(search)}
+                onClick={() => handleClickStudents(search)}
                 className=" hover:bg-gray-200 hover:cursor-pointer"
               >
-                {search.name}
+                {search.first_name} {search.last_name}
               </div>
             );
           })}
@@ -116,24 +103,28 @@ const SelectStudents = ({ selectedStudents, setSelectedStudents }) => {
       {/* this div is suppose to house the lower elements and flex them */}
       <div className="flex h-screen border-2 ">
         <div className=" w-52 border-2 hover:scroll-smooth">
-          {dataSource.map((instructor, id) => {
-            return (
-              <div
-                key={id}
-                className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300"
-                onClick={() => handleClickInstructor(instructor)}
-              >
-                {instructor.name}
-              </div>
-            );
-          })}
+          {studentNames
+            .filter((student) => student.email.includes("student"))
+            .map((student, id) => {
+              return (
+                <div
+                  key={id}
+                  className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300"
+                  onClick={() => handleClickStudents(student)}
+                >
+                  {student.first_name + " " + student.last_name}
+                </div>
+              );
+            })}
         </div>
         <div className="border flex flex-col justify-evenly items-center w-full bg-gray-200">
           <div>
-            <h1>{selectName && selectName.name}</h1>
-            <h1>{selectName && selectName.phone}</h1>
+            <h1>{selectName && selectName.first_name}</h1>
+            <h1>{selectName && selectName.contact_info}</h1>
             <h1>
-              {selectName && selectName.company && selectName.company.name}
+              {selectName &&
+                selectName.performance_metrics &&
+                selectName.course_started}
             </h1>
           </div>
         </div>
