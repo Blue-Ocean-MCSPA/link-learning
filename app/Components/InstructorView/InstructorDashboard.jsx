@@ -1,42 +1,39 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/Context/Context";
+import { useAppContext } from "@/app/context";
+import { useRouter } from "next/router";
 
 export default function InstructorDashboard() {
-    const { 
-        cohorts,
-        setCohorts,
-        selectedCohort,
-        setSelectedCohort,
-        fetchCohorts,
-        fetchInstructorCohorts,
-    } = useContext(AppContext);
-    const [fetched, setFetched] = useState(false);
+  const { 
+    cohorts, 
+    setSelectedCohort, 
+    fetchInstructorCohorts, 
+    currentInstructor 
+  } = useAppContext();
 
-    useEffect(() => {
-        fetchInstructorCohorts(5, () => {
-            setFetched(true);
-        });
-    }, []);
+  console.log("InstructorDashboard cohorts: ", cohorts);
+  
+  useEffect(() => {
+    console.log("fetching cohorts for currentInstructor: ", currentInstructor);
+    fetchInstructorCohorts(currentInstructor);// <- fetch for cohorts of current instructorNum, state is in indexjs
+  }, []);
 
-    useEffect(() => {
-        if (fetched) {
-            console.log('Cohorts fetched:', cohorts);
-        }
-    }, [fetched]);
+  const cohortClick = (cohort) => {
+    setSelectedCohort(cohort);
+  };
 
-    const cohortClick = (cohort) => {
-        setSelectedCohort(cohort.id);
-    }
-
-    return (
-        <div className="flex flex-wrap justify-center items-center h-screen bg-slate-600 text-white">
-            {cohorts.map((cohort, index) => {
-                return (
-                    <div key={index} className="bg-slate-800 p-6 m-4 border rounded" onClick={() => cohortClick(cohort)}>
-                        <h2>{cohort.cohort_name}</h2>
-                    </div>
-                )
-            })}
-        </div>
-    );   
+  return (
+    <div className="flex flex-wrap justify-center items-center h-screen bg-slate-600 text-white">
+      {cohorts.map((cohort, index) => {
+        return (
+          <div
+            key={index}
+            className="bg-slate-800 p-6 m-4 border rounded"
+            onClick={() => cohortClick(cohort)}
+          >
+            <h2>{cohort.cohort_name}</h2>
+          </div>
+        );
+      })}
+    </div>
+  );
 }

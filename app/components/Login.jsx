@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { redirect, useRouter, useContext } from "next/navigation";
+import { AppContext, useAppContext } from "../context";
 import { jwtVerify } from "jose";
 import { getJwtSecretKey } from '@/lib/auth';
 
@@ -8,6 +9,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const Login = () => {
+  // const { loggedInRole, changeLoggedInRole, currentInstructor } = useContext(AppContext);
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -117,9 +119,9 @@ const Login = () => {
             <div className="bg-orange-50 w-3/5 h-full opacity-75">
                 <img src="/fellowMugExtra2.webp" alt="placeholder" className="object-cover"></img>
             </div>
-        </div>
-        
-    )
-}
+
+      </div>
+  );
+};
 
 export default Login;

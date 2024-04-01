@@ -21,8 +21,8 @@ const AssignmentsOverview = () => {
                 <ul>
                     {assignments.map((assignment, index) => {
                         return (
-                            <li>
-                                <button key={index} className="bg-slate-800 px-14 py-6 m-4 border rounded focus:bg-blue-700" onClick={() => handleAssignmentClick(assignment)}>
+                            <li key={index}>
+                                <button className="bg-slate-800 px-14 py-6 m-4 border rounded focus:bg-blue-700" onClick={() => handleAssignmentClick(assignment)}>
                                     <h2>{assignment.name}</h2>
                                 </button>
                             </li>
