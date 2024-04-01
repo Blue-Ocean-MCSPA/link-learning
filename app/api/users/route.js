@@ -1,7 +1,12 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
+
 export async function GET(request) {
-    const data = await sql`SELECT * FROM users`;
-    return NextResponse.json({ data }, { status: 200 });
+        const users = await sql`SELECT * FROM users`;
+        console.log(users)
+        return NextResponse.json({ users }, { status: 200 });
+
+
 }
+

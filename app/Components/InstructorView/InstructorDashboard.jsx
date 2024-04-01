@@ -1,25 +1,32 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/context/Context";
+import {useAppContext} from "@/app/context";
+import { useRouter } from "next/router";
 
-const InstructorDashboard = ({ setSelectedCohort }) => {
-    const { cohorts, setCohorts } = useContext(AppContext);
+export default function InstructorDashboard() {
+    const { 
+        cohorts,
+        setSelectedCohort,
+        fetchInstructorCohorts,
+        loggedInUser,
+    } = useContext(AppContext);
 
+    useEffect(() => {
+        fetchInstructorCohorts(5);
+    }, [loggedInUser]);
 
     const cohortClick = (cohort) => {
         setSelectedCohort(cohort);
     }
 
     return (
-        <div className="flex flex-wrap justify-center items-center h-screen bg-slate-600">
+        <div className="flex flex-wrap justify-center items-center h-screen bg-slate-600 text-white">
             {cohorts.map((cohort, index) => {
                 return (
                     <div key={index} className="bg-slate-800 p-6 m-4 border rounded" onClick={() => cohortClick(cohort)}>
-                        <h2>{cohort}</h2>
+                        <h2>{cohort.cohort_name}</h2>
                     </div>
                 )
             })}
         </div>
     );   
 }
-
-export default InstructorDashboard;

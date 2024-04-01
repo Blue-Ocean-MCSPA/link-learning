@@ -44,7 +44,6 @@ const HeaderTemplate = () => {
           </ul>
         </div>
       </div>
-      <InstructorDashboard />
     </div>
   );
 };

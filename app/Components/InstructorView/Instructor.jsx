@@ -1,21 +1,21 @@
-import React, { useState, useContext, useEffect } from "react";
-import AppContext from "@/app/context/Context";
+import React, { useContext } from "react";
 import InstructorDashboard from "./InstructorDashboard";
 import CohortOverview from "./CohortOverview";
+import { useAppContext } from "@/app/context";
 
-const Instructor = () => {
-    const [selectedCohort, setSelectedCohort] = useState(null);
-    const { cohorts, setCohorts } = useContext(AppContext);
+export default function Instructor() {
+    const {
+        selectedCohort,
+    } = useAppContext;
 
     return (
-        <div>
+        <div className="h-screen bg-black">
             {selectedCohort ? (
-                <CohortOverview selectedCohort={selectedCohort} />
+
+                <CohortOverview />
             ) : (
-                <InstructorDashboard setSelectedCohort={setSelectedCohort} />
+                <InstructorDashboard />
             )}
         </div>
     );
 }
-
-export default Instructor;

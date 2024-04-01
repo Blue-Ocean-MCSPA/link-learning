@@ -1,6 +1,8 @@
+'use client';
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
+import { useAppContext } from "../context";
 
 const LandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -61,5 +63,7 @@ const LandingPage = () => {
     </div>
   );
 };
+  
 
 export default LandingPage;
+
