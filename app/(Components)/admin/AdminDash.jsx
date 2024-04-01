@@ -46,8 +46,8 @@ const AdminDash = ({
   };
   return (
     <>
-      <div className="flex flex-col h-screen bg-slate-600 border-4 justify-center items-center">
-        <div className="flex justify-center p-5 m-4 border-4">
+      <div className="flex flex-col h-screen bg-slate-600 justify-center items-center">
+        <div className="flex justify-center p-5 m-4">
           <button
             className="bg-slate-800 rounded py-4 px-6 m-2 text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-opacity-50"
             onClick={() => instructorsListClick()}
@@ -62,7 +62,7 @@ const AdminDash = ({
             view all Students
           </button>
         </div>
-        <div className="flex justify-center items-center border-4 p-4">
+        <div className="flex justify-center items-center p-4">
           {cohorts.map((cohort, index) => {
             return (
               <button
