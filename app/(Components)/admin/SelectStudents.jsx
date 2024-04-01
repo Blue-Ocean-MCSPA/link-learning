@@ -68,11 +68,17 @@ const SelectStudents = ({ setSelectedStudents }) => {
       console.error(err);
     }
   };
+  function handleAddStudent() {
+    console.log("add student");
+  }
 
   return (
     <div className=" border h-screen">
       <div className="flex p-5 bg-slate-600 items-center">
-        <div className="text-white">Assigned Cohort</div>
+        <div className="text-white">Students</div>
+        <button className=" ml-10 text-white" onClick={handleAddStudent}>
+          Add Student
+        </button>
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
         </button>
@@ -101,8 +107,8 @@ const SelectStudents = ({ setSelectedStudents }) => {
         </div>
       </div>
       {/* this div is suppose to house the lower elements and flex them */}
-      <div className="flex h-screen border-2 ">
-        <div className=" w-52 border-2 hover:scroll-smooth">
+      <div className="flex h-screen  border-4">
+        <div className="w-52 hover:scroll-smooth">
           {studentNames
             .filter((student) => student.email.includes("student"))
             .map((student, id) => {
@@ -117,16 +123,54 @@ const SelectStudents = ({ setSelectedStudents }) => {
               );
             })}
         </div>
-        <div className="border flex flex-col justify-evenly items-center w-full bg-gray-200">
-          <div>
-            <h1>{selectName && selectName.first_name}</h1>
-            <h1>{selectName && selectName.contact_info}</h1>
-            <h1>
-              {selectName &&
-                selectName.performance_metrics &&
-                selectName.course_started}
-            </h1>
+        {/* separate------------------------- */}
+        <div className="border flex flex-col justify-evenly items-center w-full bg-gray-200  border-4 border-red-500">
+          {/* underneath is where im putting the div  */}
+          <div className="flex justify-center items-center w-full student-info bg-slate-400">
+            {selectName && (
+              <div className="flex flex-col justify-center border rounded bg-slate-300 p-8">
+                <div className="flex justify-evenly items-center text-xl py-4">
+                  <div>
+                    Name: {selectName.first_name} {selectName.last_name}
+                  </div>
+                  <div>ID Number: {selectName.id}</div>
+                </div>
+                <div className="text-xl py-4">
+                  Class Grade: {selectName.grade}
+                </div>
+                <div className="flex text-xl py-4">
+                  <span className="pr-4 py-2">
+                    Absences: {selectName.absent_days}
+                  </span>
+                  <span className="p-2">
+                    Remaining Absences: {10 - selectName.absent_days}
+                  </span>
+                </div>
+                <div className="contact-info flex py-4">
+                  <div className="flex justify-center items-center text-xl border">
+                    <div className="px-4">Contact Info: </div>
+                  </div>
+                  <div className="flex flex-col border">
+                    <div className="contact-info-top flex border">
+                      <span className="text-xl border p-2">
+                        Email: {JSON.parse(selectName.contact_info).email}
+                      </span>
+                      <span className="text-xl border p-2">
+                        Phone Number:{" "}
+                        {JSON.parse(selectName.contact_info).phone}
+                      </span>
+                    </div>
+                    <div className="contact-info-bottom flex justify-center border">
+                      <span className="text-xl p-2">
+                        Address: {JSON.parse(selectName.contact_info).address}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+          {/* This is where the div ENDs */}
         </div>
       </div>
     </div>
@@ -134,3 +178,79 @@ const SelectStudents = ({ setSelectedStudents }) => {
 };
 
 export default SelectStudents;
+
+{
+  /* <div>
+<h1>{selectName && selectName.first_name}</h1>
+<h1>{selectName && selectName.contact_info}</h1>
+<h1>
+  {selectName &&
+    selectName.performance_metrics &&
+    selectName.course_started}
+</h1>
+</div> */
+}
+
+{
+  /* <div className="flex justify-center bg-white">
+  <div className="student-listflex flex-col items-center bg-slate-600">
+    <ul className="space-y-6">
+      {students.map((student, index) => {
+        return (
+          <li key={index}>
+            <button
+              className="bg-slate-800 px-10 py-6 m-4 border rounded focus:bg-blue-700"
+              onClick={() => handleStudentClick(student)}
+            >
+              <h2>
+                {student.first_name} {student.last_name}
+              </h2>
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+  <div className="flex justify-center items-center w-full student-info bg-slate-400">
+    {selectName && (
+      <div className="flex flex-col justify-center border rounded bg-slate-300 p-8">
+        <div className="flex justify-evenly items-center text-xl py-4">
+          <div>
+            Name: {selectName.first_name} {selectName.last_name}
+          </div>
+          <div>ID Number: {selectName.id}</div>
+        </div>
+        <div className="text-xl py-4">Class Grade: {selectName.grade}</div>
+        <div className="flex text-xl py-4">
+          <span className="pr-4 py-2">
+            Absences: {selectName.absent_days}
+          </span>
+          <span className="p-2">
+            Remaining Absences: {10 - selectName.absent_days}
+          </span>
+        </div>
+        <div className="contact-info flex py-4">
+          <div className="flex justify-center items-center text-xl border">
+            <div className="px-4">Contact Info: </div>
+          </div>
+          <div className="flex flex-col border">
+            <div className="contact-info-top flex border">
+              <span className="text-xl border p-2">
+                Email: {JSON.parse(selectName.contact_info).email}
+              </span>
+              <span className="text-xl border p-2">
+                Phone Number: {JSON.parse(selectName.contact_info).phone}
+              </span>
+            </div>
+            <div className="contact-info-bottom flex justify-center border">
+              <span className="text-xl p-2">
+                Address: {JSON.parse(selectName.contact_info).address}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</div>; */
+}

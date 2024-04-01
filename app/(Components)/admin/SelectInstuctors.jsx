@@ -70,10 +70,17 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     }
   };
 
+  function handleAddInstructor() {
+    console.log("add student");
+  }
+
   return (
     <div className=" border h-screen">
       <div className="flex p-5 bg-slate-600 items-center">
-        <div className="text-white">Assigned Cohort</div>
+        <div className="text-white">Instructors</div>
+        <button className=" ml-10 text-white" onClick={handleAddInstructor}>
+          Add Intructor
+        </button>
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
         </button>
