@@ -44,7 +44,6 @@ export async function POST(request) {
         const decodedToken = await decodeToken(token);
         // console.log(decodedToken);
 
-
         const cookie = `token=${token}; Path=/; HttpOnly`;
         return NextResponse.json({ user, token, decodedToken }, {
             status: 200,
@@ -57,9 +56,7 @@ export async function POST(request) {
 
         } 
 
-
     }
-
 
 
 

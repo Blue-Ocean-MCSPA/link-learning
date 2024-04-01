@@ -19,7 +19,7 @@ function Instructor({ roleid }) {
             ) : (
                 <InstructorDashboard />
             )}
-            {roleid && <div>Role ID: {roleid}</div>}
+            {/* {roleid && <div>Role ID: {roleid}</div>} */}
         </div>
     );
 }
