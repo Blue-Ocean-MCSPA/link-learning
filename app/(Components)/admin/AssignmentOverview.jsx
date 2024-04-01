@@ -14,7 +14,7 @@ const AssignmentOverview = () => {
   };
 
   return (
-    <div className="flex items-center bg-white border border-red-400">
+    <div className="flex items-center bg-white">
       <div className="assignment-listflex flex-col items-center bg-slate-600 ">
         {assignments.map((assignment, index) => {
           return (
