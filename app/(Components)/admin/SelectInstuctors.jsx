@@ -35,21 +35,56 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   }
 
   // this is filtering on the front end side. What you want to do is send 'value' to the back end and get the data from the backend .. "but for now we're filtering on the front end "
-  function fetchSearch(value) {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => {
-        const result = json.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
-          );
-        });
-        setSearchInfo(result);
-      });
+  // function fetchSearch(value) {
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       const result = json.filter((user) => {
+  //         return (
+  //           value &&
+  //           user &&
+  //           user.name &&
+  //           user.name.toLowerCase().includes(value)
+  //         );
+  //       });
+  //       setSearchInfo(result);
+  //     });
+  // }
+
+  async function fetchSearch(value) {
+    try {
+      const response = await fetch("http://localhost:3000/api/users");
+      const json = await response.json();
+      const users = json.data.rows; // accessing the array of users
+
+      const result = users.filter(
+        // replaces json.filter
+        (user) =>
+          value &&
+          user &&
+          user.first_name &&
+          user.first_name.toLowerCase().includes(value) &&
+          user.email.includes("instructor")
+      );
+      setSearchInfo(result);
+      console.log(result);
+    } catch (error) {
+      console.log("error fetching search", error);
+    }
   }
+  // const fetchSearch = async (value) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/api/users`); // all the users
+  //     const data = await response.json();
+  //     const matchedRows = data.data.rows;
+  //     console.log("fetch instructor names = ", matchedRows);
+  //     //matchedRows = {id, email, pwrd, fname, lasname, }
+  //     setSearchInfo(matchedRows);
+  //     console.log("state updated = ", instructorNames);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   // function fetchInstructors(value) {
   //   fetch("https://jsonplaceholder.typicode.com/users")
@@ -69,13 +104,13 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       console.log("fetch instructor names = ", matchedRows);
       //matchedRows = {id, email, pwrd, fname, lasname, }
       updateInstructorState(matchedRows);
-      console.log("state updated = ", instructorNames);
+      // console.log("state updated = ", instructorNames);
     } catch (err) {
       console.error(err);
     }
   };
 
-  console.log("Instructor names:", instructorNames); // Add this line before returning JSX
+  // console.log("Instructor names:", instructorNames); // Add this line before returning JSX
 
   return (
     <div className=" border h-screen">
@@ -102,7 +137,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                 onClick={() => handleClickInstructor(search)}
                 className=" hover:bg-gray-200 hover:cursor-pointer"
               >
-                {search.name}
+                {search.first_name} {search.last_name}
               </div>
             );
           })}
@@ -127,10 +162,12 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         </div>
         <div className="border flex flex-col justify-evenly items-center w-full bg-gray-200">
           <div>
-            <h1>{selectName && selectName.name}</h1>
-            <h1>{selectName && selectName.phone}</h1>
+            <h1>{selectName && selectName.first_name}</h1>
+            <h1>{selectName && selectName.contact_info}</h1>
             <h1>
-              {selectName && selectName.company && selectName.company.name}
+              {selectName &&
+                selectName.performance_metrics &&
+                selectName.course_started}
             </h1>
           </div>
         </div>
