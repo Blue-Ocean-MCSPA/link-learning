@@ -18,27 +18,13 @@ export function AppWrapper({ children }) {
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
-  const [instructorNum, setInstructorNum] = useState('');
+  const [currentInstructor, setCurrentInstructor] = useState('');
 
-  let savedNum = instructorNum;
-
-  useEffect(() => {
-    savedNum = localStorage.getItem("emailNum")
-    changeInstructorNum(savedNum);
-  }, []);
 
   const changeLoggedInRole = (string) => {
-    // console.log("Before change: ", loggedInRole);
     setLoggedInRole(string);
-    // console.log("After change: ", loggedInRole);
+    // console.log("set loggedInRole to: ", loggedInRole);
     return string;
-  };
-
-  const changeInstructorNum = (stringnum) => {
-    console.log("Before change: ", stringnum);
-    setInstructorNum(stringnum);
-    console.log("After change: ", stringnum);
-    return stringnum;
   };
 
   const toggleDarkMode = () => {
@@ -46,14 +32,18 @@ export function AppWrapper({ children }) {
   };
 
   // Function to fetch users from the database and add them to state
-  const fetchInstructorCohorts = async (id) => {
+  const fetchInstructorCohorts = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/cohort/${id}`);
+        console.log("fetch instructor cohorts at id: ", currentInstructor)
+      const response = await fetch(`http://localhost:3000/api/cohort/${currentInstructor}`);
+      console.log("after fetch, instructorNum is: ", currentInstructor)
       if (!response.ok) {
         throw new Error("Failed to fetch cohorts");
       }
       const data = await response.json();
-      setCohorts(data.instructorCohorts.rows);
+      console.log("set Cohorts to: ", data.cohorts.rows);
+      setCohorts(data.cohorts.rows);
+      console.log("Cohorts have been set to: ", cohorts);
     } catch (error) {
       console.error("Error fetching cohorts:", error);
       setCohorts([]);
@@ -138,8 +128,7 @@ export function AppWrapper({ children }) {
         setSelectedRole,
         darkMode,
         toggleDarkMode,
-        instructorNum,
-        changeInstructorNum
+        currentInstructor,
       }}
     >
       {children}

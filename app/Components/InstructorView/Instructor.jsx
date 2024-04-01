@@ -6,17 +6,17 @@ import { AppWrapper } from "@/app/context";
 
 export default function Instructor() {
   const { selectedCohort } = useAppContext();
-  console.log("Instructor selected cohort: ", selectedCohort);
+  //console.log("Instructor selected cohort: ", selectedCohort);
 
   return (
     <div className="h-screen bg-black">
-      {selectedCohort !== 'none' ? (
+      {selectedCohort === 'none' ? ( // if no selectedCohort is 'none' (default), show dashboard to select cohort
         <AppWrapper>
-          <CohortOverview />
+          <InstructorDashboard />
         </AppWrapper>
       ) : (
         <AppWrapper>
-          <InstructorDashboard />
+          <CohortOverview />
         </AppWrapper>
       )}
     </div>

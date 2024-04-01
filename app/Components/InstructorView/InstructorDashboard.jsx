@@ -7,13 +7,14 @@ export default function InstructorDashboard() {
     cohorts, 
     setSelectedCohort, 
     fetchInstructorCohorts, 
-    instructorNum } = useAppContext();
+    currentInstructor 
+  } = useAppContext();
 
   console.log("InstructorDashboard cohorts: ", cohorts);
-  console.log("instructorNum: ", instructorNum);
-
+  
   useEffect(() => {
-    fetchInstructorCohorts();// <- fetch needs to take in instructor id
+    console.log("fetching cohorts for currentInstructor: ", currentInstructor);
+    fetchInstructorCohorts(currentInstructor);// <- fetch for cohorts of current instructorNum, state is in indexjs
   }, []);
 
   const cohortClick = (cohort) => {

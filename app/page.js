@@ -5,8 +5,8 @@ import { AppWrapper } from './context/index.jsx';
 export default function Home() {
 
 	return (
-		<AppWrapper>
+		
 			<LandingPage />
-		</AppWrapper> 
+		
   	);
 }

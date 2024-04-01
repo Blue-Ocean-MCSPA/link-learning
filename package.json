@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.10",
-    "@vercel/postgres": "^0.7.2",
     "@heroicons/react": "^2.1.1",
+    "@nextui-org/react": "^2.2.10",
     "@svgr/webpack": "^8.1.0",
-    "dotenv": "^16.4.5",
+    "@vercel/postgres": "^0.7.2",
     "component": "^1.1.0",
+    "dotenv": "^16.4.5",
     "next": "14.1.4",
     "next-themes": "^0.3.0",
     "react": "^18",

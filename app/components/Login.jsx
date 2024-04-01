@@ -5,7 +5,7 @@ import { AppContext, useAppContext } from "../context";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { loggedInRole, changeLoggedInRole, instructorNum, changeInstructorNum } = useContext(AppContext);
+  const { loggedInRole, changeLoggedInRole, currentInstructor } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,10 +69,6 @@ const Login = () => {
           // Instructor
           const emailNumArr = email.match(/(\d+)/); // Extract instructor number from email into array
           const emailNum = emailNumArr[0] // get only matched number
-          console.log("instructorNum extracted: ", emailNum)
-          const waiting = await changeInstructorNum(emailNum); // Set instructor number in state
-          console.log("value after change instructorNum: ", waiting);
-          localStorage.setItem("emailNum", emailNum);
           router.push("/instructor");
         } else if (newRole === "3") {
           // Student
