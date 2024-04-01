@@ -1,15 +1,14 @@
-'use client'
+"use client";
 import React from "react";
-import { UserProvider } from "../../context";
+import { AppWrapper } from "../../context";
 import Instructor from "@/app/Components/InstructorView/Instructor";
 
 export default function InstructorDashboard() {
-
-    return (
-        <div>
-            <UserProvider>
-                <Instructor />
-            </UserProvider>
-        </div>
-    );
+  return (
+    <div>
+      <AppWrapper>
+        <Instructor />
+      </AppWrapper>
+    </div>
+  );
 }

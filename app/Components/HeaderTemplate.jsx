@@ -1,14 +1,22 @@
-import React, { useState, useContext, useEffect } from "react";
+"use client";
+import React, { useState } from "react";
 import Instructor from "./InstructorView/Instructor";
-import Admin from "./Admin/Admin";
-import AppContext from "../Context/Context";
+import Admin from "./admin/Admin";
+import AppContext from "../context";
+
+//The header template is the big daddy container housing :
+// Admin, AdmiDash
+// i will display it in Blue
 
 const HeaderTemplate = () => {
+  const [selectedRole, setSelectedRole] = useState("admin");
+  const [selectedCohort, setSelectedCohort] = useState(null);
+
   return (
-    <div className="flex flex-col font-Fenix">
+    <>
       <div className="banner flex justify-between items-center p-4 bg-slate-800">
         <div className="left-div"></div>
-        <h1 className="centered-div">Instructor Dashboard</h1>
+        <h1 className="centered-div text-white">Instructor Dashboard</h1>
         <div className="right-div flex bg-slate-100 border rounded">
           <ul className="flex justify-center items-center">
             <li>
@@ -44,7 +52,14 @@ const HeaderTemplate = () => {
           </ul>
         </div>
       </div>
-    </div>
+      {/* {selectedRole === "admin" ? (
+        <Admin />
+      ) : selectedRole === "instructor" ? (
+        <Instructor />
+      ) : selectedRole === "student" ? (
+        <Student />
+      ) : null} */}
+    </>
   );
 };
 

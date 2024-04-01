@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useAppContext } from "@/app/context";
+import { AppContext } from "@/app/context";
 
 const StudentsOverview = () => {
     const { 
@@ -10,6 +10,8 @@ const StudentsOverview = () => {
         fetchStudentsInCohort,
         selectedCohort,
     } = useContext(AppContext);
+
+    console.log("selectedCohort: ", selectedCohort)
     
     useEffect(() => {
         fetchStudentsInCohort(selectedCohort.id);

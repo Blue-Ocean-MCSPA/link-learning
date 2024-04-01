@@ -1,7 +1,7 @@
-import { updateSession } from "./lib.js";
+// import { updateSession } from "./lib.js";
 
-async function middleware(request) {
-  return await updateSession(request);
-}
+// async function middleware(request) {
+//   return await updateSession(request);
+// }
 
-export { middleware };
+// export { middleware };

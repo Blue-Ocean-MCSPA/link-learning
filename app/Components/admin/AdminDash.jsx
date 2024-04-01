@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../context/index.jsx";
-import SelectIntructors from "./SelectInstuctors";
+import SelectIntructors from "./SelectInstuctors.jsx";
 
 //This screen ig is the clickable functionalilty
 // this page is the AdminDash and also Admin....
@@ -8,26 +8,26 @@ import SelectIntructors from "./SelectInstuctors";
 
 const AdminDashboard = ({ setSelectedCohort, setSelectedInstructor }) => {
   //const { cohorts, setCohorts } = useContext(AppContext);
-  const [ cohorts, setCohorts ] = useState([]);
+  const [cohorts, setCohorts] = useState([]);
 
   const fetchCohorts = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/cohort/');
-        if (!response.ok) {
-            throw new Error('Failed to fetch cohorts');
-        }
-        const data = await response.json();
-        setCohorts(data.cohorts.rows);
-        console.log('Cohorts fetched:', data.cohorts.rows);
+      const response = await fetch("http://localhost:3000/api/cohort/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch cohorts");
+      }
+      const data = await response.json();
+      setCohorts(data.cohorts.rows);
+      console.log("Cohorts fetched:", data.cohorts.rows);
     } catch (error) {
-        console.error('Error fetching cohorts:', error);
-        setCohorts([]);
+      console.error("Error fetching cohorts:", error);
+      setCohorts([]);
     }
-}
+  };
 
-useEffect(() => {
-  fetchCohorts();
-}, [])
+  useEffect(() => {
+    fetchCohorts();
+  }, []);
 
   const cohortClick = (cohort) => {
     setSelectedCohort(cohort);

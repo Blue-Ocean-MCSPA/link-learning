@@ -1,3 +1,7 @@
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
+
+
 export async function GET(request, id) {
     const data = request.json();
     id = parseInt(id.params.id) || data.id;
@@ -5,18 +9,6 @@ export async function GET(request, id) {
   return NextResponse.json({ result }, { status: 200 });
 }
 
-export async function GET(request, params) {
-  try {
-    const { id } = params.id; // Access id directly from params
-    console.log("Getting id of ", parseInt(id));
-
-    const pets = await sql`SELECT * FROM users WHERE id = ${id}`;
-    return NextResponse.json({ pets }, { status: 200 });
-  } catch (error) {
-    console.error('Error executing query:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
-}
 export async function DELETE(request, id) {
     const data = request.json();
     id = parseInt(id.params.id) || data.id;
@@ -39,7 +31,7 @@ export async function PATCH(request, id) {
             roleid = COALESCE(${roleid}, roleid)
             contact_info = COALESCE(${contact_info}, contact_info)
             certifications_and_training = COALESCE(${certifications_and_training}, certifications_and_training)
-            performance_metric = COALESCE(${performance_metric}, performance_metric)
+            performance_metrics = COALESCE(${performance_metrics}, performance_metrics)
             activity_log = COALESCE(${activity_log}, activity_log)
             grade = COALESCE(${grade}, grade)
             assignments_completed = COALESCE(${assignments_completed}, assignments_completed)
