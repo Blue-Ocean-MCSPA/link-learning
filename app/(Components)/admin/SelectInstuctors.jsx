@@ -79,7 +79,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       <div className="flex p-5 bg-slate-600 items-center">
         <div className="text-white">Instructors</div>
         <button className=" ml-10 text-white" onClick={handleAddInstructor}>
-          Add Intructor
+          Add Instructor
         </button>
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard

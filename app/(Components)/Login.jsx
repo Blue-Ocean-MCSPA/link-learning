@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
   const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
-  const { setSelectedRole } = useContext(AppContext);
+  const { selectedRole, setSelectedRole, changeSelectedRole } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,12 +34,14 @@ const Login = () => {
         console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole);
 
         if (newRole === "1") {
+          console.log("BEFORE set role: ", selectedRole);//-> wrong
+          const loginRole = await changeSelectedRole("Admin");
+          console.log("AFTER set role: ", selectedRole, loginRole);// -> Admin
           router.push("/admin");
-          setSelectedRole("Admin");
         } else if (newRole === "2") {
           console.log("Instructor route pushed");
           router.push("/instructor");
-          setSelectedRole("instructor");
+          changeSelectedRole("instructor");
         } else if (newRole === "3") {
           router.push("/student");
         }
