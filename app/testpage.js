@@ -1,113 +1,78 @@
-import React, { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
-import { getSession, login } from "@/lib";
+'use client';
+import React from "react";
+import { useAppContext } from './context/index.jsx';
+import Link from "next/link";
+import { useState } from "react";
 
-const Login = async () => {
-    const session = await getSession();
+const Home = () => {
+    const { 
+		cohorts, 
+		setCohorts,
+		loggedInRole,
+		setLoggedInRole,
 
-    const router = useRouter();
+	} = useAppContext();
 
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    }
-
-    const handleLoginClick = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await fetch(`/api/users`) // all the users
-            const data = await response.json();
-            const matchedRows = data.data.rows.filter((row) => {
-                return row.email === formData.email && row.password_hash === formData.password;
-            });
-            if (matchedRows.length > 0) {
-                console.log("Email and password matched");
-                console.log("role id for this matched user: ", matchedRows[0].roleid);
-                // Redirect based on role
-                router.push(`/${getRoleRoute(matchedRows[0].roleid)}`);
-            } else {
-                alert("Invalid email or password.");
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    const getRoleRoute = (roleid) => {
-        switch (roleid) {
-            case '1':
-                return 'admin';
-            case '2':
-                return 'instructor';
-            case '3':
-                return 'student';
-            default:
-                return '';
-        }
-    }
-
+    const [darkMode, setDarkMode] = useState(false);
+  
+    const toggleDarkMode = () => {
+      setDarkMode(!darkMode);
+    };
+  
+    console.log(cohorts, loggedInRole);
+  
     return (
-        <div className="flex">
-            <div className="w-2/5 flex flex-col justify-center items-center h-screen bg-light-background">
-                <div className="flex flex-col text-6xl w-full justify-center h-1/3">
-                    <div className="text-center tracking-wide font-sans text-light-foreground">
-                        Learning Link
-                    </div>
-                </div>
-                <div className="flex flex-col h-full justify-center items-center w-full bg-light-cursor">
-                    <div className="w-2/3 h-1/2">
-                        <div className="ml-2 mb-5 text-2xl text-light-active_selection">Login to your account</div>
-                        <div className="pb-2">
-                            <label htmlFor="email" className="block text-base mb-2"></label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                placeholder="Email"
-                                autoComplete="email"
-                                className="bg-light-background border border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="pb-2">
-                            <label htmlFor="password" className="block text-base mb-2"></label>
-                            <input 
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                placeholder="Password"
-                                className="bg-light-background border border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="flex justify-center">
-                            <button
-                                className="w-1/2 text-center mr-4 mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
-                                onClick={handleLoginClick}
-                            >
-                                Login
-                            </button>
-                            <button
-                                className="border border-light-background w-1/2 text-center mt-3 py-1 text-base text-light-background hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full"
-                            >
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
-                </div>
+      <div
+        className={`${darkMode && "dark"} flex-col w-full h-screen ${
+          darkMode ? "bg-dark-cursor" : "bg-light-foreground"
+        }`}
+      >
+        <div className="bg-light-background dark:bg-dark-background border border-light-background dark:border-dark-background rounded-tl-full rounded-r-xl flex justify-between h-1/5">
+          <div className="pt-8 pl-16 text-6xl text-light-foreground dark:text-dark-foreground">
+            LearningLink
+          </div>
+          <div className="flex">
+            <div
+              className="h-1/5 mt-2 mr-1 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
+              onClick={toggleDarkMode}
+            >
+              <img
+                src="/light-dark-mode.svg"
+                className={`h-full w-full object-cover transition-transform ${
+                  darkMode ? "transform rotate-180" : ""
+                }`}
+              />
             </div>
-            <div className="bg-orange-50 w-3/5 h-full opacity-75">
-                <img src="/fellowMugExtra2.webp" alt="placeholder" className="object-cover" />
+            <div className="flex-col">
+              <div className="flex mt-2 w-[80px] justify-center ml-auto cursor-pointer hover:text-light-cursor text-light-foreground dark:text-dark-foreground dark:hover:text-dark-numbers">
+                <Link href="/login">Login</Link>
+              </div>
             </div>
+          </div>
         </div>
-    )
-}
-
-export default Login;
+        <div className="flex border border-light-cursor dark:border-dark-active_selection rounded-b-xl bg-light-cursor dark:bg-dark-active_selection h-4/5 justify-between">
+          <div className="w-2/5 mx-16 mt-16">
+            <div className="text-3xl pb-4 text-light-background dark:text-dark-cursor">
+              Drifting through the wind? Wanting to start again?
+            </div>
+            <hr></hr>
+            <div className="text-xl pt-6 text-light-inactive_selection dark:text-dark-cursor">
+              {" "}
+              Overcome life. See that mountain? You can climb it. Our formula has
+              worked for over 10 years. With 16 times the detail - it just works!
+              Let us be your link to learning.
+            </div>
+          </div>
+          <div className="my-12 mr-12">
+            <img
+              src="/student.png"
+              className="h-full object-cover rounded-xl"
+            ></img>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
+  export default Home;
+  
