@@ -1,41 +1,36 @@
+"use client";
 import Link from "next/link";
-import React from "react";
-import { useState } from "react";
+import React, { useContext } from "react";
+
+import { AppContext } from "../context";
 
 const LandingPage = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
+  const { darkMode, toggleDarkMode } = useContext(AppContext);
+  console.log("Dark Mode is: ", darkMode);
   return (
-    <div
-      className={`${darkMode && "dark"} flex-col w-full h-screen ${darkMode ? "bg-dark-cursor" : "bg-light-foreground"
-        }`}
-    >
+    <div className={`${darkMode && "dark"} flex-col overflow-hidden w-full h-screen ${darkMode ? "bg-dark-cursor" : "bg-light-foreground"}`}>
+      {/* Landing Page Header */}
       <div className="bg-light-background dark:bg-dark-background border border-light-background dark:border-dark-background rounded-tl-full rounded-r-xl flex justify-between h-1/5">
-        <div className="pt-8 pl-16 text-6xl text-light-foreground dark:text-dark-foreground">
-          LearningLink
-        </div>
+        <div className="pt-8 ml-24 text-6xl text-light-foreground dark:text-dark-foreground">LearningLink</div>
         <div className="flex">
+          {/* Dark mode div */}
           <div
             className="h-1/5 mt-2 mr-1 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
-            onClick={toggleDarkMode}
-          >
+            onClick={toggleDarkMode}>
             <img
               src="/light-dark-mode.svg"
-              className={`h-full w-full object-cover transition-transform ${darkMode ? "transform rotate-180" : ""
-                }`}
+              className={`h-full w-full object-cover transition-transform ${darkMode ? "transform rotate-180" : ""}`}
             />
           </div>
-          <div className="flex-col">
-            <div className="flex mt-2 w-[80px] justify-center ml-auto cursor-pointer hover:text-light-cursor text-light-foreground dark:text-dark-foreground dark:hover:text-dark-numbers">
+          {/* Login Div */}
+          <div className="flex flex-col">
+            <div className="flex mt-4 w-[80px] justify-center text-lg cursor-pointer transition ease-in duration-100 hover:scale-90 hover:text-light-cursor text-light-foreground dark:text-dark-foreground dark:hover:text-dark-numbers">
               <Link href="/login">Login</Link>
             </div>
           </div>
         </div>
       </div>
+      {/* Landing page details */}
       <div className="flex border border-light-cursor dark:border-dark-active_selection rounded-b-xl bg-light-cursor dark:bg-dark-active_selection h-4/5 justify-between">
         <div className="w-2/5 mx-16 mt-16">
           <div className="text-3xl pb-4 text-light-background dark:text-dark-cursor">
@@ -61,4 +56,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
