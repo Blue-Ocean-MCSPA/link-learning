@@ -3,20 +3,12 @@ import React, { useContext, useEffect } from "react";
 import { AppContext } from "../context/index";
 import Link from "next/link";
 
-//The header template is the big daddy container housing :
-// Admin, AdmiDash
-// i will display it in Blue
-
 const HeaderTemplate = () => {
   //selected role need to be updated when the user logs in and
   // then we can use the selected role state
   //Header Template is wrapped in AppWrapper i just checked
   const { selectedRole, users, setUsers, darkMode, toggleDarkMode } =
     useContext(AppContext);
-
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
 
   // putting the fetch in the useEffect so that there are no issues with state variables not being updated asap due to the async funtion.
   useEffect(() => {
@@ -97,37 +89,3 @@ const HeaderTemplate = () => {
 };
 
 export default HeaderTemplate;
-
-//  <div className="right-div flex border border-red-500">
-//           <ul className="flex justify-center items-center">
-//             <li>
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 viewBox="0 0 24 24"
-//                 fill="text-black"
-//                 className="w-10 h-10"
-//               >
-//                 <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-//                 <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-//               </svg>
-//             </li>
-//             <li>
-//               <div
-//                 className="h-10 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
-//                 onClick={toggleDarkMode}
-//               >
-//                 <img
-//                   src="/light-dark-mode.svg"
-//                   className={`h-full w-full object-cover transition-transform ${
-//                     darkMode ? "transform rotate-180" : ""
-//                   }`}
-//                 />
-//               </div>
-//             </li>
-//             <li>
-//               <div className="flex justify-center items-center rounded-full w-12 h-12 m-2 bg-blue-300 text-black">
-//                 {firstLetter}
-//               </div>
-//             </li>
-//           </ul>
-//         </div>

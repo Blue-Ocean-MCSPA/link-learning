@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { sql } from "@vercel/postgres";
 
 export default async function handler(req, res) {
   try {
@@ -12,8 +12,6 @@ export default async function handler(req, res) {
     console.error(error);
 
     // Respond with a generic error message
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
-
-
