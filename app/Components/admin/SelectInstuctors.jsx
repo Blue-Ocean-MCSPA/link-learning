@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import Modal from "./Create";
+import Modal from "./CreateInstructor";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -14,6 +14,11 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
@@ -37,12 +42,46 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     setInstructorNames(input);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     //post
     e.preventDefault();
+    console.log(data);
+    setData("");
   }
 
+  const handleAddInstructor = async () => {
+    try {
+      const response = await fetch(`/api/users`, {
+        method: "POST",
+        header: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password_hash,
+          first_name: addInstructor,
+          last_name,
+          roleid,
+          contact_info,
+          certifications_and_training,
+          performance_metrics,
+          activity_log,
+          grade,
+          assignments_completed,
+          course_started,
+          course_ended,
+          absent_days,
+        }),
+      }); // all the users
+
+      const data = await response.json();
+      return data;
+      console.log("handle add instructor clicked");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const randomNum = Math.floor(Math.random() * 5) + 1;
+
   async function fetchSearch(value) {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -86,14 +125,30 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         {/* putting the pop here for now  */}
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
           <form onSubmit={handleSubmit}>
-            <h3 className="font-bold text-lg">Instructor Name</h3>
+            <h3 className="font-bold text-lg">
+              Add new Instructor's Information
+            </h3>
             <div className="modal-action">
               <input
                 type="text"
                 placeholder="type here..."
                 className="input input-bordered w-full max-full"
+                onChange={(e) => setData(e.target.value)}
               />
-              <buttton type="submit" className="btn">
+              <input
+                type="text"
+                placeholder="type here..."
+                className="input input-bordered w-full max-full"
+                onChange={(e) => setValue(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="type here..."
+                className="input input-bordered w-full max-full"
+                onChange={(e) => setValue(e.target.value)}
+              />
+
+              <buttton type="submit" className="btn" onClick={handleSubmit}>
                 Add
               </buttton>
             </div>
