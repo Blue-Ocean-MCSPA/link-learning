@@ -75,7 +75,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   }
 
   return (
-    <div className=" border h-screen">
+    <div className=" h-screen">
       <div className="flex p-5 bg-slate-600 items-center">
         <div className="text-white">Instructors</div>
         <button className=" ml-10 text-white" onClick={handleAddInstructor}>
@@ -110,31 +110,86 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       </div>
       {/* this div is suppose to house the lower elements and flex them */}
       <div className="flex h-screen">
-        <div className=" w-52 hover:scroll-smooth">
+        <div className="w-full">
+          <div className="flex flex-col">
+            <div className="flext text-light-background bg-light-cursor py-3">
+              <div className="w-1/4 pl-5">NAME</div>
+              <div className="w-1/4 text-center">EMAIL</div>
+              <div className="w-1/4 text-center">COHORT ASSIGNED</div>
+            </div>
+          </div>
           {instructorNames
             .filter((instructor) => instructor.email.includes("instructor"))
             .map((instructor, id) => {
               return (
-                <div
-                  key={id}
-                  className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300"
-                  onClick={() => handleClickInstructor(instructor)}
-                >
-                  {instructor.first_name + " " + instructor.last_name}
-                </div>
+                <>
+                  <div
+                    key={id}
+                    className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300  bg-light-background text-light-foreground"
+                    onClick={() => handleClickInstructor(instructor)}
+                  >
+                    <div className="flex py-3">
+                      <div className="w-1/4 pl-5">
+                        {instructor.first_name + " " + instructor.last_name}
+                      </div>
+                      <div className="w-1/4">{instructor.email}</div>
+                      <div className="w-1/4 text-center">Metric</div>
+                      <div className="w-1/4 text-center">4</div>
+                    </div>
+                  </div>
+                </>
               );
             })}
         </div>
+        {/* separate this is for the pop up/ on click modal ---------------------*/}
         <div className="border flex flex-col justify-evenly items-center w-full bg-gray-200">
-          <div>
-            <h1>{selectName && selectName.first_name}</h1>
-            <h1>{selectName && selectName.contact_info}</h1>
-            <h1>
-              {selectName &&
-                selectName.performance_metrics &&
-                selectName.course_started}
-            </h1>
+          {/* underneath is the start  */}
+          <div className="flex items-between w-full student-info">
+            {selectName && (
+              <div className="flex flex-col rounded p-8">
+                <div className="flex justify-evenly items-between text-xl py-4 border border-gray-500">
+                  <div>
+                    Name: {selectName.first_name} {selectName.last_name}
+                  </div>
+                  <div>ID Number: {selectName.id}</div>
+                </div>
+                <div className="text-xl py-4 border border-gray-500">
+                  Class Grade: {selectName.grade}
+                </div>
+                <div className="flex text-xl py-4 border border-gray-500">
+                  <span className="pr-4 py-2">
+                    Absences: {selectName.absent_days}
+                  </span>
+                  <span className="p-2">
+                    Remaining Absences: {10 - selectName.absent_days}
+                  </span>
+                </div>
+                <div className="contact-info flex py-4 border border-gray-500">
+                  <div className="flex items-between text-xl">
+                    <div className="px-4">Contact Info: </div>
+                  </div>
+                  <div className="flex flex-col border border-gray-500">
+                    <div className="contact-info-top flex">
+                      <span className="text-xl p-2 border border-gray-500">
+                        Email: {JSON.parse(selectName.contact_info).email}
+                      </span>
+                      <span className="text-xl p-2 border border-gray-500">
+                        Phone Number:{" "}
+                        {JSON.parse(selectName.contact_info).phone}
+                      </span>
+                    </div>
+                    <div className="contact-info-bottom flex border border-gray-500">
+                      <span className="text-xl p-2">
+                        Address: {JSON.parse(selectName.contact_info).address}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-evenly p-5 mt-6 border-4 border-red-500 text-lx"></div>
+              </div>
+            )}
           </div>
+          {/* this is where the pop up for the info ends */}
         </div>
       </div>
     </div>
