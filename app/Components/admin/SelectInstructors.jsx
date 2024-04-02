@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import Modal from "./Create";
+import Modal from "./CreateInstructor";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -70,7 +70,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       const response = await fetch(`http://localhost:3000/api/users`); // all the users
       const data = await response.json();
       const matchedRows = data.data.rows;
-      console.log("fetch instructor names = ", matchedRows);
       //matchedRows = {id, email, pwrd, fname, lasname, }
       updateInstructorState(matchedRows);
       // console.log("state updated = ", instructorNames);
@@ -93,9 +92,9 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                 placeholder="type here..."
                 className="input input-bordered w-full max-full"
               />
-              <buttton type="submit" className="btn">
+              <button type="submit" className="btn">
                 Add
-              </buttton>
+              </button>
             </div>
           </form>
         </Modal>
