@@ -1,6 +1,9 @@
+'use client'
 import React, { useContext } from "react";
 import InstructorDashboard from "./InstructorDashboard";
 import CohortOverview from "./CohortOverview";
+import { AppWrapper } from "@/app/context";
+
 import withAuth from "../withAuth";
 import { AppContext } from "@/app/context";
 
@@ -13,17 +16,21 @@ function Instructor({ roleid }) {
     } = useContext(AppContext);
 
     return (
+    //     <AppWrapper>
+    //         <InstructorDashboard />
+    //         <CohortOverview />
+            
         <div>
             {selectedCohort ? (
                 <CohortOverview />
-            ) : (
+                ) : (
                 <InstructorDashboard />
             )}
-            {/* {roleid && <div>Role ID: {roleid}</div>} */}
         </div>
     );
 }
 
+{/* {roleid && <div>Role ID: {roleid}</div>} */}
 export default withAuth(Instructor, [2]);
 
 // import { useAppContext } from "@/app/context";

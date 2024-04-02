@@ -1,16 +1,40 @@
 "use client";
-import React, { useState } from "react";
-import Instructor from "./InstructorView/Instructor";
-import Admin from "./admin/Admin";
-import AppContext from "../context";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../context/index";
 
-//The header template is the big daddy container housing :
-// Admin, AdmiDash
-// i will display it in Blue
 
 const HeaderTemplate = () => {
-  const [selectedRole, setSelectedRole] = useState("admin");
-  const [selectedCohort, setSelectedCohort] = useState(null);
+  //selected role need to be updated when the user logs in and
+  // then we can use the selected role state
+  //Header Template is wrapped in AppWrapper i just checked
+  // const { selectedRole, users, setUsers } = useContext(AppContext);
+  const [selectedRole, setSelectedRole] = useState("admin")
+  const [selectedCohort, setSelectedCohort] = useState(null)
+  const [users, setUsers] = useState([])
+
+  // putting the fetch in the useEffect so that there are no issues with state variables not being updated asap due to the async funtion.
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await fetch("http://localhost:3000/api/users");
+        if (!response.ok) {
+          throw new Errow("Failed to fetch users");
+        }
+        const responseData = await response.json();
+        const userData = responseData.data.rows;
+        setUsers(userData);
+        console.log("Users fetched", userData);
+      } catch (error) {
+        console.log("Error fetching users:", error);
+        setUsers([]);
+      }
+    }
+    // calling to fetch the data within the use effect hook
+    fetchUsers();
+  }, []);
+
+  // going to make this a condition to prevent errows if the async doesnt populate. if it doesn't update the state varibale, then it will be an empty string rather than getting an error
+  // const firstLetter = users.length > 0 ? users[0].first_name : "";
 
   return (
     <>

@@ -14,6 +14,7 @@ export function UserProvider({ children }) {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [selectedCohort, setSelectedCohort] = useState(null);
     const [selectedTab, setSelectedTab] = useState('students');
+    // const [selectedRole, setSelectedRole] = useState(null);
 
     // Function to fetch users from the database and add them to state
     const fetchInstructorCohorts = async (id, callback) => {
@@ -114,6 +115,8 @@ export function UserProvider({ children }) {
             fetchUsers,
             selectedTab,
             setSelectedTab,
+            selectedRole,
+            setSelectedRole
         }}>
             {children}
         </AppContext.Provider>

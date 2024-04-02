@@ -14,6 +14,11 @@ export async function POST(request) {
     if (data.rowCount == 0) {
         return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
+
+    const saltRounds = 10;
+    const plainTextPassword = 'hashed_password';
+    const hashedPassword = await bcrypt.hash(plainTextPassword, saltRounds);
+    console.log(hashedPassword, 'hashedPassword')
     const user = data.rows[0];
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
     console.log(user.password_hash, password, passwordMatch)

@@ -57,16 +57,6 @@ const Login = () => {
                     router.push('/student');
                     router.refresh();
                 }
-                // if (data.user.roleid == 1) {
-                //     router.push('/admin');
-                //     router.refresh();
-                // } else if (data.user.roleid == 2) {
-                //     router.push('/instructor');
-                //     router.refresh();
-                // } else if (data.user.roleid == 3) {
-                //     router.push('/student');
-                //     router.refresh();
-                // }
         }
         catch (error) {
             console.error(error);

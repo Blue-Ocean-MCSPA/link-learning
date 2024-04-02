@@ -1,12 +1,14 @@
-// 'use client'
-// import React from "react";
-// import Login from "@/app/Components/Login";
+"use client";
+import React from "react";
+import Login from "@/app/(Components)/Login";
+import { AppWrapper } from "@/app/context/index.jsx";
 
-// const mainLogin = () => {
+const mainLogin = () => {
+  return (
+    <AppWrapper>
+      <Login />
+    </AppWrapper>
+  );
+};
 
-//     return (
-//             <Login/>
-//     );
-// }
-
-// export default mainLogin;
+export default mainLogin;
