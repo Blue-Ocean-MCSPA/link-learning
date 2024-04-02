@@ -1,3 +1,6 @@
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
+
 export async function GET(request, id) {
     const data = request.json();
     id = parseInt(id.params.id) || data.id;
