@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import { FaSearch } from "react-icons/fa";
 
 //npm install react-icons
+// npm i -D daisyui@latest
 
 const SelectInstructors = ({ setSelectedInstructor }) => {
   //These next 3 state lines are for fetch data
@@ -34,6 +34,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     setInstructorNames(input);
   }
 
+  const randomNum = Math.floor(Math.random() * 5) + 1;
   async function fetchSearch(value) {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -78,9 +79,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     <div className=" h-screen">
       <div className="flex p-5 bg-slate-600 items-center">
         <div className="text-white">Instructors</div>
-        <button className=" ml-10 text-white" onClick={handleAddInstructor}>
-          Add Instructor
-        </button>
+
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
         </button>
@@ -113,9 +112,10 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         <div className="w-full">
           <div className="flex flex-col">
             <div className="flex text-light-background bg-light-cursor py-4">
-              <div className="w-1/4 pl-5">NAME</div>
-              <div className="w-1/4 text-center">EMAIL</div>
-              <div className="w-1/4 text-center">COHORT ASSIGNED</div>
+              <div className="w-1 pl-5">NAME</div>
+              <div className="w-1/2 text-center">EMAIL</div>
+              <div className="w-1 text-center">COHORT ASSIGNED</div>
+              <div className="w-1/2 text-center">Rating</div>
             </div>
           </div>
           {instructorNames
@@ -133,8 +133,31 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                         {instructor.first_name + " " + instructor.last_name}
                       </div>
                       <div className="w-1/4">{instructor.email}</div>
-                      <div className="w-1/4 text-center">Metric</div>
-                      <div className="w-1/4 text-center">4</div>
+                      <div className="w-1/4 text-center">{randomNum}</div>
+                      <div className="rating flex">
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          checked
+                        />
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                      </div>
+                      <div className="w-1/4 text-center">add/delete</div>
                     </div>
                   </div>
                 </>

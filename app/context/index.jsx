@@ -17,7 +17,7 @@ export function AppWrapper({ children }) {
   const [selectedInstructor, setSelectedInstructor] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedTab, setSelectedTab] = useState("students");
-  const [selectedRole, setSelectedRole] = useState("Default");
+  const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
 
   const changeLoggedInRole = (string) => {
@@ -129,7 +129,7 @@ export function AppWrapper({ children }) {
         toggleDarkMode,
         selectedInstructor,
         setSelectedInstructor,
-        changeSelectedRole
+        changeSelectedRole,
       }}
     >
       {children}
