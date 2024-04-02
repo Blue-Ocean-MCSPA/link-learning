@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext, useEffect } from "react";
 import { AppContext } from "../context/index";
+import Link from "next/link";
 
 //The header template is the big daddy container housing :
 // Admin, AdmiDash
@@ -10,7 +11,7 @@ const HeaderTemplate = () => {
   //selected role need to be updated when the user logs in and
   // then we can use the selected role state
   //Header Template is wrapped in AppWrapper i just checked
-  const { selectedRole, users, setUsers } = useContext(AppContext);
+  const { selectedRole, users, setUsers, darkMode, toggleDarkMode } = useContext(AppContext);
 
   // useEffect(() => {
   //   fetchUsers();
@@ -42,10 +43,12 @@ const HeaderTemplate = () => {
 
   return (
     <>
-      <div className="banner flex justify-between items-center p-4 bg-light-foreground">
-        <div className="left-div"></div>
-        <h1 className="centered-div text-white">{selectedRole}</h1>
-        <div className="right-div flex bg-slate-100 border rounded">
+      <div className="banner flex justify-between items-center p-3 bg-light-background">
+        <div className="left-div pl-2 text-2xl text-light-foreground dark:text-dark-foreground">
+          <Link href="/">LearningLink</Link>
+          </div>
+        <h1 className="centered-div text-2xl text-light-foreground">{selectedRole}</h1>
+        <div className="right-div flex">
           <ul className="flex justify-center items-center">
             <li>
               <svg
@@ -59,7 +62,18 @@ const HeaderTemplate = () => {
               </svg>
             </li>
             <li>
-              <svg
+              <div
+                className="h-10 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
+                onClick={toggleDarkMode}
+              >
+                <img
+                  src="/light-dark-mode.svg"
+                  className={`h-full w-full object-cover transition-transform ${
+                    darkMode ? "transform rotate-180" : ""
+                  }`}
+                />
+              </div>
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="text-black"
@@ -70,7 +84,7 @@ const HeaderTemplate = () => {
                   d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
                   clipRule="evenodd"
                 />
-              </svg>
+              </svg> */}
             </li>
             <li>
               <div className="flex justify-center items-center rounded-full w-12 h-12 m-2 bg-blue-300 text-black">

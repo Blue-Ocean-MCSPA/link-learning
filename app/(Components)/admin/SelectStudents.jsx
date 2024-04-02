@@ -76,7 +76,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
 
   return (
     <div className="h-screen">
-      <div className="flex p-5 bg-light-comment items-between">
+      <div className="flex p-5 bg-light-foreground items-between">
         <div className="text-white">Students</div>
         <button className=" ml-10 text-white" onClick={handleAddStudent}>
           Add Student
@@ -112,7 +112,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
       <div className="h-screen">
         <div className="w-full">
           <div className="flex flex-col">
-            <div className="flex text-light-foreground bg-light-search_highlight py-3">
+            <div className="flex text-light-background bg-light-cursor py-3">
               <div className="w-1/4 pl-5">NAME</div>
               <div className="w-1/4">EMAIL</div>
               <div className="w-1/4 text-center">ASSIGNMENTS COMPLETED</div>

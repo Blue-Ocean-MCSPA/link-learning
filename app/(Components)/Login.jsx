@@ -3,6 +3,7 @@
 import React, { useState, useContext } from "react";
 import { AppContext, useAppContext } from "../context";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Login = () => {
   const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
@@ -60,7 +61,7 @@ const Login = () => {
       <div className="w-2/5 flex flex-col justify-center items-center h-screen bg-light-background">
         <div className="flex flex-col text-6xl w-full justify-center h-1/3">
           <div className="text-center tracking-wide font-sans text-light-foreground">
-            Learning Link
+            <Link href="/">LearningLink</Link>
           </div>
         </div>
         <div className="flex flex-col h-full justify-center items-center w-full bg-light-cursor">

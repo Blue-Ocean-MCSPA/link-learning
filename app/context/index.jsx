@@ -17,7 +17,7 @@ export function AppWrapper({ children }) {
   const [selectedInstructor, setSelectedInstructor] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [selectedTab, setSelectedTab] = useState("students");
-  const [selectedRole, setSelectedRole] = useState("WRONG");
+  const [selectedRole, setSelectedRole] = useState("Default");
   const [darkMode, setDarkMode] = useState(false);
 
   const changeLoggedInRole = (string) => {
