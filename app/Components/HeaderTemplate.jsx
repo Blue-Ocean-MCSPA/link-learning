@@ -3,10 +3,6 @@ import React, { useContext, useEffect } from "react";
 import { AppContext } from "../context/index";
 import Link from "next/link";
 
-//The header template is the big daddy container housing :
-// Admin, AdmiDash
-// i will display it in Blue
-
 const HeaderTemplate = () => {
   //selected role need to be updated when the user logs in and
   // then we can use the selected role state

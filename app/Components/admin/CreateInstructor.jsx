@@ -27,7 +27,7 @@ function Modal({ isOpen, setIsOpen, children }) {
       />
       {isOpen && (
         <div className="modal" role="dialog">
-          <div className="modal-box">
+          <div className="modal-box bg-white">
             {children}
 
             <div className="modal-action">
