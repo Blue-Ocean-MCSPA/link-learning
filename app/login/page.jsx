@@ -1,11 +1,19 @@
 'use client'
-import React from "react";
-import Login from "../components/Login";
+// import Login from '/Users/sp/Desktop/blueocean/link-learning/app/Components/Login.jsx'
+import Login from '../(Components)/Login.jsx'
+import Link from 'next/link';
+import useAuth from '../../useAuth/index.js'
 
-const mainLogin = () => {
-    return (
-        <Login />
-    )
+export default function Home() {
+	const auth = useAuth;
+	return (
+    	<>
+			{auth ? (
+				<Link href="/students"></Link>
+			) : ( <Link href="/login"></Link>)
+			
+			}
+			<Login />
+		</>
+  	);
 }
-
-export default mainLogin;

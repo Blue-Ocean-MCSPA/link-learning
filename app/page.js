@@ -1,32 +1,12 @@
-// "use client";
-// import { AppProvider } from "./Context/Context";
-// import HeaderTemplate from "./Components/HeaderTemplate";
-
-// export default function Home() {
-//   return (
-//     <>
-//       <AppProvider>
-//         <HeaderTemplate />
-//       </AppProvider>
-//     </>
-//   );
-// }
-
 "use client";
-
-import LandingPage from "./Components/LandingPage";
+import LandingPage from "./(Components)/LandingPage.jsx";
+import { AppWrapper } from "./context/index.jsx";
 
 export default function Home() {
-  return (
-    <>
-      <LandingPage />
-    </>
-  );
 
-  // 		<>
-  // 			<StudentProvider>
-  // 				<HeaderTemplate />
-  // 			</StudentProvider>
-  // 		</>
-  // 	);
+	return (
+		<AppWrapper>
+			<LandingPage />
+		</AppWrapper> 
+  	);
 }
