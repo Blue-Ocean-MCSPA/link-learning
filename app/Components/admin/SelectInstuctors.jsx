@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import Modal from "./Create";
+import Modal from "./CreateInstructor";
 
 //npm install react-icons
 // npm i -D daisyui@latest
