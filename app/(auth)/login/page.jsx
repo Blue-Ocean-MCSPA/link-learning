@@ -5,9 +5,7 @@ import { AppWrapper } from "@/app/context/index.jsx";
 
 const mainLogin = () => {
   return (
-    <AppWrapper>
       <Login />
-    </AppWrapper>
   );
 };
 
