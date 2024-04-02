@@ -44,17 +44,15 @@ const HeaderTemplate = () => {
 
   return (
     <>
-      <div className="banner flex justify-between items-center p-3 bg-light-background">
-        <div className="left-div pl-2 text-2xl text-light-foreground dark:text-dark-foreground">
+      <div className="banner flex justify-between items-center p-3 bg-slate-800">
+        <div className="left-div pl-2 text-2xl text-black">
           <Link href="/">LearningLink</Link>
         </div>
-        <h1 className="centered-div text-2xl text-light-foreground">
-          {selectedRole}
-        </h1>
+        <h1 className="centered-div text-2xl text-black">{selectedRole}</h1>
         {/* this is where the menu will be  -------------------------------*/}
         <ul className="flex-row menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
           <li className="flex">
-            <Link href="/login">
+            <Link href="/msg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
