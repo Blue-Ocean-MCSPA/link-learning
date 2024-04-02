@@ -42,7 +42,7 @@ const HeaderTemplate = () => {
 
   return (
     <>
-      <div className="banner flex justify-between items-center p-4 bg-slate-800">
+      <div className="banner flex justify-between items-center p-4 bg-light-foreground">
         <div className="left-div"></div>
         <h1 className="centered-div text-white">{selectedRole}</h1>
         <div className="right-div flex bg-slate-100 border rounded">

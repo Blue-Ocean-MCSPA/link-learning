@@ -28,6 +28,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
 
   function handleClickStudents(students) {
     setSelectName(students);
+
   }
 
   function updateStudentState(input) {
@@ -74,8 +75,8 @@ const SelectStudents = ({ setSelectedStudents }) => {
   }
 
   return (
-    <div className="border h-screen">
-      <div className="flex p-5 bg-slate-600 items-between">
+    <div className="h-screen">
+      <div className="flex p-5 bg-light-comment items-between">
         <div className="text-white">Students</div>
         <button className=" ml-10 text-white" onClick={handleAddStudent}>
           Add Student
@@ -110,11 +111,12 @@ const SelectStudents = ({ setSelectedStudents }) => {
       {/* this div is suppose to house the lower elements and flex them */}
       <div className="h-screen">
         <div className="w-full">
-          <div className="flex flex-col border-2">
-            <div className="flex p-2">
-              <div className="w-1/3">NAME</div>
-              <div className="w-1/3">EMAIL</div>
-              <div className="w-1/3">GRADE</div>
+          <div className="flex flex-col">
+            <div className="flex text-light-foreground bg-light-search_highlight py-3">
+              <div className="w-1/4 pl-5">NAME</div>
+              <div className="w-1/4">EMAIL</div>
+              <div className="w-1/4 text-center">ASSIGNMENTS COMPLETED</div>
+              <div className="w-1/4 text-center">GRADE</div>
             </div>
           </div>
           {studentNames
@@ -124,15 +126,16 @@ const SelectStudents = ({ setSelectedStudents }) => {
                 <>
                   <div
                     key={id}
-                    className="border hover:cursor-pointer hover:bg-gray-300"
+                    className="border hover:cursor-pointer hover:bg-gray-300 bg-light-background text-light-foreground"
                     onClick={() => handleClickStudents(student)}
                   >
-                    <div className="flex p-2">
-                      <div className="w-1/3">
+                    <div className="flex py-3">
+                      <div className="w-1/4 pl-5">
                         {student.first_name + " " + student.last_name}
                       </div>
-                      <div className="w-1/3">{student.email}</div>
-                      <div className="w-1/3 text-center">{student.grade}</div>
+                      <div className="w-1/4">{student.email}</div>
+                      <div className="w-1/4 text-center">{student.assignments_completed}</div>
+                      <div className="w-1/4 text-center">{student.grade}</div>
                     </div>
                   </div>
                 </>

@@ -21,16 +21,12 @@ export function AppWrapper({ children }) {
   const [darkMode, setDarkMode] = useState(false);
 
   const changeLoggedInRole = (string) => {
-    // console.log("Before change: ", loggedInRole);
     setLoggedInRole(string);
-    // console.log("After change: ", loggedInRole);
     return string;
   };
 
   const changeSelectedRole = (string) => {
-
     setSelectedRole(string);
-
     return string;
   };
 
