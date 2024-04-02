@@ -8,11 +8,11 @@ import Link from "next/link";
 const Login = () => {
   const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
   const { selectedRole, setSelectedRole, changeSelectedRole } = useContext(AppContext);
-
+  const { darkMode, toggleDarkMode } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
+  console.log("Dark Mode is: ", darkMode);
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -57,12 +57,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex">
-      <div className="w-2/5 flex flex-col justify-center items-center h-screen bg-light-background">
-        <div className="flex flex-col text-6xl w-full justify-center h-1/3">
-          <div className="text-center tracking-wide font-sans text-light-foreground">
-            <Link href="/">LearningLink</Link>
-          </div>
+    <div className={`${darkMode && "dark"} flex overflow-hidden w-full h-screen ${darkMode ? "bg-dark-cursor" : "bg-light-foreground"}`}>
+      <div className="w-2/5 flex flex-col bg-light-background dark:bg-dark-background  justify-between">
+        <div className="pt-8 h-1/5 ml-24 text-6xl text-light-foreground dark:text-dark-foreground">
+          <Link href="/">LearningLink</Link>
         </div>
         <div className="flex flex-col h-full justify-center items-center w-full bg-light-cursor">
           <div className="w-2/3 h-1/2">
