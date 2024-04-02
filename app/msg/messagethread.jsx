@@ -98,8 +98,7 @@ const MessageThread = () => {
     // Function to fetch messages from your API
     const fetchMessages = async () => {
       const response = await fetch('/api/messages'); // Adjust this URL based on your actual API endpoint
-      const jsonResponse = await response.json();
-      const fetchedMessages = jsonResponse.data.rows; // Accessing the nested messages correctly
+      const fetchedMessages = await response.json(); // Directly accessing the array of messages
       setMessages(fetchedMessages);
     };
   
@@ -118,22 +117,21 @@ const MessageThread = () => {
 
   const handleAddMessage = async () => {
     // Assuming the API generates a unique ID
-    const messageToSend = {
-      senderID: 1, // Static senderID for the example
-      recipientID: 2, // Static recipientID for the example
-      time_stamp: new Date().toISOString().split('T')[0], // Use ISO date format
-      message: newMessage
-    };
-  
+    
+    const senderid= 1 // Static senderID for the example
+    const recipientid= 2 // Static recipientID for the example
+    const time_stamp= new Date().toISOString().split('T')[0] // Use ISO date format
+    setMessages(newMessage)
+      
     try {
       const response = await fetch('/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(messageToSend),
+        body: JSON.stringify({ senderid, recipientid, time_stamp, message: newMessage}),
       });
-  
+      console.log(response)
       if (!response.ok) throw new Error('Failed to send message');
   
       const addedMessage = await response.json();
@@ -144,6 +142,7 @@ const MessageThread = () => {
     }
   };
 
+ 
   const handleDeleteMessage = async (id) => {
     try {
       const response = await fetch(`/api/messages/${id}`, {
@@ -158,11 +157,10 @@ const MessageThread = () => {
     }
   };
 
-  // Event handler function that handles editing a message.
   const handleEditStart = (id) => {
-    const message = messages.find(message => message.id === id); // Find a specific message with given ID and store it in a const.
-    setEditingId(id); // Set the editing ID to the ID of the current message
-    setEditMessageText(message.text); // Set the editMessageText the current text of the message
+    const message = messages.find(message => message.id === id);
+    setEditingId(id);
+    setEditMessageText(message.message); // Here, ensure you're using the correct property name
   };
 
   const handleEditSubmit = async (id) => {
@@ -193,7 +191,19 @@ const MessageThread = () => {
   // Function to handle input field changes.
   const handleInputChange = (event) => {
     setNewMessage(event.target.value); // Set new message text to whatever the user is typing. 
->>>>>>> bd59320bf04a3a18ef16263a669395735f837ed7
+  };
+
+  const formatDate = (isoDateString) => {
+    const date = new Date(isoDateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
   };
 
   return (
@@ -261,7 +271,7 @@ const MessageThread = () => {
                     </button>
 =======
             <div className="text-sm text-gray-500">
-              {`Message ID: ${message.id}`} <span className="font-semibold">{message.time_stamp}</span>
+              {`Message ID: ${message.id}`} <span className="font-semibold">{formatDate(message.time_stamp)}</span>
             </div>
             {editingId === message.id ? (
               <input
@@ -327,4 +337,3 @@ export default MessageThread;
 };
 
 export default MessageThread;
->>>>>>> bd59320bf04a3a18ef16263a669395735f837ed7

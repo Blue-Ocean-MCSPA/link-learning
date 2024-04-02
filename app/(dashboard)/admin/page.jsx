@@ -8,7 +8,7 @@ export default function AdminPage() {
   return (
     <>
       <AppWrapper>
-        <HeaderTemplate />
+        {/* <HeaderTemplate /> */}
         <Admin />
       </AppWrapper>
     </>

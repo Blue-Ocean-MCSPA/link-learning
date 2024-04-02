@@ -12,9 +12,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-{/* <div className="navbar">
-  <Link href="/">Home</Link>
-  <Link href="/api/students">Student</Link>
-  <Link href="/submit">Submit</Link>
-</div> */}

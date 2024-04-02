@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { FaSearch } from "react-icons/fa";
 
-//npm install react-icons
-
 const SelectInstructors = ({ setSelectedInstructor }) => {
   //These next 3 state lines are for fetch data
   const [dataSource, setDataSource] = useState([]);
