@@ -52,8 +52,8 @@ const HeaderTemplate = () => {
           {selectedRole}
         </h1>
         {/* this is where the menu will be  -------------------------------*/}
-        <ul className=" menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
-          <li>
+        <ul className="flex-row menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
+          <li className="flex">
             <Link href="/login">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ const HeaderTemplate = () => {
               <span className="badge badge-sm">99+</span>
             </Link>
           </li>
-          <li>
+          <li className="flex ">
             <a>
               <div
                 className="h-10 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
@@ -83,7 +83,7 @@ const HeaderTemplate = () => {
               </div>
             </a>
           </li>
-          <li>
+          <li className="flex">
             <Link href="/login">
               <div className="avatar online placeholder">
                 <div className="bg-neutral text-neutral-content rounded-full w-12">
