@@ -109,10 +109,10 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         </div>
       </div>
       {/* this div is suppose to house the lower elements and flex them */}
-      <div className="flex h-screen">
+      <div className="h-screen">
         <div className="w-full">
           <div className="flex flex-col">
-            <div className="flext text-light-background bg-light-cursor py-3">
+            <div className="flex text-light-background bg-light-cursor py-4">
               <div className="w-1/4 pl-5">NAME</div>
               <div className="w-1/4 text-center">EMAIL</div>
               <div className="w-1/4 text-center">COHORT ASSIGNED</div>
