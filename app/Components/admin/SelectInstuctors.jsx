@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import Modal from "./CreateInstructor";
+import Form from "./Form";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -124,35 +125,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         <div className="text-white">Instructors</div>
         {/* putting the pop here for now  */}
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-          <form onSubmit={handleSubmit}>
-            <h3 className="font-bold text-lg">
-              Add new Instructor's Information
-            </h3>
-            <div className="modal-action">
-              <input
-                type="text"
-                placeholder="type here..."
-                className="input input-bordered w-full max-full"
-                onChange={(e) => setData(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="type here..."
-                className="input input-bordered w-full max-full"
-                onChange={(e) => setValue(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="type here..."
-                className="input input-bordered w-full max-full"
-                onChange={(e) => setValue(e.target.value)}
-              />
-
-              <buttton type="submit" className="btn" onClick={handleSubmit}>
-                Add
-              </buttton>
-            </div>
-          </form>
+          <Form setData={setData} handleSubmit={handleSubmit} />
         </Modal>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>

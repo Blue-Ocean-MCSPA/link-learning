@@ -21,13 +21,13 @@ function Modal({ isOpen, setIsOpen, children }) {
       <input
         type="checkbox"
         id="modal-toggle"
-        className="modal-toggle bg-white"
+        className="modal-toggle"
         checked={isOpen}
         onChange={toggleModal}
       />
       {isOpen && (
         <div className="modal" role="dialog">
-          <div className="modal-box bg-white">
+          <div className="modal-box bg-white w-96 h-4/6">
             {children}
 
             <div className="modal-action">
