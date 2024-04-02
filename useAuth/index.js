@@ -16,4 +16,8 @@ export default function useAuth() {
     }, []);
     return auth;
 }
-
+export async function logout() {
+    // Destroy the session
+    Cookies().set("session", "", { expires: new Date(0) });
+  }
+  

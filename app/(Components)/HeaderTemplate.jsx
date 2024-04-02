@@ -1,22 +1,52 @@
-"use client";
-import React, { useState } from "react";
-import Instructor from "./InstructorView/Instructor";
-import Admin from "./admin/Admin";
-import AppContext from "../context";
+import React from "react";
+import { redirect } from 'next/navigation'
+import { logout } from "@/lib"
+import { AppContext } from "../context/index";
 
-//The header template is the big daddy container housing :
-// Admin, AdmiDash
-// i will display it in Blue
 
 const HeaderTemplate = () => {
-  const [selectedRole, setSelectedRole] = useState("admin");
-  const [selectedCohort, setSelectedCohort] = useState(null);
+  //selected role need to be updated when the user logs in and
+  // then we can use the selected role state
+  //Header Template is wrapped in AppWrapper i just checked
+  // const { selectedRole, users, setUsers } = useContext(AppContext);
+  // const [selectedRole, setSelectedRole] = useState("admin")
+  // const [selectedCohort, setSelectedCohort] = useState(null)
+  // const [users, setUsers] = useState([])
+
+  // putting the fetch in the useEffect so that there are no issues with state variables not being updated asap due to the async funtion.
+    async function fetchUsers() {
+      try {
+        const response = await fetch("/api/users");
+        if (!response.ok) {
+          throw new Errow("Failed to fetch users");
+        }
+        const responseData = await response.json();
+        const userData = responseData.data.rows;
+        console.log("Users fetched", userData);
+      } catch (error) {
+        console.log("Error fetching users:", error);
+      }
+    }
+    // calling to fetch the data within the use effect hook
+    fetchUsers();
+
+  // going to make this a condition to prevent errows if the async doesnt populate. if it doesn't update the state varibale, then it will be an empty string rather than getting an error
+  // const firstLetter = users.length > 0 ? users[0].first_name : "";
 
   return (
     <>
       <div className="banner flex justify-between items-center p-4 bg-slate-800">
         <div className="left-div"></div>
         <h1 className="centered-div text-white">Instructor Dashboard</h1>
+        <form
+        action={async () => {
+          "use server";
+          await logout();
+          redirect("/");
+        }}
+      >
+        <button type="submit">Logout</button>
+      </form>
         <div className="right-div flex bg-slate-100 border rounded">
           <ul className="flex justify-center items-center">
             <li>

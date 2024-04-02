@@ -1,15 +1,11 @@
-'use client';
+"use client";
 import Link from "next/link";
-import React from "react";
-import { useState } from "react";
-import { useAppContext } from "../context";
+import React, { useContext } from "react";
+
+import { AppContext } from "../context";
 
 const LandingPage = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  const { darkMode, toggleDarkMode } = useContext(AppContext);
 
   return (
     <div
@@ -63,7 +59,5 @@ const LandingPage = () => {
     </div>
   );
 };
-  
 
 export default LandingPage;
-

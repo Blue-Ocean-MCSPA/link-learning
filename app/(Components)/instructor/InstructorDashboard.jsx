@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useAppContext } from "@/app/context";
 import { useRouter } from "next/router";
+import { AppContext, useAppContext } from "@/app/context";
+import App from "next/app";
 
 export default function InstructorDashboard() {
   const { 
@@ -8,7 +9,7 @@ export default function InstructorDashboard() {
     setSelectedCohort, 
     fetchInstructorCohorts, 
     currentInstructor 
-  } = useAppContext();
+  } = useContext(AppContext);
 
   console.log("InstructorDashboard cohorts: ", cohorts);
   

@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useContext, useEffect } from "react";
 import StudentsOverview from "./StudentsOverview";
 import AssignmentsOverview from "./AssignmentsOverview";

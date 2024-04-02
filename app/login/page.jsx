@@ -1,5 +1,5 @@
 'use client'
-import Login from "../Components/Login"
+import Login from "../(Components)/Login"
 import Link from 'next/link';
 import useAuth from '../../useAuth/index'
 

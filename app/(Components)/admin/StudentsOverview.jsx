@@ -29,8 +29,8 @@ const StudentsOverview = () => {
   };
 
   return (
-    <div className="flex justify-center bg-white">
-      <div className="student-listflex flex-col items-center bg-slate-600">
+    <div className="flex">
+      <div className="bg-slate-500">
         <ul>
           {students.map((student, index) => {
             return (
