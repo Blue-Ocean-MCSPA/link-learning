@@ -54,7 +54,7 @@ const HeaderTemplate = () => {
         {/* this is where the menu will be  -------------------------------*/}
         <ul className=" menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
           <li>
-            <a>
+            <Link href="/login">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ const HeaderTemplate = () => {
               </svg>
               Inbox
               <span className="badge badge-sm">99+</span>
-            </a>
+            </Link>
           </li>
           <li>
             <a>
@@ -84,13 +84,13 @@ const HeaderTemplate = () => {
             </a>
           </li>
           <li>
-            <a>
+            <Link href="/login">
               <div className="avatar online placeholder">
                 <div className="bg-neutral text-neutral-content rounded-full w-12">
                   <span className="text-xl">MJ</span>
                 </div>
               </div>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
