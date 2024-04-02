@@ -16,8 +16,9 @@ export async function POST(request) {
     }
 
     const saltRounds = 10;
-    const plainTextPassword = 'hashed_password';
+    const plainTextPassword = 'hashed_password'; // ${password}
     const hashedPassword = await bcrypt.hash(plainTextPassword, saltRounds);
+    sql`UPDATE users SET password_hash = ${hashedPassword} WHERE email = ${email}`
     console.log(hashedPassword, 'hashedPassword')
     const user = data.rows[0];
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
@@ -47,7 +48,6 @@ export async function POST(request) {
             }
         }   
         const decodedToken = await decodeToken(token);
-        // console.log(decodedToken);
 
         const cookie = `token=${token}; Path=/; HttpOnly`;
         return NextResponse.json({ user, token, decodedToken }, {
