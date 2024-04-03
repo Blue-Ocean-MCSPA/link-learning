@@ -52,5 +52,3 @@ function Modal({ isOpen, setIsOpen, children }) {
 }
 
 export default Modal;
-
-// className={`modal ${openCreate ? "model-open " : ""}`}

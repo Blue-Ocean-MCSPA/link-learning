@@ -7,5 +7,5 @@ export default function Dashboard({ children }) {
       <HeaderTemplate />
       <main>{children}</main>
     </div>
-  );
-}
+  )
+};
