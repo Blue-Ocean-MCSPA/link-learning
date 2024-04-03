@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import Modal from "./CreateInstructor";
 import Form from "./Form";
+import { useRouter } from "next/navigation";
 
 //npm install react-icons
 // npm i -D daisyui@latest
 
 const SelectInstructors = ({ setSelectedInstructor }) => {
-  //These next 3 state lines are for fetch data
+  const router = useRouter();
   const [instructorNames, setInstructorNames] = useState([]);
-  // Array.from({ length: 20 })
   const [input, setInput] = useState("");
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
@@ -49,8 +49,9 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     e.preventDefault();
     console.log(data);
     await handleAddInstructor();
-    setData(null);
+    setData("");
     setIsOpen(false);
+    router.refresh();
   }
   function onChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -68,6 +69,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
           last_name: data.lastName,
           password_hash: data.password,
         }),
+        cache: "no-store",
       }); // all the users
 
       console.log("Server Response: ", response); // logging the object the server will send us
@@ -171,7 +173,9 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
             </div>
           </div>
           {instructorNames
-            .filter((instructor) => instructor.email.includes("instructor"))
+            .filter((instructor) =>
+              instructor.email.toLowerCase().includes("instructor")
+            )
             .map((instructor, id) => {
               return (
                 <>
