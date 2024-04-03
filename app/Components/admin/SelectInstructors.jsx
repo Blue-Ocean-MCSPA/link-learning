@@ -129,7 +129,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         {/* putting the pop here for now  */}
         <div>
           <button className="ml-10 text-white" onClick={() => setIsOpen(true)}>
-            Add
+            Add Instructor
           </button>
           <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
             <Form
