@@ -14,12 +14,6 @@ function Edit({ data }) {
   // vvvvvvvvvv getting this error because DATA is not being hanled properly
   //   app/Components/admin/Edit.jsx (55:40) @ e
 
-  //   53 |   placeholder="First Name here..."
-  //   54 |   className="input input-bordered w-full max-full m-6"
-  // > 55 |   onChange={() => setToEdit(e.target.value)}
-  //      |                            ^
-  //   56 |   value={toEdit}
-
   // -------------for edit------------//
   console.log(toEdit);
 
