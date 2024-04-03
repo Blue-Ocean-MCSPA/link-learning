@@ -84,8 +84,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     }
   };
 
-  const randomNum = Math.floor(Math.random() * 5) + 1;
-
   async function fetchSearch(value) {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -199,7 +197,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                         {instructor.first_name + " " + instructor.last_name}
                       </div>
                       <div className="w-1/4">{instructor.email}</div>
-                      <div className="w-1/4 text-center">{randomNum}</div>
+                      <div className="w-1/4">1</div>
                       <div className="rating flex">
                         <input
                           type="radio"
