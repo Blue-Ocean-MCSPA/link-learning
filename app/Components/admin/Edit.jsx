@@ -58,7 +58,7 @@ function Edit({ data }) {
     await fetch(`/api/users/${instructor.id}`, {
       method: "DELETE",
     });
-    fetchInstructors(); // Update the instructor list after deleting
+    fetchInstructors(); // Update the instructor list after
   }
 
   //------for delete-----//
@@ -78,10 +78,8 @@ function Edit({ data }) {
               type="text"
               placeholder="First Name here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={(e) =>
-                setToEdit({ ...toEdit, firstName: e.target.value })
-              }
-              value={toEdit.firstName}
+              onChange={() => setToEdit()}
+              value={toEdit}
             />
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -89,10 +87,8 @@ function Edit({ data }) {
               type="text"
               placeholder="Last Name here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={(e) =>
-                setToEdit({ ...toEdit, lastName: e.target.value })
-              }
-              value={toEdit.lastName}
+              onChange={() => setToEdit()}
+              value={toEdit}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -100,8 +96,8 @@ function Edit({ data }) {
               type="text"
               placeholder="Email here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={(e) => setToEdit({ ...toEdit, email: e.target.value })}
-              value={toEdit.email}
+              onChange={() => setToEdit()}
+              value={toEdit}
             />
             <label htmlFor="email">Tempory Password</label>
             <input
@@ -109,10 +105,8 @@ function Edit({ data }) {
               type="text"
               placeholder="Temp Password here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={(e) =>
-                setToEdit({ ...toEdit, password: e.target.value })
-              }
-              value={toEdit.password}
+              onChange={() => setToEdit()}
+              value={toEdit}
             />
             <button type="submit" className="btn">
               Submit
