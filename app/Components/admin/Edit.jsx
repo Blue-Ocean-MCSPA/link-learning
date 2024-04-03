@@ -21,29 +21,29 @@ function Edit({ data }) {
   //   56 |   value={toEdit}
 
   // -------------for edit------------//
+  console.log(toEdit);
+
   function handleSubmitEdit(e) {
     setToEdit("");
     setOpenModalEdit(false);
     router.refresh();
     fetchEdit();
   }
+  console.log(toEdit);
 
   async function fetchEdit() {
-    const res = await fetch("/api/users", {
-      method: "PUT",
+    const res = await fetch(`/api/user/${instructor.id}`, {
+      // due the instructor.id
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: toEdit.email,
-        first_name: toEdit.firstName,
-        last_name: toEdit.lastName,
-        password_hash: toEdit.password,
-        roleid: toEdit.roleid,
-      }),
+      body: JSON.stringify(toEdit),
     });
-    const UpdatedInstructor = await res.json();
-    return UpdatedInstructor;
+    const updatedInstructor = await res.json();
+    // return UpdatedInstructor;
+    console.log(updatedInstructor);
+    fetchInstructors(); // update the instructor list after editing
   }
   //------------for edit-----------//
 
@@ -55,9 +55,10 @@ function Edit({ data }) {
   }
 
   async function fetchDelete() {
-    await fetch("/api/users", {
+    await fetch(`/api/users/${instructor.id}`, {
       method: "DELETE",
     });
+    fetchInstructors(); // Update the instructor list after deleting
   }
 
   //------for delete-----//
@@ -77,8 +78,10 @@ function Edit({ data }) {
               type="text"
               placeholder="First Name here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              onChange={(e) =>
+                setToEdit({ ...toEdit, firstName: e.target.value })
+              }
+              value={toEdit.firstName}
             />
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -86,8 +89,10 @@ function Edit({ data }) {
               type="text"
               placeholder="Last Name here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              onChange={(e) =>
+                setToEdit({ ...toEdit, lastName: e.target.value })
+              }
+              value={toEdit.lastName}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -95,8 +100,8 @@ function Edit({ data }) {
               type="text"
               placeholder="Email here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              onChange={(e) => setToEdit({ ...toEdit, email: e.target.value })}
+              value={toEdit.email}
             />
             <label htmlFor="email">Tempory Password</label>
             <input
@@ -104,8 +109,10 @@ function Edit({ data }) {
               type="text"
               placeholder="Temp Password here..."
               className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              onChange={(e) =>
+                setToEdit({ ...toEdit, password: e.target.value })
+              }
+              value={toEdit.password}
             />
             <button type="submit" className="btn">
               Submit
