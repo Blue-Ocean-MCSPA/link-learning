@@ -19,6 +19,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     firstName: "",
     lastName: "",
     email: "",
+    password: "",
   });
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
           email: data.email,
           first_name: data.firstName,
           last_name: data.lastName,
+          password_hash: data.password,
         }),
       }); // all the users
 

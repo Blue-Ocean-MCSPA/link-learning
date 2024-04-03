@@ -32,6 +32,15 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           onChange={onChange}
           value={data.email}
         />
+        <label htmlFor="email">Tempory Password</label>
+        <input
+          id="password"
+          type="text"
+          placeholder="Temp Password here..."
+          className="input input-bordered w-full max-full m-6"
+          onChange={onChange}
+          value={data.password}
+        />
 
         <button
           type="submit"
