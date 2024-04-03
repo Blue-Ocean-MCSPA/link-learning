@@ -49,14 +49,14 @@ const AdminDash = ({
       <div className="flex flex-col h-screen bg-light-background justify-center items-center">
         <div className="flex justify-center p-5 m-4">
           <button
-            className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-opacity-50"
+            className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment"
             onClick={() => instructorsListClick()}
           >
             Instructors
           </button>
 
-          <button
-            className="bg-slate-800 rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-opacity-50"
+          <button 
+            className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment"
             onClick={() => studentListClick()}
           >
             Students
@@ -67,7 +67,7 @@ const AdminDash = ({
             return (
               <button
                 key={index}
-                className="bg-dark-cursor rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-opacity-50"
+                className="bg-slate-800 rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700"
                 onClick={() => cohortClick(cohort)}
               >
                 <h2>{cohort.cohort_name}</h2>
