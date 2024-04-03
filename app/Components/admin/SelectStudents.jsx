@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Modal from "./CreateStudent";
+import Modal, { StudentModal } from "./CreateStudent";
 import { FaSearch } from "react-icons/fa";
 import RemoveBtn from "./RemoveBtn";
 
@@ -13,6 +13,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [modalStates, setModalStates] = useState({});
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
@@ -33,8 +34,11 @@ const SelectStudents = ({ setSelectedStudents }) => {
     fetchSearch(value);
   }
 
-  function handleClickStudents(students) {
-    setSelectName(students);
+  function handleClickStudents(student) {
+    setModalStates((prevModalStates) => ({
+      ...prevModalStates,
+      [student.id]: !prevModalStates[student.id], // Toggle isOpen state for the clicked student
+    }));
   }
 
   function updateStudentState(input) {
@@ -133,25 +137,24 @@ const SelectStudents = ({ setSelectedStudents }) => {
             </div>
           </div>
           {studentNames
-            .filter((student) => student.email.includes("student"))
-            .map((student, id) => {
-              return (
-                <div
-                    key={id}
-                    className="border hover:cursor-pointer hover:bg-gray-300 bg-light-background text-light-foreground"
-                    onClick={() => handleClickStudents(student)}
-                  >
-                    <div className="flex py-3">
-                      <div className="w-1/4 pl-5">
-                        {student.first_name + " " + student.last_name}
-                      </div>
-                      <div className="w-1/4">{student.email}</div>
-                      <div className="w-1/4 text-center">{student.assignments_completed}</div>
-                      <div className="w-1/4 text-center">{student.grade}</div>
-                    </div>
-                  </div>
-              );
-            })}
+  .filter((student) => student.email.includes("student"))
+  .map((student, id) => {
+    return (
+      <StudentModal
+        key={id}
+        isOpen={modalStates[student.id] || false} // Use isOpen state corresponding to the student
+        setIsOpen={(isOpen) => setModalStates((prevModalStates) => ({
+          ...prevModalStates,
+          [student.id]: isOpen,
+        }))}
+        selectName={`${student.first_name} ${student.last_name}`}
+        email={student.email}
+        assignmentsCompleted={student.assignments_completed}
+        grade={student.grade}
+        onClick={() => handleClickStudents(student)}
+      />
+    );
+  })}
         </div>
         {/* separate------------------------- */}
         <div className="border flex flex-col justify-evenly items-between w-full bg-gray-200">
