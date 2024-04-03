@@ -1,19 +1,28 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import Modal from "./Create";
+import Modal from "./CreateInstructor";
+import Form from "./Form";
+import { useRouter } from "next/navigation";
+import Edit from "./Edit";
 
 //npm install react-icons
 // npm i -D daisyui@latest
 
 const SelectInstructors = ({ setSelectedInstructor }) => {
-  //These next 3 state lines are for fetch data
+  const router = useRouter();
   const [instructorNames, setInstructorNames] = useState([]);
-  // Array.from({ length: 20 })
   const [input, setInput] = useState("");
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    roleid: "",
+  });
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
@@ -37,12 +46,46 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     setInstructorNames(input);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     //post
     e.preventDefault();
+    console.log(data);
+    await handleAddInstructor();
+    setData("");
+    setIsOpen(false);
+    router.refresh();
+  }
+  function onChange(e) {
+    setData({ ...data, [e.target.id]: e.target.value });
+    console.log(data);
   }
 
+  const handleAddInstructor = async () => {
+    try {
+      const response = await fetch(`/api/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          password_hash: data.password,
+          roleid: data.roleid,
+        }),
+        cache: "no-store",
+      }); // all the users
+
+      console.log("Server Response: ", response); // logging the object the server will send us
+      const info = await response.json();
+      console.log("handle add instructor clicked");
+      return info;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const randomNum = Math.floor(Math.random() * 5) + 1;
+
   async function fetchSearch(value) {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -84,21 +127,20 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       <div className="flex p-5 bg-slate-600 items-center">
         <div className="text-white">Instructors</div>
         {/* putting the pop here for now  */}
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-          <form onSubmit={handleSubmit}>
-            <h3 className="font-bold text-lg">Instructor Name</h3>
-            <div className="modal-action">
-              <input
-                type="text"
-                placeholder="type here..."
-                className="input input-bordered w-full max-full"
-              />
-              <buttton type="submit" className="btn">
-                Add
-              </buttton>
-            </div>
-          </form>
-        </Modal>
+        <div>
+          <button className="ml-10 text-white" onClick={() => setIsOpen(true)}>
+            Add Instructor
+          </button>
+          <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+            <Form
+              data={data}
+              setData={setData}
+              handleSubmit={handleSubmit}
+              onChange={onChange}
+              handleAddInstructor={handleAddInstructor}
+            />
+          </Modal>
+        </div>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
@@ -139,7 +181,11 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
             </div>
           </div>
           {instructorNames
-            .filter((instructor) => instructor.email.includes("instructor"))
+            .filter(
+              (instructor) =>
+                instructor.email.toLowerCase().includes("instructor") ||
+                instructor.roleid.includes("2")
+            )
             .map((instructor, id) => {
               return (
                 <>
@@ -177,7 +223,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                           className="mask mask-star-2 bg-orange-400"
                         />
                       </div>
-                      <div className="w-1/4 text-center">add/delete</div>
+                      <Edit data={data} />
                     </div>
                   </div>
                 </>

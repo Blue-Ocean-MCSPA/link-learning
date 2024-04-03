@@ -3,7 +3,7 @@ import { AppContext, AppWrapper } from "../../context/index";
 
 import AdminDash from "./AdminDash";
 import CohortOverview from "./CohortOverview";
-import SelectInstructors from "./SelectInstuctors";
+import SelectInstructors from "./SelectInstructors";
 import SelectStudents from "./SelectStudents";
 
 // This component is responsible for rendering different views based on the state of selectedCohort and selectedInstructor.

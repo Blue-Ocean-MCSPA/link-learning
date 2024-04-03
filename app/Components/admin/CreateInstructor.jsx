@@ -9,25 +9,30 @@ function Modal({ isOpen, setIsOpen, children }) {
     setIsOpen(!isOpen);
   };
 
+  // <div className=" ml-10 bg-transparent">
+  // <label
+  //   htmlFor=""
+  //   className="text-white hover:cursor-pointer"
+  //   onClick={toggleModal}
+  // >
+  //   Add Instructor
   return (
-    <div className=" ml-10 bg-transparent">
+    <div className="model model-open">
       <label
         htmlFor=""
         className="text-white hover:cursor-pointer"
         onClick={toggleModal}
-      >
-        Add Instructor
-      </label>
+      ></label>
       <input
         type="checkbox"
         id="modal-toggle"
-        className="modal-toggle bg-white"
+        className="modal-toggle"
         checked={isOpen}
         onChange={toggleModal}
       />
       {isOpen && (
         <div className="modal" role="dialog">
-          <div className="modal-box">
+          <div className="modal-box bg-white w-96 h-4/6">
             {children}
 
             <div className="modal-action">

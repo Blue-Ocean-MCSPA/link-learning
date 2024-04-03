@@ -75,7 +75,7 @@ const Login = () => {
                 value={email}
                 placeholder="Email"
                 autoComplete="email"
-                className="bg-light-background border border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
+                className="bg-light-background border border-light-comment rounded-full w-full text-base text-light-foreground px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
                 onChange={handleEmailChange}
               />
             </div>
@@ -89,7 +89,7 @@ const Login = () => {
                 id="password"
                 value={password}
                 placeholder="Password"
-                className="bg-light-background border border-light-comment rounded-full w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
+                className="bg-light-background border border-light-comment rounded-full w-full text-base text-light-foreground px-2 py-1 focus:outline-none focus:ring-0 focus:border-light-inactive_selection"
                 onChange={handlePasswordChange}
               />
             </div>
