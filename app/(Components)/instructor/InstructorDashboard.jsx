@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { AppContext, useAppContext } from "@/app/context";
 import App from "next/app";
 
-export default function InstructorDashboard() {
+export default function InstructorDashboard({ roleid }) {
   const { 
     cohorts, 
     setSelectedCohort, 

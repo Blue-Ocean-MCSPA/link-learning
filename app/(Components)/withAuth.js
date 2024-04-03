@@ -13,7 +13,7 @@ const withAuth = (WrappedComponent, allowedRoles = []) => {
         const decodeToken = async (token) => {
             try {
                 const decoded = await jwtVerify(token, getJwtSecretKey());
-                console.log(decoded.payload);
+                // console.log(decoded.payload);
                 // setRoleid(decoded.payload.roleid);
                 return decoded;
             } catch (error) {
@@ -32,7 +32,7 @@ const withAuth = (WrappedComponent, allowedRoles = []) => {
             } else {
                 decodeToken(token)
                 .then(payload => {
-                    console.log(payload.payload)
+                    // console.log(payload.payload)
                     const userRole = payload.payload.roleid;
                     setRoleid(userRole);
                     if (allowedRoles.length < 0 || payload.payload.exp < Date.now() / 1000) {

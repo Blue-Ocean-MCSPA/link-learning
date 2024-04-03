@@ -24,7 +24,7 @@ function Instructor({ roleid }) {
             {selectedCohort ? (
                 <CohortOverview />
                 ) : (
-                <InstructorDashboard />
+                <InstructorDashboard roleid={roleid}/>
             )}
         </div>
     );

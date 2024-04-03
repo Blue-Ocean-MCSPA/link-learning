@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 // Import AppContext into your component along with useContext to access state
 export const AppContext = createContext();
@@ -19,12 +19,14 @@ export function AppWrapper({ children }) {
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
-  const [currentInstructor, setCurrentInstructor] = useState('');
-
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
-    // console.log("set loggedInRole to: ", loggedInRole);
+    return string;
+  };
+
+  const changeSelectedRole = (string) => {
+    setSelectedRole(string);
     return string;
   };
 
@@ -33,18 +35,15 @@ export function AppWrapper({ children }) {
   };
 
   // Function to fetch users from the database and add them to state
-  const fetchInstructorCohorts = async () => {
+  const fetchInstructorCohorts = async (id) => {
     try {
-        console.log("fetch instructor cohorts at id: ", currentInstructor)
-      const response = await fetch(`http://localhost:3000/api/cohort/${currentInstructor}`);
-      console.log("after fetch, instructorNum is: ", currentInstructor)
+      const response = await fetch(`http://localhost:3000/api/cohort/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch cohorts");
       }
       const data = await response.json();
-      console.log("set Cohorts to: ", data.cohorts.rows);
-      setCohorts(data.cohorts.rows);
-      console.log("Cohorts have been set to: ", cohorts);
+      console.log(data, 'from fetchInstructorCohorts');
+      setCohorts(data.instructorCohorts.rows);
     } catch (error) {
       console.error("Error fetching cohorts:", error);
       setCohorts([]);
@@ -131,6 +130,7 @@ export function AppWrapper({ children }) {
         toggleDarkMode,
         selectedInstructor,
         setSelectedInstructor,
+        changeSelectedRole,
       }}
     >
       {children}

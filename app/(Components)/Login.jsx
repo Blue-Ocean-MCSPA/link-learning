@@ -40,11 +40,24 @@ const Login = () => {
                 alert('Incorrect email or password');
             }
             const data = await response.json();
+            // if (data) {
+            //     localStorage.setItem('token', data.decodedToken.payload.token);
+            //     localStorage.setItem('roleid', data.decodedToken.payload.roleid);
+            // }
             if (data.token) {
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('roleid', data.decodedToken.payload.roleid);
+                localStorage.setItem('roleid', data.user.roleid);
             }
-            // console.log(data);
+            console.log(roleid, 'this is roleid from login')
+            console.log(data.user.roleid, 'this is roleid from login')
+            console.log(data.user, 'this is user from login')
+            console.log(data, 'this is data from login')
+            
+            // console.log(data.token, 'this is token from login')
+            // console.log(data, 'this is data from login')
+            // console.log(data, "this is data from login");
+            // console.log(token, 'this is token from login');
+            console.log(data.decodedToken.payload, 'this is decodedToken from login')
             console.log(data.decodedToken.payload.roleid, 'testing!!')
             console.log(data.user,'hihihhi')
                 if (data.decodedToken.payload.roleid == 1) {

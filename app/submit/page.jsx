@@ -203,17 +203,17 @@ export default function Submit() {
                 </form>
 
                 <ul>
-    {message && message.map((msg) => {
-        console.log(msg) 
-        return (<>
-     <li key={msg.id}>{msg.message}</li>
-     <button onClick={handleDeleteMessages}>DELETE</button>
-    </>
-    )
-   }
-    
-    )}
-</ul>
+                {message && message.map((msg) => {
+                console.log(msg) 
+                    return (<>
+                    <li key={msg.id}>{msg.message}</li>
+                    <button onClick={handleDeleteMessages}>DELETE</button>
+                    </>
+                    )
+                }
+                    
+                )}
+                </ul>
                 
             </div>
         </div>

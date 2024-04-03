@@ -10,16 +10,24 @@ export async function POST(request) {
     const { email, password } = await request.json();
     console.log(email, password)
     const data = await sql`SELECT * FROM users WHERE email = ${email}`;
+    console.log(data, 'data')
+        // if (data.rows[0].roleid === 2) {
+        //     const instructorData = await sql`SELECT * FROM instructors WHERE id = ${data.rows[0].id}`;
+        //     const cohortData = await sql`SELECT id FROM cohort WHERE instructorid = ${instructorData.rows[0].id}`
+        //     console.log(cohortData.rows[0].id, 'cohortData!!!!!!!!!!!!!!', data.rows[0].id)
 
+        // }
     if (data.rowCount == 0) {
         return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
+    // when registering a user we will hash the password
     const saltRounds = 10;
-    const plainTextPassword = 'hashed_password'; // ${password}
+    const plainTextPassword = `${password}`; // ${password}
     const hashedPassword = await bcrypt.hash(plainTextPassword, saltRounds);
-    sql`UPDATE users SET password_hash = ${hashedPassword} WHERE email = ${email}`
     console.log(hashedPassword, 'hashedPassword')
+
+
     const user = data.rows[0];
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
     console.log(user.password_hash, password, passwordMatch)
@@ -31,6 +39,7 @@ export async function POST(request) {
         const token = await new SignJWT({
             email: user.email,
             roleid: user.roleid
+            // cohortid: cohortData.rows[0].id
         })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
