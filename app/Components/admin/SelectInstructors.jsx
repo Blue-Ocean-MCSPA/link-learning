@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import Modal from "./CreateInstructor";
+import Form from "./Form";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -14,6 +15,12 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
@@ -37,12 +44,43 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     setInstructorNames(input);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     //post
     e.preventDefault();
+    console.log(data);
+    await handleAddInstructor();
+    setData(null);
+    setIsOpen(false);
+  }
+  function onChange(e) {
+    setData({ ...data, [e.target.id]: e.target.value });
+    console.log(data);
   }
 
+  const handleAddInstructor = async () => {
+    try {
+      const response = await fetch(`/api/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          password_hash: data.password,
+        }),
+      }); // all the users
+
+      console.log("Server Response: ", response); // logging the object the server will send us
+      const info = await response.json();
+      console.log("handle add instructor clicked");
+      return info;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const randomNum = Math.floor(Math.random() * 5) + 1;
+
   async function fetchSearch(value) {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -70,6 +108,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       const response = await fetch(`http://localhost:3000/api/users`); // all the users
       const data = await response.json();
       const matchedRows = data.data.rows;
+      console.log("fetch instructor names = ", matchedRows);
       //matchedRows = {id, email, pwrd, fname, lasname, }
       updateInstructorState(matchedRows);
       // console.log("state updated = ", instructorNames);
@@ -84,19 +123,13 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         <div className="text-white">Instructors</div>
         {/* putting the pop here for now  */}
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-          <form onSubmit={handleSubmit}>
-            <h3 className="font-bold text-lg">Instructor Name</h3>
-            <div className="modal-action">
-              <input
-                type="text"
-                placeholder="type here..."
-                className="input input-bordered w-full max-full"
-              />
-              <button type="submit" className="btn">
-                Add
-              </button>
-            </div>
-          </form>
+          <Form
+            data={data}
+            setData={setData}
+            handleSubmit={handleSubmit}
+            onChange={onChange}
+            handleAddInstructor={handleAddInstructor}
+          />
         </Modal>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>
