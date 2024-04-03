@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import StudentsOverview from "./StudentsOverview";
+
 import AssignmentOverview from "./AssignmentOverview";
 
 //This is the main main page for if you click a cohort
