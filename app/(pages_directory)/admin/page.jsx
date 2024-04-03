@@ -2,8 +2,9 @@
 import { AppWrapper } from "../../context/index";
 import SwitchPanels from "../../Components/admin/SwitchPanels";
 import HeaderTemplate from "@/app/Components/HeaderTemplate.jsx";
+import withAuth from "@/app/Components/withAuth";
 
-export default function AdminPage() {
+ function AdminPage() {
   return (
     <>
         <HeaderTemplate />
@@ -11,3 +12,5 @@ export default function AdminPage() {
     </>
   );
 }
+
+export default withAuth(AdminPage, [1]);
