@@ -97,14 +97,14 @@ const Login = () => {
             </div>
             <div className="flex justify-center">
               <div
-                className="w-1/2 text-center mr-4 mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
+                className="w-full text-center mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
                 onClick={handleLoginClick}
               >
                 Login
               </div>
-              <div className="border border-light-background w-1/2 text-center mt-3 py-1 text-base text-light-background hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full">
+              {/* <div className="border border-light-background w-1/2 text-center mt-3 py-1 text-base text-light-background hover:text-light-inactive_selection hover:border-light-inactive_selection hover:cursor-pointer rounded-full">
                 Sign Up
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
