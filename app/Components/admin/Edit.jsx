@@ -3,13 +3,64 @@ import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import Modal from "./CreateInstructor";
+import { useRouter } from "next/navigation";
 
 function Edit({ data }) {
+  const router = useRouter();
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [toEdit, setToEdit] = useState(data.text);
+  // above is not working becaue we have a lot of data. so we have to maybe look into spread operators or .map or something
+  // vvvvvvvvvv getting this error because DATA is not being hanled properly
+  //   app/Components/admin/Edit.jsx (55:40) @ e
 
-  function handleSubmitEdit() {}
+  //   53 |   placeholder="First Name here..."
+  //   54 |   className="input input-bordered w-full max-full m-6"
+  // > 55 |   onChange={() => setToEdit(e.target.value)}
+  //      |                            ^
+  //   56 |   value={toEdit}
+
+  // -------------for edit------------//
+  function handleSubmitEdit(e) {
+    setToEdit("");
+    setOpenModalEdit(false);
+    router.refresh();
+    fetchEdit();
+  }
+
+  async function fetchEdit() {
+    const res = await fetch("/api/users", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: toEdit.email,
+        first_name: toEdit.firstName,
+        last_name: toEdit.lastName,
+        password_hash: toEdit.password,
+        roleid: toEdit.roleid,
+      }),
+    });
+    const UpdatedInstructor = await res.json();
+    return UpdatedInstructor;
+  }
+  //------------for edit-----------//
+
+  //------for delete------//
+  async function handleDelete() {
+    await fetchDelete();
+    openModalDelete(false);
+    router.refresh();
+  }
+
+  async function fetchDelete() {
+    await fetch("/api/users", {
+      method: "DELETE",
+    });
+  }
+
+  //------for delete-----//
 
   return (
     <div className="flex ml-auto items-center gap-7">
@@ -62,26 +113,22 @@ function Edit({ data }) {
           </div>
         </form>
       </Modal>
-      <FiTrash2 size={25} className="text-red-500" />
+      <FiTrash2
+        size={25}
+        className="text-red-500"
+        onClick={() => setOpenModalDelete(true)}
+      />
+      <Modal isOpen={openModalDelete} setIsOpen={setOpenModalDelete}>
+        <h3 className="text-lg">Are you sure you want to delete Instructor</h3>
+        <div className="modal-action">
+          <button className="btn" onClick={() => handleDelete()}>
+            {/* handleDelete(instructor.id) */}
+            Yes
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
 
 export default Edit;
-
-// <form onSubmit={handleSubmitEdit}>
-// <h3 className="font-bold text-lg text-black mt-8">
-//   Edit Instructor's Information
-// </h3>
-// <div className="modal-action flex-col items-center">
-//   <label htmlFor="firstName">First Name</label>
-//   <input
-//     value={toEdit}
-//     onChange={() => setToEdit(e.target.value)}
-//     type="text"
-//     id="firstName"
-//     placeholder="First Name here..."
-//     className="input input-bordered w-full max-full m-6"
-//   />
-// </div>
-// </form>
