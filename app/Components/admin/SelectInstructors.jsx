@@ -127,15 +127,20 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       <div className="flex p-5 bg-slate-600 items-center">
         <div className="text-white">Instructors</div>
         {/* putting the pop here for now  */}
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-          <Form
-            data={data}
-            setData={setData}
-            handleSubmit={handleSubmit}
-            onChange={onChange}
-            handleAddInstructor={handleAddInstructor}
-          />
-        </Modal>
+        <div>
+          <button className="ml-10 text-white" onClick={() => setIsOpen(true)}>
+            Add
+          </button>
+          <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+            <Form
+              data={data}
+              setData={setData}
+              handleSubmit={handleSubmit}
+              onChange={onChange}
+              handleAddInstructor={handleAddInstructor}
+            />
+          </Modal>
+        </div>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
