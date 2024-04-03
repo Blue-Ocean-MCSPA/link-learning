@@ -1,6 +1,6 @@
 import React from "react";
-import Users from "./users"; // Adjust the import path as necessary
-import MessageThread from "./messagethread"; // Adjust the import path as necessary
+import Users from "../../Components/msg/users"; // Adjust the import path as necessary
+import MessageThread from "../../Components/msg/messagethread"; // Adjust the import path as necessary
 
 const Messages = ({ className }) => {
   // Accept className as a prop
