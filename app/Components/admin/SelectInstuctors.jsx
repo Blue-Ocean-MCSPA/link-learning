@@ -47,35 +47,29 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     //post
     e.preventDefault();
     console.log(data);
-    setData("");
+    await handleAddInstructor();
+  }
+  function onChange(e) {
+    setData({ ...data, [e.target.id]: e.target.value });
+    console.log(data);
   }
 
   const handleAddInstructor = async () => {
     try {
       const response = await fetch(`/api/users`, {
         method: "POST",
-        header: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
-          password_hash,
-          first_name: addInstructor,
-          last_name,
-          roleid,
-          contact_info,
-          certifications_and_training,
-          performance_metrics,
-          activity_log,
-          grade,
-          assignments_completed,
-          course_started,
-          course_ended,
-          absent_days,
+          email: data.email,
+          first_name: data.firstName,
+          last_name: data.lastName,
         }),
       }); // all the users
 
-      const data = await response.json();
-      return data;
+      console.log("Server Response: ", response); // logging the object the server will send us
+      const info = await response.json();
       console.log("handle add instructor clicked");
+      return info;
     } catch (err) {
       console.error(err);
     }
@@ -125,7 +119,13 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
         <div className="text-white">Instructors</div>
         {/* putting the pop here for now  */}
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-          <Form setData={setData} handleSubmit={handleSubmit} />
+          <Form
+            data={data}
+            setData={setData}
+            handleSubmit={handleSubmit}
+            onChange={onChange}
+            handleAddInstructor={handleAddInstructor}
+          />
         </Modal>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>

@@ -1,38 +1,45 @@
-function Form({ setData, handleSubmit }) {
+function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e, handleAddInstructor)}>
       <h3 className="font-bold text-lg text-black mt-8">
         Add new Instructor's Information
       </h3>
       <div className="modal-action flex-col items-center">
-        <label htmlFor="1">First Name</label>
+        <label htmlFor="firstName">First Name</label>
         <input
-          id="1"
+          id="firstName"
           type="text"
-          placeholder="type here..."
+          placeholder="First Name here..."
           className="input input-bordered w-full max-full m-6"
-          onChange={(e) => setData(e.target.value)}
+          onChange={onChange}
+          value={data.firstName}
         />
-        <label htmlFor="2">Last Name</label>
+        <label htmlFor="lastName">Last Name</label>
         <input
-          id="2"
+          id="lastName"
           type="text"
-          placeholder="type here..."
+          placeholder="Last Name here..."
           className="input input-bordered w-full max-full m-6"
-          onChange={(e) => setData(e.target.value)}
+          onChange={onChange}
+          value={data.LastName}
         />
-        <label htmlFor="3">Email</label>
+        <label htmlFor="email">Email</label>
         <input
-          id="3"
+          id="email"
           type="text"
-          placeholder="type here..."
+          placeholder="Email here..."
           className="input input-bordered w-full max-full m-6"
-          onChange={(e) => setData(e.target.value)}
+          onChange={onChange}
+          value={data.email}
         />
 
-        <buttton type="submit" className="btn" onClick={handleSubmit}>
+        <button
+          type="submit"
+          className="btn"
+          //   onClick={(handleSubmit, handleAddInstructor)}
+        >
           Add
-        </buttton>
+        </button>
       </div>
     </form>
   );
