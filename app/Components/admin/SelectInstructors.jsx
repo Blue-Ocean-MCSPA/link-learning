@@ -16,6 +16,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [instructors, setInstructors] = useState(null); // we're going to use this to save state for Edit component child
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -27,8 +28,13 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
     //
-    fetchInstructors("a");
+    fetchInstructors();
   }, []); // Empty dependency array ensures this effect runs only once
+
+  // Function to handle selecting a instructor to edit. save state for edit compoenent child
+  const handleSelelectedInstructorForEdit = (selectedInstructor) => {
+    setInstructor(selectedInstructor);
+  };
 
   function handleClick() {
     setSelectedInstructor(null);
@@ -51,7 +57,15 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     e.preventDefault();
     console.log(data);
     await handleAddInstructor();
-    setData("");
+    setData({
+      ...data,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      roleid: "",
+    });
+    // setData("");
     setIsOpen(false);
     router.refresh();
   }
@@ -186,45 +200,47 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
             )
             .map((instructor, id) => {
               return (
-                <>
-                  <div
-                    key={id}
-                    className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300  bg-light-background text-light-foreground"
-                    onClick={() => handleClickInstructor(instructor)}
-                  >
-                    <div className="flex py-3">
-                      <div className="w-1/4 pl-5">
-                        {instructor.first_name + " " + instructor.last_name}
-                      </div>
-                      <div className="w-1/4">{instructor.email}</div>
-                      <div className="w-1/4">1</div>
-                      <div className="rating flex">
-                        <input
-                          type="radio"
-                          name="rating-2"
-                          className="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          type="radio"
-                          name="rating-2"
-                          className="mask mask-star-2 bg-orange-400"
-                          checked
-                        />
-                        <input
-                          type="radio"
-                          name="rating-2"
-                          className="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          type="radio"
-                          name="rating-2"
-                          className="mask mask-star-2 bg-orange-400"
-                        />
-                      </div>
-                      <Edit data={data} />
+                <div
+                  key={id}
+                  className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300  bg-light-background text-light-foreground"
+                  onClick={() => handleClickInstructor(instructor)}
+                >
+                  <div className="flex py-3">
+                    <div className="w-1/4 pl-5">
+                      {instructor.first_name + " " + instructor.last_name}
                     </div>
+                    <div className="w-1/4">{instructor.email}</div>
+                    <div className="w-1/4">1</div>
+                    <div className="rating flex">
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                        checked
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                    </div>
+                    <Edit key={id} instructor={instructor} data={data} />
+                    {/* {instructors &&
+                        instructors.map((instructor, id) => (
+                          <Edit key={id} instructor={instructor} data={data} />
+                        ))} */}
                   </div>
-                </>
+                </div>
               );
             })}
         </div>
