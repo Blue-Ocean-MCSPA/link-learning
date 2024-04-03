@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { redirect } from "next/dist/server/api-utils";
+import React, { useEffect, useState } from "react";
 
 function Modal({ isOpen, setIsOpen, children }) {
   const toggleModal = () => {
@@ -60,30 +61,33 @@ export function StudentModal({
   const [updatedAssignmentsCompleted, setAssignmentsCompleted] = useState(assignmentsCompleted); // Initialize assignmentsCompleted state with assignmentsCompleted
   const [updatedGrade, setGrade] = useState(grade); // Initialize grade state with grade
 
+  // useEffect(()=> {
+
+  // }, [])
+
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  //email, password_hash, first_name, last_name, roleid, contact_info, certifications_and_training, performance_metrics, activity_log, grade, assignments_completed, course_started, course_ended, absent_days
+
     const updatedStudent = {
+      id: student.id,
       email: updatedEmail,
-      first_name: selectFirstName,
-      last_name: selectLastName,
+      first_name: firstName,
+      last_name: lastName,
       grade: updatedGrade,
       assignments_completed: updatedAssignmentsCompleted,
     };
-  
-    const id = student.id;
 
     try {
-      const response = await fetch(`/api/users/${id}`, {
+      const response = await fetch(`/api/users`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(id, updatedStudent),
+        body: JSON.stringify({updatedStudent}),
       });
   
       if (!response.ok) {
@@ -94,9 +98,7 @@ export function StudentModal({
       toggleModal();
   
       // Handle the response to update the state in the Edit component
-      const updatedStudentData = await response.json();
-      // Assuming you have a function to update the state in the parent component
-      onUpdateStudent(updatedStudentData);
+      const data = await response.json();
     } catch (error) {
       console.error("Error updating student:", error.message);
       // Handle error
@@ -188,31 +190,3 @@ export function StudentModal({
     </div>
   );
 }
-
-const onUpdateStudent = (updatedStudentData) => {
-  // Update the state in the Edit component
-  // For example:
-  setToEdit(updatedStudentData);
-};
-
-          // <div className="modal" role="dialog">
-          //   <div className="modal-box border border-light-cursor bg-light-background">
-          //     <div>
-          //       <div>Name: {selectName}</div>
-          //       <div>Email: {email}</div>
-          //       <div>Assignments Completed: {assignmentsCompleted}</div>
-          //       <div>Grade: {grade}</div>
-          //     </div>
-          //     {/* You can render additional information about the student here */}
-          //     {/* {children} */}
-          //     <div className="modal-action">
-          //       <label
-          //         htmlFor="modal-toggle"
-          //         className="btn"
-          //         onClick={toggleModal}
-          //       >
-          //         Close
-          //       </label>
-          //     </div>
-          //   </div>
-          // </div>
