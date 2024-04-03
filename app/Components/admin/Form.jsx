@@ -41,6 +41,15 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           onChange={onChange}
           value={data.password}
         />
+        <label htmlFor="roldid">Role id</label>
+        <input
+          id="roleid"
+          type="text"
+          placeholder="role id here... for instructors, 2"
+          className="input input-bordered w-full max-full m-6"
+          onChange={onChange}
+          value={data.roleid}
+        />
 
         <button
           type="submit"
