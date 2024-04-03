@@ -47,12 +47,15 @@ export default Modal;
 export function StudentModal({
   isOpen,
   setIsOpen,
-  selectName,
+  selectFirstName,
+  selectLastName,
   email,
   assignmentsCompleted,
   grade,
+  student
 }) {
-  const [name, setName] = useState(selectName); // Initialize name state with selectName
+  const [firstName, setFirstName] = useState(selectFirstName); // Initialize name state with selectName
+  const [lastName, setLastName] = useState(selectLastName); // Initialize name state with selectName
   const [updatedEmail, setEmail] = useState(email); // Initialize email state with email
   const [updatedAssignmentsCompleted, setAssignmentsCompleted] = useState(assignmentsCompleted); // Initialize assignmentsCompleted state with assignmentsCompleted
   const [updatedGrade, setGrade] = useState(grade); // Initialize grade state with grade
@@ -61,25 +64,43 @@ export function StudentModal({
     setIsOpen(!isOpen);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Perform any validation if needed
-
-    // Update the student object with the new values
+  //email, password_hash, first_name, last_name, roleid, contact_info, certifications_and_training, performance_metrics, activity_log, grade, assignments_completed, course_started, course_ended, absent_days
     const updatedStudent = {
-      name: name,
       email: updatedEmail,
-      assignmentsCompleted: updatedAssignmentsCompleted,
-      grade: updatedGrade
+      first_name: selectFirstName,
+      last_name: selectLastName,
+      grade: updatedGrade,
+      assignments_completed: updatedAssignmentsCompleted,
     };
+  
+    const id = student.id;
 
-    // Call a function to handle saving the updated student data
-    // For demonstration purposes, let's assume we log the updated student data
-    console.log("Updated Student Data:", updatedStudent);
-
-    // Close the modal
-    toggleModal();
+    try {
+      const response = await fetch(`/api/users/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id, updatedStudent),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to update student");
+      }
+  
+      // Close the modal
+      toggleModal();
+  
+      // Handle the response to update the state in the Edit component
+      const updatedStudentData = await response.json();
+      // Assuming you have a function to update the state in the parent component
+      onUpdateStudent(updatedStudentData);
+    } catch (error) {
+      console.error("Error updating student:", error.message);
+      // Handle error
+    }
   };
 
   return (
@@ -89,10 +110,11 @@ export function StudentModal({
         className="flex py-2 hover:cursor-pointer"
         onClick={toggleModal} // Open and close modal
       >
-          <div className="pl-5 w-1/4">{selectName}</div>
-          <div className="w-1/4">{email}</div>
-          <div className="w-1/4 text-center">{assignmentsCompleted}</div>
-          <div className="w-1/4 text-center">{grade}</div>
+          <div className="pl-5 w-1/5">{selectFirstName}</div>
+          <div className="pl-5 w-1/5">{selectLastName}</div>
+          <div className="w-1/5">{email}</div>
+          <div className="w-1/5 text-center">{assignmentsCompleted}</div>
+          <div className="w-1/5 text-center">{grade}</div>
       </label>
       <input
         type="checkbox"
@@ -106,12 +128,22 @@ export function StudentModal({
           <div className="modal-box border border-light-cursor bg-light-background">
             <form onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">First Name:</label>
                 <input
                   type="text"
                   id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="name">Last Name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
                 />
               </div>
@@ -156,6 +188,12 @@ export function StudentModal({
     </div>
   );
 }
+
+const onUpdateStudent = (updatedStudentData) => {
+  // Update the state in the Edit component
+  // For example:
+  setToEdit(updatedStudentData);
+};
 
           // <div className="modal" role="dialog">
           //   <div className="modal-box border border-light-cursor bg-light-background">

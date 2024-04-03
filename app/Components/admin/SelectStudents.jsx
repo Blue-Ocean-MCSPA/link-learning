@@ -11,7 +11,8 @@ const SelectStudents = ({ setSelectedStudents }) => {
   // Array.from({ length: 20 })
   const [input, setInput] = useState("");
   const [searchInfo, setSearchInfo] = useState([]);
-  const [selectName, setSelectName] = useState(null);
+  const [selectFirstName, setSelectFirstName] = useState(null);
+  const [selectLastName, setSelectLastName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [modalStates, setModalStates] = useState({});
 
@@ -130,10 +131,11 @@ const SelectStudents = ({ setSelectedStudents }) => {
         <div className="w-full">
           <div className="flex flex-col">
             <div className="flex text-light-background bg-light-cursor py-3">
-              <div className="w-1/4 pl-5">NAME</div>
-              <div className="w-1/4">EMAIL</div>
-              <div className="w-1/4 text-center">ASSIGNMENTS COMPLETED</div>
-              <div className="w-1/4 text-center">GRADE</div>
+              <div className="w-1/5 pl-5">FIRST NAME</div>
+              <div className="w-1/5 pl-5">LAST NAME</div>
+              <div className="w-1/5">EMAIL</div>
+              <div className="w-1/5 text-center">ASSIGNMENTS COMPLETED</div>
+              <div className="w-1/5 text-center">GRADE</div>
             </div>
           </div>
           {studentNames
@@ -147,7 +149,9 @@ const SelectStudents = ({ setSelectedStudents }) => {
           ...prevModalStates,
           [student.id]: isOpen,
         }))}
-        selectName={`${student.first_name} ${student.last_name}`}
+        student={student}
+        selectFirstName={`${student.first_name}`}
+        selectLastName={`${student.last_name}`}
         email={student.email}
         assignmentsCompleted={student.assignments_completed}
         grade={student.grade}
@@ -160,7 +164,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
         <div className="border flex flex-col justify-evenly items-between w-full bg-gray-200">
           {/* underneath is where im putting the div  */}
           <div className="flex items-between w-full student-info">
-            {selectName && (
+            {selectFirstName && (
               <div className="flex flex-col rounded p-8">
                 <div className="flex justify-evenly items-between text-xl py-4 border border-gray-500">
                   <div>
