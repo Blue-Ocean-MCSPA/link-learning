@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import Modal from "./CreateInstructor";
 import Form from "./Form";
 import { useRouter } from "next/navigation";
+import Edit from "./Edit";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -20,6 +21,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     lastName: "",
     email: "",
     password: "",
+    roleid: "",
   });
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
           first_name: data.firstName,
           last_name: data.lastName,
           password_hash: data.password,
+          roleid: data.roleid,
         }),
         cache: "no-store",
       }); // all the users
@@ -173,8 +176,10 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
             </div>
           </div>
           {instructorNames
-            .filter((instructor) =>
-              instructor.email.toLowerCase().includes("instructor")
+            .filter(
+              (instructor) =>
+                instructor.email.toLowerCase().includes("instructor") ||
+                instructor.roleid.includes("2")
             )
             .map((instructor, id) => {
               return (
@@ -213,7 +218,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                           className="mask mask-star-2 bg-orange-400"
                         />
                       </div>
-                      <div className="w-1/4 text-center">add/delete</div>
+                      <Edit data={data} />
                     </div>
                   </div>
                 </>
