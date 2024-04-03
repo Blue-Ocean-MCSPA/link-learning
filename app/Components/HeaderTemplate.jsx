@@ -36,8 +36,8 @@ const HeaderTemplate = () => {
 
   return (
     <>
-      <div className="banner flex justify-between items-center p-3 bg-slate-800">
-        <div className="left-div pl-2 text-2xl text-black">
+      <div className="banner flex justify-between items-center p-3 bg-light-inactive_selection">
+        <div className="left-div pl-2 text-2xl text-light-foreground">
           <Link href="/">LearningLink</Link>
         </div>
         <h1 className="centered-div text-2xl text-black">{selectedRole}</h1>
