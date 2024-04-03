@@ -20,7 +20,7 @@ export async function DELETE(request, id) {
 export async function PATCH(request, id) {
     const data = request.json();
     id = parseInt(id.params.id) || data.id;
-    const {  message } = data; // Destructure all properties directly
+    const {  message } = data;
 
     const result = await sql
           `UPDATE users

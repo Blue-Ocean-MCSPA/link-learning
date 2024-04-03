@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 export async function GET(request) {
     const data = await client.sql`SELECT * FROM messages`;
     return NextResponse.json({ data }, { status: 200 });
-
 }
 
 export async function POST(request) {
