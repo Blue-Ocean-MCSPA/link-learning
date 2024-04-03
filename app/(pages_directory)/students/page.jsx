@@ -1,6 +1,6 @@
 "use client";
 
-import HeaderTemplate from "@/app/Components/HeaderTemplate.jsx";
+import HeaderTemplate from "@/app/Components/admin/AdminHeaderTemplate.jsx";
 import StudentView from "@/app/Components/student/StudentView";
 
 export default function AdminPage() {
