@@ -19,6 +19,7 @@ export function AppWrapper({ children }) {
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
+  const [enrollments, setEnrollments] = useState()
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
@@ -46,6 +47,26 @@ export function AppWrapper({ children }) {
     } catch (error) {
       console.error("Error fetching cohorts:", error);
       setCohorts([]);
+    }
+  };
+
+  const fetchStudentCohort =async () => {
+    try {
+      const response = await fetch("/api/enrollments");
+      const data = await response.json();
+      setEnrollments([
+        {
+          user: data,
+          loading: false,
+        },
+      ]);
+      console.log("Users fetched:", data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setEnrollments({
+        users: [],
+        loading: false,
+      });
     }
   };
 
@@ -130,6 +151,9 @@ export function AppWrapper({ children }) {
         selectedInstructor,
         setSelectedInstructor,
         changeSelectedRole,
+        fetchStudentCohort,
+        enrollments,
+        setEnrollments,
       }}
     >
       {children}
