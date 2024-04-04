@@ -119,7 +119,6 @@ const MessageThread = () => {
     setNewMessage(event.target.value); // Set new message text to whatever the user is typing. 
   };
 
-  // Function to format date and time
   // Function to format date without time
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
