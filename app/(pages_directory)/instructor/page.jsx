@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import { AppWrapper } from "../../context";
-import Instructor from "@/app/Components/Instructor/Instructor";
+import InstructorHeader from "@/app/Components/Instructor/InstructorHeader";
+import SwitchPanels from "@/app/Components/Instructor/SwitchPanels";
 
-export default function InstructorDashboard() {
+export default function InstructorHome() {
   return (
     <div>
-      <Instructor />
+      <InstructorHeader />
+      <SwitchPanels />
     </div>
   );
 }
