@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal, { StudentModal } from "./CreateStudent";
 import { FaSearch } from "react-icons/fa";
-import RemoveBtn from "./RemoveBtn";
+
 
 //npm install react-icons
 
@@ -15,6 +15,13 @@ const SelectStudents = ({ setSelectedStudents }) => {
   const [selectLastName, setSelectLastName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [modalStates, setModalStates] = useState({});
+  const [firstName, setFirstName] = useState(""); // State for the first name input field
+  const [lastName, setLastName] = useState(""); // State for the last name input field
+  const [updatedEmail, setEmail] = useState(""); // State for the email input field
+  const [password, setPassword] = useState(""); // State for the password input field
+  const [updatedAssignmentsCompleted, setAssignmentsCompleted] = useState(0); // State for the assignments completed input field
+  const [updatedGrade, setGrade] = useState(""); // State for the grade input field
+
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
@@ -22,10 +29,48 @@ const SelectStudents = ({ setSelectedStudents }) => {
     fetchStudents("a");
   }, []); // Empty dependency array ensures this effect runs only once
 
-  function handleSubmit(e) {
-    //post
-    e.preventDefault();
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+  
+    // Construct the data object from the state
+    const newUser = {
+      email: updatedEmail,
+      password_hash: password, // You need to define password state or fetch it from somewhere
+      first_name: firstName,
+      last_name: lastName,
+      grade: updatedGrade,
+      assignments_completed: updatedAssignmentsCompleted
+      // Add other fields as needed
+    };
+  
+    try {
+      // Send a POST request to your backend API endpoint
+      const response = await fetch(`/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser), // Convert the data object to JSON string
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to add student");
+      }
+  
+      // Handle successful response
+      console.log("Student added successfully");
+  
+      // Optionally, you can reset the form fields here
+      // Clear the input fields or reset state values
+  
+      // Close the modal if needed
+      setIsOpen(false);
+  
+    } catch (error) {
+      console.error("Error adding student:", error.message);
+      // Handle error
+    }
+  };
 
   function handleClick() {
     setSelectedStudents(null);
@@ -84,19 +129,73 @@ const SelectStudents = ({ setSelectedStudents }) => {
         <div className="text-white">Students</div>
           {/* putting the pop here for now  */}
           <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-            <form onSubmit={handleSubmit}>
-              <h3 className="font-bold text-lg">Student Name</h3>
-              <div className="modal-action">
-                <input
-                  type="text"
-                  placeholder="type here..."
-                  className="input input-bordered w-full max-full"
-                />
-                <button type="submit" className="btn">
-                  Add
-                </button>
+            <div className="modal-box border border-light-cursor bg-light-background">
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="name">First Name:</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="name">Last Name:</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    type="text"
+                    id="email"
+                    value={updatedEmail}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="password">Password:</label>
+                  <input
+                    type="text"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="assignmentsCompleted">Assignments:</label>
+                  <input
+                    type="number"
+                    id="assignmentsCompleted"
+                    value={updatedAssignmentsCompleted}
+                    onChange={(e) => setAssignmentsCompleted(e.target.value)}
+                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="grade">Grade:</label>
+                  <input
+                    type="text"
+                    id="grade"
+                    value={updatedGrade}
+                    onChange={(e) => setGrade(e.target.value)}
+                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                  />
+                </div>
+                <div className="modal-action">
+                  <button type="submit" className="btn">Add</button>
               </div>
-            </form>
+              </form>
+            </div>
           </Modal>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>

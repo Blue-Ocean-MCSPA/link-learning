@@ -29,9 +29,8 @@ export async function POST(request) {
 }
 
 export async function PATCH(request) {
-  const { updatedStudent } = await request.json();
-  const {  id, email, password_hash, first_name, last_name, roleid, contact_info, certifications_and_training, performance_metrics, activity_log, grade, assignments_completed, course_started, course_ended, absent_days} = updatedStudent; // Destructure all properties directly
-  console.log(updatedStudent);
+  const { updatedUser } = await request.json();
+  const {  id, email, password_hash, first_name, last_name, roleid, contact_info, certifications_and_training, performance_metrics, activity_log, grade, assignments_completed, course_started, course_ended, absent_days} = updatedUser; // Destructure all properties directly
   const result = await sql`
         UPDATE users
         SET email = COALESCE(${email}, email),
@@ -51,4 +50,11 @@ export async function PATCH(request) {
         WHERE id = ${id} RETURNING *`;
 
   return NextResponse.json({ result }, { status: 200 });
+}
+
+export async function DELETE(request) {
+  const data = await request.json();
+  const id = data.id;
+const result = await sql`DELETE FROM users WHERE id = ${id} RETURNING *`;
+return NextResponse.json({ result }, { status: 200 });
 }

@@ -61,18 +61,13 @@ export function StudentModal({
   const [updatedAssignmentsCompleted, setAssignmentsCompleted] = useState(assignmentsCompleted); // Initialize assignmentsCompleted state with assignmentsCompleted
   const [updatedGrade, setGrade] = useState(grade); // Initialize grade state with grade
 
-  // useEffect(()=> {
-
-  // }, [])
-
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    const updatedStudent = {
+    const updatedUser = {
       id: student.id,
       email: updatedEmail,
       first_name: firstName,
@@ -87,7 +82,7 @@ export function StudentModal({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({updatedStudent}),
+        body: JSON.stringify({updatedUser}),
       });
   
       if (!response.ok) {
@@ -99,6 +94,7 @@ export function StudentModal({
   
       // Handle the response to update the state in the Edit component
       const data = await response.json();
+      //router.refresh();
     } catch (error) {
       console.error("Error updating student:", error.message);
       // Handle error
@@ -160,7 +156,7 @@ export function StudentModal({
                 />
               </div>
               <div>
-                <label htmlFor="assignmentsCompleted">Assignments Completed:</label>
+                <label htmlFor="assignmentsCompleted">Assignments:</label>
                 <input
                   type="number"
                   id="assignmentsCompleted"

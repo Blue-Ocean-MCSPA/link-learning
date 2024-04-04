@@ -8,13 +8,14 @@ const result = await sql`SELECT * FROM users WHERE id = ${id}`;
 return NextResponse.json({ result }, { status: 200 });
 }
 
-export async function DELETE(request, id) {
-  const data = request.json();
-  id = parseInt(id.params.id) || data.id;
-const result =
-  await sql`DELETE FROM users WHERE id = ${id} RETURNING *`;
-return NextResponse.json({ result }, { status: 200 });
-}
+// export async function DELETE(request, id) {
+//   console.log(request);
+//   const data = await request.json();
+//   console.log(data);
+//   id = parseInt(id.params.id) || data.id;
+// const result = await sql`DELETE FROM users WHERE id = ${id} RETURNING *`;
+// return NextResponse.json({ result }, { status: 200 });
+// }
 
 // export async function PATCH(request, id) {
 //   const data = request.json();
