@@ -22,7 +22,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     lastName: "",
     email: "",
     password: "",
-    roleid: "",
+    roleid: "2",
   });
 
   useEffect(() => {

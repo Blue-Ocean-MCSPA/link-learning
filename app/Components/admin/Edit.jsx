@@ -12,7 +12,7 @@ export default function Edit({ instructor }) {
     lastName: "",
     email: "",
     password: "",
-    roleid: ""
+    roleid: "2",
   });
 
   // -------------for edit------------//
@@ -129,15 +129,7 @@ export default function Edit({ instructor }) {
               onChange={onChange}
               value={toEdit.password}
             />
-            <label htmlFor="email">Role id</label>
-            <input
-              id="roleid"
-              type="text"
-              placeholder="roleid here..."
-              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-              onChange={onChange}
-              value={toEdit.roleid}
-            />
+
             <button type="submit" className="btn mt-20">
               Submit
             </button>
