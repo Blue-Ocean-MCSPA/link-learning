@@ -5,6 +5,7 @@ import Modal from "./CreateInstructor";
 import Form from "./Form";
 import { useRouter } from "next/navigation";
 import Edit from "./Edit";
+import axios from "axios";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -16,7 +17,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
   const [searchInfo, setSearchInfo] = useState([]);
   const [selectName, setSelectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [instructors, setInstructors] = useState(null); // we're going to use this to save state for Edit component child
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -27,9 +27,13 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
-    //
-    fetchInstructors();
+    // fetchInstructors();
+    axios
+      .get("http://localhost:3000/api/users")
+      .then((res) => setInstructorNames(res.data.data.rows))
+      .then((err) => console.log(err));
   }, []); // Empty dependency array ensures this effect runs only once
+  console.log(instructorNames);
 
   function handleClick() {
     setSelectedInstructor(null);
@@ -43,29 +47,18 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     setSelectName(instructor);
   }
 
-  function updateInstructorState(input) {
-    setInstructorNames(input);
-    console.log("array?", instructorNames);
-  }
-
   async function handleSubmit(e) {
     //post
     e.preventDefault();
     console.log(data);
     await handleAddInstructor();
-    setData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      roleid: "",
-    });
-    // setData("");
+    setData("");
     setIsOpen(false);
+    router.refresh();
   }
   function onChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
-    console.log("from onChange(e)", data);
+    console.log(data);
   }
 
   const handleAddInstructor = async () => {
@@ -73,7 +66,13 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       const response = await fetch(`/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: data.email,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          password_hash: data.password,
+          roleid: data.roleid,
+        }),
         cache: "no-store",
       }); // all the users
 
@@ -107,20 +106,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       console.log("error fetching search", error);
     }
   }
-
-  const fetchInstructors = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/users`); // all the users
-      const data = await response.json();
-      const matchedRows = data.data.rows;
-      console.log("fetch instructor names = ", matchedRows);
-      //matchedRows = {id, email, pwrd, fname, lasname, }
-      updateInstructorState(matchedRows);
-      // console.log("state updated = ", instructorNames);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <div className=" h-screen">
@@ -181,58 +166,56 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
             </div>
           </div>
           {instructorNames
-            .filter((instructor) => {
-              console.log("Instructor:", instructor);
-              return (
-                (instructor.email &&
-                  instructor.email.toLowerCase().includes("instructor")) ||
-                (instructor.roleid && instructor.roleid.includes("2"))
-              );
-            })
-
+            .filter(
+              (instructor) =>
+                instructor.email.toLowerCase().includes("instructor") ||
+                instructor.roleid.includes("2")
+            )
             .map((instructor, id) => {
               return (
-                <div
-                  key={id}
-                  className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300  bg-light-background text-light-foreground"
-                  onClick={() => handleClickInstructor(instructor)}
-                >
-                  <div className="flex py-3">
-                    <div className="w-1/4 pl-5">
-                      {instructor.first_name + " " + instructor.last_name}
+                <>
+                  <div
+                    key={id}
+                    className="border-1 p-2 hover:cursor-pointer hover:bg-gray-300  bg-light-background text-light-foreground"
+                    onClick={() => handleClickInstructor(instructor)}
+                  >
+                    <div className="flex py-3">
+                      <div className="w-1/4 pl-5">
+                        {instructor.first_name + " " + instructor.last_name}
+                      </div>
+                      <div className="w-1/4">{instructor.email}</div>
+                      <div className="w-1/4">1</div>
+                      <div className="rating flex">
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          checked
+                        />
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                      </div>
+                      <Edit
+                        data={data}
+                        instructorNames={instructorNames}
+                        setInstructorNames={setInstructorNames}
+                      />
                     </div>
-                    <div className="w-1/4">{instructor.email}</div>
-                    <div className="w-1/4">1</div>
-                    <div className="rating flex">
-                      <input
-                        type="radio"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-orange-400"
-                      />
-                      <input
-                        type="radio"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-orange-400"
-                        checked
-                      />
-                      <input
-                        type="radio"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-orange-400"
-                      />
-                      <input
-                        type="radio"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-orange-400"
-                      />
-                    </div>
-                    <Edit
-                      key={id}
-                      instructorNames={instructorNames}
-                      setInstructorNames={setInstructorNames}
-                    />
                   </div>
-                </div>
+                </>
               );
             })}
         </div>

@@ -9,31 +9,36 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
   const router = useRouter();
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
-  // const [toEdit, setToEdit] = useState({
-  //   firstName: instructor.firstName,
-  //   lastName: instructor.lastName,
-  //   email: instructor.email,
-  //   password: "",
-  // });
+  const [toEdit, setToEdit] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   // -------------for edit------------//
 
   function handleSubmitEdit(e) {
-    e.prevent();
+    e.preventDefault();
     setOpenModalEdit(false);
-    fetchEdit();
+    fetchEdit(instructorNames);
   }
-  console.log(instructorNames);
+  // console.log(instructorNames);  -> consoles the array from database
 
   async function fetchEdit() {
     try {
-      const res = await fetch(`/api/user/${instructor.id}`, {
+      const res = await fetch(`/api/users/${instructor.id}`, {
         // due the instructor.id
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(instructorNames),
+        body: JSON.stringify({
+          email: toEdit.email,
+          first_name: toEdit.firstName,
+          last_name: toEdit.lastName,
+        }),
+        cache: "no-store",
       });
       if (res.ok) {
         //handle success response
@@ -65,15 +70,14 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
     } catch (error) {
       console.error("Failed deleting intructor:", error);
     }
-  }
 
-  async function fetchDelete() {
-    await fetch(`/api/users/${instructor.id}`, {
-      method: "DELETE",
-    });
-    fetchInstructors(); // Update the instructor list after deleting
+    async function fetchDelete() {
+      await fetch(`/api/users/${instructor.id}`, {
+        method: "DELETE",
+      });
+      fetchInstructors(); // Update the instructor list after deleting
+    }
   }
-
   //------for delete-----//
 
   return (
@@ -84,41 +88,41 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
           <h3 className="font-bold text-lg text-black mt-8">
             Edit Instructor's Info
           </h3>
-          <div className="modal-action flex-col items-center">
+          <div className="modal-action flex-col text-sm text-light-foreground bg-light-background border border-b-1 border-light-inactive_selection">
             <label htmlFor="firstName">First Name</label>
             <input
               id="firstName"
               type="text"
               placeholder="First Name here..."
-              className="input input-bordered w-full max-full m-6"
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
               onChange={(e) =>
                 setInstructorNames({
                   ...instructorNames,
-                  firstName: e.target.value,
+                  first_name: e.target.value,
                 })
               }
-              value={instructorNames.firstName}
+              value={instructorNames.first_name}
             />
             <label htmlFor="lastName">Last Name</label>
             <input
               id="lastName"
               type="text"
               placeholder="Last Name here..."
-              className="input input-bordered w-full max-full m-6"
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
               onChange={(e) =>
                 setInstructorNames({
                   ...instructorNames,
-                  lastName: e.target.value,
+                  last_name: e.target.value,
                 })
               }
-              value={instructorNames.lastName}
+              value={instructorNames.last_name}
             />
             <label htmlFor="email">Email</label>
             <input
               id="email"
               type="text"
               placeholder="Email here..."
-              className="input input-bordered w-full max-full m-6"
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
               onChange={(e) =>
                 setInstructorNames({
                   ...instructorNames,
@@ -132,16 +136,16 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
               id="password"
               type="text"
               placeholder="Temp Password here..."
-              className="input input-bordered w-full max-full m-6"
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
               onChange={(e) =>
                 setInstructorNames({
                   ...instructorNames,
-                  password: e.target.value,
+                  password_hashed: e.target.value,
                 })
               }
-              value={instructorNames.password}
+              value={instructorNames.password_hashed}
             />
-            <button type="submit" className="btn">
+            <button type="submit" className="btn mt-20">
               Submit
             </button>
           </div>
@@ -153,11 +157,15 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
         onClick={() => setOpenModalDelete(true)}
       />
       <Modal isOpen={openModalDelete} setIsOpen={setOpenModalDelete}>
-        <h3 className="text-lg">Are you sure you want to delete Instructor</h3>
-        <div className="modal-action">
+        <h3 className="text-lg">Are you sure you want to delete Instructor?</h3>
+        <div className="modal-action justify-center gap-8">
           <button className="btn" onClick={() => handleDelete()}>
             {/* handleDelete(instructor.id) */}
             Yes
+          </button>
+          <button className="btn" onClick={() => setOpenModalDelete(false)}>
+            {/* handleDelete(instructor.id) */}
+            No
           </button>
         </div>
       </Modal>
