@@ -19,7 +19,8 @@ export function AppWrapper({ children }) {
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
-  const [enrollments, setEnrollments] = useState()
+  const [enrollments, setEnrollments] = useState();
+  const [loggedInUser, setLoggedInUser] = useState(null);;
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
@@ -154,6 +155,8 @@ export function AppWrapper({ children }) {
         fetchStudentCohort,
         enrollments,
         setEnrollments,
+        loggedInUser, 
+        setLoggedInUser,
       }}
     >
       {children}

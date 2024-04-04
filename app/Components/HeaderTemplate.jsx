@@ -1,42 +1,23 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../context/index";
 import Link from "next/link";
 
 const HeaderTemplate = () => {
-  const { selectedRole, users, setUsers, darkMode, toggleDarkMode } =
+  const { loggedInUser, darkMode, toggleDarkMode } =
     useContext(AppContext);
-    let user = users;
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/users");
-        if (!response.ok) {
-          throw new Errow("Failed to fetch users");
-        }
-        const responseData = await response.json();
-        const userData = responseData.data.rows;
-        if (userData.length > 0) {
-          setUsers(userData[0]);
-        }
-        console.log("Users fetched from header", userData);
-      } catch (error) {
-        console.log("Error fetching users:", error);
-        setUsers([]);
-      }
-    }
-    fetchUsers();
-  }, []);
-console.log(user.first_name)
 
+  
   return (
     <>
       <div className="banner flex justify-between items-center p-3 bg-light-inactive_selection">
         <div className="left-div pl-2 text-2xl text-light-foreground">
           <Link href="/">LearningLink</Link>
         </div>
-        <h1 className="centered-div text-2xl text-black">Welcome {user.first_name}!</h1>
+        <h1 className="centered-div text-2xl text-black">
+          Welcome {loggedInUser.first_name}!
+        </h1>
         {/* this is where the menu will be  -------------------------------*/}
         <ul className="flex-row menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
           <li className="flex">

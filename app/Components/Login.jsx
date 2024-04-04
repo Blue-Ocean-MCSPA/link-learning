@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useState, useContext } from "react";
-import { AppContext, useAppContext } from "../context";
+import { AppContext } from "../context";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Login = () => {
-  const { loggedInRole, changeLoggedInRole } = useContext(AppContext);
-  const { selectedRole, setSelectedRole, changeSelectedRole } = useContext(AppContext);
+  const { changeLoggedInRole, setLoggedInUser } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,31 +20,24 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleLoginClick = async (event) => {
+  const handleLogin = async () => {
     try {
-      const response = await fetch(`/api/users`); // all the users
+      const response = await fetch(`/api/users`); 
       const data = await response.json();
       const matchedRows = data.data.rows.filter((row) => {
         return row.email === email && row.password_hash === password;
       });
-      if (matchedRows.length > 0) {
-        console.log("Email and password matched");
-        console.log("role id for this matched user: ", matchedRows[0].roleid);
-        const newRole = await changeLoggedInRole(matchedRows[0].roleid);
-        console.log("expected: ", matchedRows[0].roleid, "actual: ", newRole);
 
+      if (matchedRows.length > 0) {
+        setLoggedInUser(matchedRows[0]);
+
+        const newRole = await changeLoggedInRole(matchedRows[0].roleid);
         if (newRole === "1") {
-          console.log("BEFORE set role: ", selectedRole);//-> wrong
-          const loginRole = await changeSelectedRole("Admin");
-          console.log("AFTER set role: ", selectedRole, loginRole);// -> Admin
           router.push("/admin");
         } else if (newRole === "2") {
-          console.log("Instructor route pushed");
           router.push("/instructor");
-          changeSelectedRole("instructor");
         } else if (newRole === "3") {
           router.push("/student");
-          changeSelectedRole("Student")
         }
       } else {
         alert(
@@ -99,7 +91,7 @@ const Login = () => {
             <div className="flex justify-center">
               <div
                 className="w-full text-center mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
-                onClick={handleLoginClick}
+                onClick={handleLogin}
               >
                 Login
               </div>
