@@ -38,7 +38,8 @@ const SelectStudents = ({ setSelectedStudents }) => {
       first_name: firstName,
       last_name: lastName,
       grade: updatedGrade,
-      assignments_completed: updatedAssignmentsCompleted
+      assignments_completed: updatedAssignmentsCompleted,
+      roleid: 3
       // Add other fields as needed
     };
   
