@@ -1,6 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import StudentsOverview from "./StudentsOverview";
 import AssignmentsOverview from "./AssignmentsOverview";
+import { AppContext } from "@/app/context";
 
 const CohortOverview = () => {
   const {

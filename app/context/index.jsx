@@ -20,7 +20,8 @@ export function AppWrapper({ children }) {
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
   const [enrollments, setEnrollments] = useState();
-  const [loggedInUser, setLoggedInUser] = useState(null);;
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [assignments, setAssignments] = useState(false);
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
@@ -51,7 +52,7 @@ export function AppWrapper({ children }) {
     }
   };
 
-  const fetchStudentCohort =async () => {
+  const fetchStudentCohort = async () => {
     try {
       const response = await fetch("/api/enrollments");
       const data = await response.json();
@@ -155,8 +156,10 @@ export function AppWrapper({ children }) {
         fetchStudentCohort,
         enrollments,
         setEnrollments,
-        loggedInUser, 
+        loggedInUser,
         setLoggedInUser,
+        assignments,
+        setAssignments,
       }}
     >
       {children}

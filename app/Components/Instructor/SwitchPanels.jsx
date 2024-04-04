@@ -14,10 +14,11 @@ const SwitchPanels = () => {
   const { loggedInRole } = useContext(AppContext);
   const { selectedCohort, setSelectedCohort } = useContext(AppContext);
   const { selectedStudents, setSelectedStudents } = useContext(AppContext);
+  const { assignments, setAssignments } = useContext(AppContext);
 
   return (
     <div className="">
-      {selectedCohort ? (
+      {assignments ? (
         <CohortOverview
           selectedCohort={selectedCohort}
           setSelectedCohort={setSelectedCohort}
@@ -31,6 +32,8 @@ const SwitchPanels = () => {
         <MainDash
           selectedStudents={selectedStudents}
           setSelectedStudents={setSelectedStudents}
+          assignments={assignments}
+          setAssignments={setAssignments}
         />
       )}
     </div>

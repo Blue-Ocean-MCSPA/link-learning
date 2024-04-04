@@ -6,8 +6,8 @@ import { AppContext } from "../../context/index";
 // I have Purple border aroundt this one
 
 const MainDash = ({
-  selectedInstructor,
-  setSelectedInstructor,
+  assignments,
+  setAssignments,
   selectedStudents,
   setSelectedStudents,
 }) => {
@@ -36,8 +36,8 @@ const MainDash = ({
     setSelectedCohort(cohort);
   };
 
-  const instructorsListClick = () => {
-    setSelectedInstructor(true);
+  const AssignmentClick = () => {
+    setAssignments(true);
   };
 
   const studentListClick = () => {
@@ -52,6 +52,14 @@ const MainDash = ({
             onClick={() => studentListClick()}
           >
             Students
+          </button>
+        </div>
+        <div className="flex justify-center p-5 m-4">
+          <button
+            className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment"
+            onClick={() => AssignmentClick()}
+          >
+            AssignmentOverView
           </button>
         </div>
         <div className="flex justify-center items-center p-4">
