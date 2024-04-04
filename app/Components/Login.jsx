@@ -20,7 +20,7 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = async () => {
+  const handleLoginClick = async () => {
     try {
       const response = await fetch(`/api/users`); 
       const data = await response.json();

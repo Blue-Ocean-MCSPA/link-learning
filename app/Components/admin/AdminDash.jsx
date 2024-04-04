@@ -22,7 +22,6 @@ const AdminDash = ({
       }
       const data = await response.json();
       setCohorts(data.cohorts.rows);
-      console.log("Cohorts fetched:", data.cohorts.rows);
     } catch (error) {
       console.error("Error fetching cohorts:", error);
       setCohorts([]);

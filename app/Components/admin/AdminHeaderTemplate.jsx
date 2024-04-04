@@ -21,7 +21,6 @@ const HeaderTemplate = () => {
         const responseData = await response.json();
         const userData = responseData.data.rows;
         setUsers(userData);
-        console.log("Users fetched from header", userData);
       } catch (error) {
         console.log("Error fetching users:", error);
         setUsers([]);
