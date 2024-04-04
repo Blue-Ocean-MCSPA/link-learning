@@ -1,12 +1,8 @@
 "use client";
-
 import { createContext, useState } from "react";
 
-// Import AppContext into your component along with useContext to access state
 export const AppContext = createContext();
 
-/****************Context functions****************/
-// Function that stores fetch data from users API hit into state.
 export function AppWrapper({ children }) {
   const [users, setUsers] = useState([]);
   const [loggedInRole, setLoggedInRole] = useState("string"); // [user, setUser
@@ -20,7 +16,8 @@ export function AppWrapper({ children }) {
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
   const [enrollments, setEnrollments] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(null);;
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [assignments, setAssignments] = useState([]);
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
@@ -41,7 +38,6 @@ export function AppWrapper({ children }) {
     setDarkMode(!darkMode);
   };
 
-  // Function to fetch users from the database and add them to state
   const fetchInstructorCohorts = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/api/cohort/${id}`);
@@ -63,11 +59,26 @@ export function AppWrapper({ children }) {
         throw new Error("Failed to fetch enrollments");
       }
       const data = await response.json();
-      setEnrollments(data.data.rows[0]); // Update enrollments state with fetched data directly
+      setEnrollments(data.data.rows[0]); 
       console.log("Enrollments fetched:", data.data.rows);
     } catch (error) {
       console.error("Error fetching enrollments:", error);
-      setEnrollments([]); // Set enrollments state to an empty array in case of error
+      setEnrollments([]); 
+    }
+  };
+
+  const fetchAssignments = async () => {
+    try {
+      const response = await fetch("/api/enrollments");
+      if (!response.ok) {
+        throw new Error("Failed to fetch enrollments");
+      }
+      const data = await response.json();
+      setAssignments(data.data.rows[0]); 
+      console.log("Assignments fetched:", data.data.rows);
+    } catch (error) {
+      console.error("Error fetching Assignments:", error);
+      setAssignments([]); 
     }
   };
 
@@ -121,7 +132,7 @@ export function AppWrapper({ children }) {
       });
     }
   };
-  // Return student data and fetch function.
+
   return (
     <AppContext.Provider
       value={{
@@ -157,6 +168,7 @@ export function AppWrapper({ children }) {
         setEnrollments,
         loggedInUser, 
         setLoggedInUser,
+        assignments,
       }}
     >
       {children}

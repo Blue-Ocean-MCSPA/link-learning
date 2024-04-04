@@ -19,7 +19,7 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleLoginClick = async () => {
+  const handleLogin = async () => {
     try {
       const response = await fetch(`/api/users`); 
       const data = await response.json();
@@ -98,7 +98,7 @@ const Login = () => {
             <div className="flex justify-center">
               <div
                 className="w-full text-center mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
-                onClick={handleLoginClick}
+                onClick={handleLogin}
               >
                 Login
               </div>

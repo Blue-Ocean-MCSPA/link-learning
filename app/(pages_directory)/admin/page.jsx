@@ -1,12 +1,11 @@
 "use client";
-import { AppWrapper } from "../../context/index";
 import SwitchPanels from "../../Components/admin/SwitchPanels";
-import HeaderTemplate from "@/app/Components/admin/AdminHeaderTemplate.jsx";
+import Header from "@/app/Components/Header";
 
 export default function AdminPage() {
   return (
     <>
-      <HeaderTemplate />
+      <Header />
       <SwitchPanels />
     </>
   );

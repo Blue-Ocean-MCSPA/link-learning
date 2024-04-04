@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "@/app/context/index";
-//import AssignmentOverview from "../";
+import Assignments from "./Assignments";
 
 const CohortOverview = () => {
   const { enrollments, loggedInUser } =
     useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState("students");
-  const [userCohort, setUserCohort] = useState(null);
   let cohort = enrollments[loggedInUser.id].cohortid;
 
  return (
@@ -26,7 +25,7 @@ const CohortOverview = () => {
         <li>Messages</li>
       </ul>
     </div>
-    <div>{selectedTab === "assignments" && <AssignmentOverview />}</div>
+    <div>{selectedTab === "assignments" && <Assignments />}</div>
   </div>
 );
 };
