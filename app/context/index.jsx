@@ -19,12 +19,17 @@ export function AppWrapper({ children }) {
   const [selectedTab, setSelectedTab] = useState("students");
   const [selectedRole, setSelectedRole] = useState("Admin");
   const [darkMode, setDarkMode] = useState(false);
-  const [enrollments, setEnrollments] = useState();
+  const [enrollments, setEnrollments] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);;
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
     return string;
+  };
+
+  const changeEnrollments = (number) => {
+    setEnrollments(number);
+    return number;
   };
 
   const changeSelectedRole = (string) => {
@@ -51,23 +56,18 @@ export function AppWrapper({ children }) {
     }
   };
 
-  const fetchStudentCohort =async () => {
+  const fetchEnrollments = async () => {
     try {
       const response = await fetch("/api/enrollments");
+      if (!response.ok) {
+        throw new Error("Failed to fetch enrollments");
+      }
       const data = await response.json();
-      setEnrollments([
-        {
-          user: data,
-          loading: false,
-        },
-      ]);
-      console.log("Users fetched:", data);
+      setEnrollments(data.data.rows[0]); // Update enrollments state with fetched data directly
+      console.log("Enrollments fetched:", data.data.rows);
     } catch (error) {
-      console.error("Error fetching users:", error);
-      setEnrollments({
-        users: [],
-        loading: false,
-      });
+      console.error("Error fetching enrollments:", error);
+      setEnrollments([]); // Set enrollments state to an empty array in case of error
     }
   };
 
@@ -152,7 +152,7 @@ export function AppWrapper({ children }) {
         selectedInstructor,
         setSelectedInstructor,
         changeSelectedRole,
-        fetchStudentCohort,
+        fetchEnrollments,
         enrollments,
         setEnrollments,
         loggedInUser, 
