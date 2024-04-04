@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderTemplate from "../Components/HeaderTemplate";
+import HeaderTemplate from "../Components/admin/AdminHeaderTemplate";
 
 export default function Dashboard({ children }) {
   return (

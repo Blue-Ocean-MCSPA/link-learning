@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Modal, { StudentModal } from "./CreateStudent";
 import { FaSearch } from "react-icons/fa";
 
-
 //npm install react-icons
 
 const SelectStudents = ({ setSelectedStudents }) => {
