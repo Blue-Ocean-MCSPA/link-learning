@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 
-const AssignmentOverview = () => {
+const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
 
@@ -36,4 +36,4 @@ const AssignmentOverview = () => {
   );
 };
 
-export default AssignmentOverview;
+export default Assignments;

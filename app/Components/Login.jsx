@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Login = () => {
-  const { changeLoggedInRole, setLoggedInUser } = useContext(AppContext);
-
+  const { changeLoggedInRole, setLoggedInUser, setEnrollments } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -20,18 +19,26 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleLoginClick = async () => {
+  const handleLogin = async () => {
     try {
       const response = await fetch(`/api/users`); 
       const data = await response.json();
       const matchedRows = data.data.rows.filter((row) => {
         return row.email === email && row.password_hash === password;
       });
-
       if (matchedRows.length > 0) {
         setLoggedInUser(matchedRows[0]);
-
         const newRole = await changeLoggedInRole(matchedRows[0].roleid);
+  
+        // Fetch enrollments for the logged-in student
+        const enrollmentsResponse = await fetch(`/api/enrollments`);
+        const enrollmentsData = await enrollmentsResponse.json();
+        const matchedEnrolled = data.data.rows.filter((row) => {
+          return row.userid === matchedRows.id && row.cohortid;
+        });
+        setEnrollments(enrollmentsData.data.rows);
+          console.log(enrollmentsData.data.rows)
+
         if (newRole === "1") {
           router.push("/admin");
         } else if (newRole === "2") {
@@ -91,7 +98,7 @@ const Login = () => {
             <div className="flex justify-center">
               <div
                 className="w-full text-center mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
-                onClick={handleLoginClick}
+                onClick={handleLogin}
               >
                 Login
               </div>
