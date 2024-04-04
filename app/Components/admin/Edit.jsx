@@ -12,6 +12,7 @@ export default function Edit({ instructor }) {
     lastName: "",
     email: "",
     password: "",
+    roleid: "",
   });
 
   // -------------for edit------------//
@@ -40,6 +41,7 @@ export default function Edit({ instructor }) {
           first_name: toEdit.firstName,
           last_name: toEdit.lastName,
           password: toEdit.password,
+          roleid: toEdit.roleid,
         }),
         cache: "no-store",
       });
@@ -126,6 +128,14 @@ export default function Edit({ instructor }) {
               className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
               onChange={onChange}
               value={toEdit.password}
+            />
+            <input
+              id="roleid"
+              type="text"
+              placeholder="role id here..."
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+              onChange={onChange}
+              value={toEdit.roleid}
             />
             <button type="submit" className="btn mt-20">
               Submit
