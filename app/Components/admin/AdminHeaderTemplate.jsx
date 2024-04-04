@@ -8,6 +8,10 @@ const HeaderTemplate = () => {
   // then we can use the selected role state
   //Header Template is wrapped in AppWrapper i just checked
   const { selectedRole, users, setUsers, darkMode, toggleDarkMode } =
+  //selected role need to be updated when the user logs in and
+  // then we can use the selected role state
+  //Header Template is wrapped in AppWrapper i just checked
+  const { selectedRole, users, setUsers, darkMode, toggleDarkMode } =
     useContext(AppContext);
 
   // putting the fetch in the useEffect so that there are no issues with state variables not being updated asap due to the async funtion.
