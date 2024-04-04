@@ -4,13 +4,13 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
       <h3 className="font-bold text-lg text-black mt-8">
         Add new Instructor's Information
       </h3>
-      <div className="modal-action flex-col items-center">
+      <div className="modal-actiont ext-sm text-light-foreground bg-light-background border border-b-1 border-light-inactive_selection">
         <label htmlFor="firstName">First Name</label>
         <input
           id="firstName"
           type="text"
           placeholder="First Name here..."
-          className="input input-bordered w-full max-full m-6"
+          className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
           onChange={onChange}
           value={data.firstName}
         />
@@ -19,7 +19,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           id="lastName"
           type="text"
           placeholder="Last Name here..."
-          className="input input-bordered w-full max-full m-6"
+          className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
           onChange={onChange}
           value={data.LastName}
         />
@@ -28,7 +28,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           id="email"
           type="text"
           placeholder="Email here..."
-          className="input input-bordered w-full max-full m-6"
+          className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
           onChange={onChange}
           value={data.email}
         />
@@ -37,7 +37,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           id="password"
           type="text"
           placeholder="Temp Password here..."
-          className="input input-bordered w-full max-full m-6"
+          className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
           onChange={onChange}
           value={data.password}
         />
@@ -46,7 +46,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           id="roleid"
           type="text"
           placeholder="role id here... for instructors, 2"
-          className="input input-bordered w-full max-full m-6"
+          className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
           onChange={onChange}
           value={data.roleid}
         />
