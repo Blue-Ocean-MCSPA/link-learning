@@ -1,21 +1,10 @@
 import React, { useState } from "react";
 
-// inferface ModalProps {
-//     children: React.ReactNode
-// }
-
 function Modal({ isOpen, setIsOpen, children }) {
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
-  // <div className=" ml-10 bg-transparent">
-  // <label
-  //   htmlFor=""
-  //   className="text-white hover:cursor-pointer"
-  //   onClick={toggleModal}
-  // >
-  //   Add Instructor
   return (
     <div className="model model-open">
       <label
@@ -32,7 +21,13 @@ function Modal({ isOpen, setIsOpen, children }) {
       />
       {isOpen && (
         <div className="modal" role="dialog">
-          <div className="modal-box bg-white w-96 h-4/6">
+          <div
+            className={
+              isOpen
+                ? "modal-box bg-white w-64 h-26"
+                : "modal-box bg-white w-2/4 h-4/6"
+            }
+          >
             {children}
 
             <div className="modal-action">
@@ -50,5 +45,6 @@ function Modal({ isOpen, setIsOpen, children }) {
     </div>
   );
 }
+//w - auto 1/2 1/4 2/4 fit max dvw lvw svw full
 
 export default Modal;

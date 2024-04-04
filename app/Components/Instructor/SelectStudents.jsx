@@ -21,7 +21,6 @@ const SelectStudents = ({ setSelectedStudents }) => {
   const [updatedAssignmentsCompleted, setAssignmentsCompleted] = useState(0); // State for the assignments completed input field
   const [updatedGrade, setGrade] = useState(""); // State for the grade input field
 
-
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
     // i forgot what i have an 'a' in here. but its what renders all the names
@@ -30,7 +29,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-  
+
     // Construct the data object from the state
     const newUser = {
       email: updatedEmail,
@@ -39,10 +38,10 @@ const SelectStudents = ({ setSelectedStudents }) => {
       last_name: lastName,
       grade: updatedGrade,
       assignments_completed: updatedAssignmentsCompleted,
-      roleid: 3
+      roleid: 3,
       // Add other fields as needed
     };
-  
+
     try {
       // Send a POST request to your backend API endpoint
       const response = await fetch(`/api/users`, {
@@ -52,20 +51,19 @@ const SelectStudents = ({ setSelectedStudents }) => {
         },
         body: JSON.stringify(newUser), // Convert the data object to JSON string
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to add student");
       }
-  
+
       // Handle successful response
       console.log("Student added successfully");
-  
+
       // Optionally, you can reset the form fields here
       // Clear the input fields or reset state values
-  
+
       // Close the modal if needed
       setIsOpen(false);
-  
     } catch (error) {
       console.error("Error adding student:", error.message);
       // Handle error
@@ -127,76 +125,78 @@ const SelectStudents = ({ setSelectedStudents }) => {
     <div className="h-screen">
       <div className="flex p-5 bg-light-foreground items-between">
         <div className="text-white">Students</div>
-          {/* putting the pop here for now  */}
-          <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-            <div className="modal-box border border-light-cursor bg-light-background">
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="name">First Name:</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="name">Last Name:</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email">Email:</label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={updatedEmail}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="password">Password:</label>
-                  <input
-                    type="text"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="assignmentsCompleted">Assignments:</label>
-                  <input
-                    type="number"
-                    id="assignmentsCompleted"
-                    value={updatedAssignmentsCompleted}
-                    onChange={(e) => setAssignmentsCompleted(e.target.value)}
-                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="grade">Grade:</label>
-                  <input
-                    type="text"
-                    id="grade"
-                    value={updatedGrade}
-                    onChange={(e) => setGrade(e.target.value)}
-                    className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-                  />
-                </div>
-                <div className="modal-action">
-                  <button type="submit" className="btn">Add</button>
+        {/* putting the pop here for now  */}
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <div className="modal-box border border-light-cursor bg-light-background">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="name">First Name:</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
               </div>
-              </form>
-            </div>
-          </Modal>
+              <div>
+                <label htmlFor="name">Last Name:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="text"
+                  id="email"
+                  value={updatedEmail}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="text"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="assignmentsCompleted">Assignments:</label>
+                <input
+                  type="number"
+                  id="assignmentsCompleted"
+                  value={updatedAssignmentsCompleted}
+                  onChange={(e) => setAssignmentsCompleted(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="grade">Grade:</label>
+                <input
+                  type="text"
+                  id="grade"
+                  value={updatedGrade}
+                  onChange={(e) => setGrade(e.target.value)}
+                  className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+                />
+              </div>
+              <div className="modal-action">
+                <button type="submit" className="btn">
+                  Add
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
@@ -238,26 +238,28 @@ const SelectStudents = ({ setSelectedStudents }) => {
             </div>
           </div>
           {studentNames
-  .filter((student) => student.email.includes("student"))
-  .map((student, id) => {
-    return (
-      <StudentModal
-        key={id}
-        isOpen={modalStates[student.id] || false} // Use isOpen state corresponding to the student
-        setIsOpen={(isOpen) => setModalStates((prevModalStates) => ({
-          ...prevModalStates,
-          [student.id]: isOpen,
-        }))}
-        student={student}
-        selectFirstName={`${student.first_name}`}
-        selectLastName={`${student.last_name}`}
-        email={student.email}
-        assignmentsCompleted={student.assignments_completed}
-        grade={student.grade}
-        onClick={() => handleClickStudents(student)}
-      />
-    );
-  })}
+            .filter((student) => student.email.includes("student"))
+            .map((student, id) => {
+              return (
+                <StudentModal
+                  key={id}
+                  isOpen={modalStates[student.id] || false} // Use isOpen state corresponding to the student
+                  setIsOpen={(isOpen) =>
+                    setModalStates((prevModalStates) => ({
+                      ...prevModalStates,
+                      [student.id]: isOpen,
+                    }))
+                  }
+                  student={student}
+                  selectFirstName={`${student.first_name}`}
+                  selectLastName={`${student.last_name}`}
+                  email={student.email}
+                  assignmentsCompleted={student.assignments_completed}
+                  grade={student.grade}
+                  onClick={() => handleClickStudents(student)}
+                />
+              );
+            })}
         </div>
         {/* separate------------------------- */}
         <div className="border flex flex-col justify-evenly items-between w-full bg-gray-200">

@@ -5,6 +5,7 @@ import Modal from "./CreateInstructor";
 import Form from "./Form";
 import { useRouter } from "next/navigation";
 import Edit from "./Edit";
+import axios from "axios";
 
 //npm install react-icons
 // npm i -D daisyui@latest
@@ -21,14 +22,21 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     lastName: "",
     email: "",
     password: "",
-    roleid: "",
+    roleid: "2",
   });
 
   useEffect(() => {
     //Fetch instructors as soon as the component mounts
-    //
-    fetchInstructors("a");
+    // fetchInstructors();
+    axios
+      .get("http://localhost:3000/api/users")
+      .then((res) => {
+        console.log(res.data);
+        setInstructorNames(res.data.data.rows);
+      })
+      .catch((err) => console.log(err));
   }, []); // Empty dependency array ensures this effect runs only once
+  console.log(instructorNames);
 
   function handleClick() {
     setSelectedInstructor(null);
@@ -40,10 +48,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
 
   function handleClickInstructor(instructor) {
     setSelectName(instructor);
-  }
-
-  function updateInstructorState(input) {
-    setInstructorNames(input);
   }
 
   async function handleSubmit(e) {
@@ -84,8 +88,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     }
   };
 
-  const randomNum = Math.floor(Math.random() * 5) + 1;
-
   async function fetchSearch(value) {
     try {
       const response = await fetch("http://localhost:3000/api/users");
@@ -107,20 +109,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       console.log("error fetching search", error);
     }
   }
-
-  const fetchInstructors = async (value) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/users`); // all the users
-      const data = await response.json();
-      const matchedRows = data.data.rows;
-      console.log("fetch instructor names = ", matchedRows);
-      //matchedRows = {id, email, pwrd, fname, lasname, }
-      updateInstructorState(matchedRows);
-      // console.log("state updated = ", instructorNames);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <div className=" h-screen">
@@ -183,8 +171,9 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
           {instructorNames
             .filter(
               (instructor) =>
-                instructor.email.toLowerCase().includes("instructor") ||
-                instructor.roleid.includes("2")
+                instructor.email.toLowerCase().includes("instructor") &&
+                instructor.roleid && // Check if roleid exists
+                instructor.roleid.includes("2") // Check roleid for '2'
             )
             .map((instructor, id) => {
               return (
@@ -199,7 +188,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                         {instructor.first_name + " " + instructor.last_name}
                       </div>
                       <div className="w-1/4">{instructor.email}</div>
-                      <div className="w-1/4 text-center">{randomNum}</div>
+                      <div className="w-1/4">1</div>
                       <div className="rating flex">
                         <input
                           type="radio"
@@ -223,7 +212,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                           className="mask mask-star-2 bg-orange-400"
                         />
                       </div>
-                      <Edit data={data} />
+                      <Edit instructor={instructor} />
                     </div>
                   </div>
                 </>

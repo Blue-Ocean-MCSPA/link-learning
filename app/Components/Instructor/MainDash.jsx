@@ -5,7 +5,7 @@ import { AppContext } from "../../context/index";
 // this page is the AdminDash and also Admin....
 // I have Purple border aroundt this one
 
-const AdminDash = ({
+const MainDash = ({
   selectedInstructor,
   setSelectedInstructor,
   selectedStudents,
@@ -49,13 +49,6 @@ const AdminDash = ({
         <div className="flex justify-center p-5 m-4">
           <button
             className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment"
-            onClick={() => instructorsListClick()}
-          >
-            Instructors
-          </button>
-
-          <button 
-            className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment"
             onClick={() => studentListClick()}
           >
             Students
@@ -79,4 +72,4 @@ const AdminDash = ({
   );
 };
 
-export default AdminDash;
+export default MainDash;
