@@ -12,6 +12,7 @@ export default function Edit({ instructor }) {
     lastName: "",
     email: "",
     password: "",
+    roleid: ""
   });
 
   // -------------for edit------------//
