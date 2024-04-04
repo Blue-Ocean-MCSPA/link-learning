@@ -3,63 +3,84 @@ import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import Modal from "./CreateInstructor";
-import { useRouter } from "next/navigation";
 
-function Edit({ data }) {
-  const router = useRouter();
+export default function Edit({ instructor }) {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
-  const [toEdit, setToEdit] = useState(data.text);
-  // above is not working becaue we have a lot of data. so we have to maybe look into spread operators or .map or something
-  // vvvvvvvvvv getting this error because DATA is not being hanled properly
-  //   app/Components/admin/Edit.jsx (55:40) @ e
-
-  //   53 |   placeholder="First Name here..."
-  //   54 |   className="input input-bordered w-full max-full m-6"
-  // > 55 |   onChange={() => setToEdit(e.target.value)}
-  //      |                            ^
-  //   56 |   value={toEdit}
+  const [toEdit, setToEdit] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   // -------------for edit------------//
+
   function handleSubmitEdit(e) {
-    setToEdit("");
+    e.preventDefault();
     setOpenModalEdit(false);
-    router.refresh();
     fetchEdit();
   }
+  function onChange(e) {
+    setToEdit({ ...toEdit, [e.target.id]: e.target.value });
+    // console.log(toEdit);
+  }
+  // console.log(instructorNames);  -> consoles the array from database
 
   async function fetchEdit() {
-    const res = await fetch("/api/users", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: toEdit.email,
-        first_name: toEdit.firstName,
-        last_name: toEdit.lastName,
-        password_hash: toEdit.password,
-        roleid: toEdit.roleid,
-      }),
-    });
-    const UpdatedInstructor = await res.json();
-    return UpdatedInstructor;
+    try {
+      const res = await fetch(`/api/users/${instructor.id}`, {
+        // due the instructor.id
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: toEdit.email,
+          first_name: toEdit.firstName,
+          last_name: toEdit.lastName,
+          password: toEdit.password,
+          roleid: toEdit.roleid,
+        }),
+        cache: "no-store",
+      });
+      if (res.ok) {
+        //handle success response
+        console.log("Instructor updated success");
+      } else {
+        console.error("failed to updated instructors");
+      }
+    } catch (error) {
+      console.error("Error updating instructor:", error);
+    }
   }
   //------------for edit-----------//
 
   //------for delete------//
   async function handleDelete() {
-    await fetchDelete();
-    openModalDelete(false);
-    router.refresh();
-  }
+    try {
+      const res = await fetch(`/api/users/${instructor.id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        //handle success repsonse
+        console.log("instructor deleted successfully");
+        router.refresh();
+      } else {
+        //handle error response
+        console.error("Failed to delete intructor ");
+      }
+    } catch (error) {
+      console.error("Failed deleting intructor:", error);
+    }
 
-  async function fetchDelete() {
-    await fetch("/api/users", {
-      method: "DELETE",
-    });
+    async function fetchDelete() {
+      await fetch(`/api/users/${instructor.id}`, {
+        method: "DELETE",
+      });
+      fetchInstructors(); // Update the instructor list after deleting
+    }
   }
-
   //------for delete-----//
 
   return (
@@ -70,44 +91,53 @@ function Edit({ data }) {
           <h3 className="font-bold text-lg text-black mt-8">
             Edit Instructor's Info
           </h3>
-          <div className="modal-action flex-col items-center">
+          <div className="modal-action flex-col text-sm text-light-foreground bg-light-background border border-b-1 border-light-inactive_selection">
             <label htmlFor="firstName">First Name</label>
             <input
               id="firstName"
               type="text"
               placeholder="First Name here..."
-              className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+              onChange={onChange}
+              value={toEdit.firstName}
             />
             <label htmlFor="lastName">Last Name</label>
             <input
               id="lastName"
               type="text"
               placeholder="Last Name here..."
-              className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+              onChange={onChange}
+              value={toEdit.lastName}
             />
             <label htmlFor="email">Email</label>
             <input
               id="email"
               type="text"
               placeholder="Email here..."
-              className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+              onChange={onChange}
+              value={toEdit.email}
             />
             <label htmlFor="email">Tempory Password</label>
             <input
               id="password"
               type="text"
               placeholder="Temp Password here..."
-              className="input input-bordered w-full max-full m-6"
-              onChange={() => setToEdit(e.target.value)}
-              value={toEdit}
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+              onChange={onChange}
+              value={toEdit.password}
             />
-            <button type="submit" className="btn">
+            <label htmlFor="email">Role id</label>
+            <input
+              id="roleid"
+              type="text"
+              placeholder="roleid here..."
+              className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
+              onChange={onChange}
+              value={toEdit.roleid}
+            />
+            <button type="submit" className="btn mt-20">
               Submit
             </button>
           </div>
@@ -119,16 +149,18 @@ function Edit({ data }) {
         onClick={() => setOpenModalDelete(true)}
       />
       <Modal isOpen={openModalDelete} setIsOpen={setOpenModalDelete}>
-        <h3 className="text-lg">Are you sure you want to delete Instructor</h3>
-        <div className="modal-action">
+        <h3 className="text-lg">Are you sure you want to delete Instructor?</h3>
+        <div className="modal-action justify-center gap-8">
           <button className="btn" onClick={() => handleDelete()}>
             {/* handleDelete(instructor.id) */}
             Yes
+          </button>
+          <button className="btn" onClick={() => setOpenModalDelete(false)}>
+            {/* handleDelete(instructor.id) */}
+            No
           </button>
         </div>
       </Modal>
     </div>
   );
 }
-
-export default Edit;

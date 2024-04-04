@@ -1,13 +1,13 @@
 "use client";
-import { AppWrapper } from "../../context/index";
-import SwitchPanels from "../../Components/admin/SwitchPanels";
+
 import HeaderTemplate from "@/app/Components/admin/AdminHeaderTemplate.jsx";
+import StudentView from "@/app/Components/student/StudentView";
 
 export default function AdminPage() {
   return (
     <>
       <HeaderTemplate />
-      <SwitchPanels />
+      <StudentView />
     </>
   );
 }

@@ -91,7 +91,7 @@ const Login = () => {
             <div className="flex justify-center">
               <div
                 className="w-full text-center mt-3 py-1 text-base text-light-background bg-light-foreground hover:opacity-75 hover:cursor-pointer rounded-full"
-                onClick={handleLogin}
+                onClick={handleLoginClick}
               >
                 Login
               </div>
