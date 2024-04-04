@@ -1,13 +1,7 @@
-"use client"
 import React, { useState, useContext, useEffect } from "react";
 
 const AssignmentOverview = () => {
-  const [assignments, setAssignments] = useState([
-    { name: "Assignment 1", dueDate: "2021-09-01", grade: "A" },
-    { name: "Assignment 2", dueDate: "2021-09-08", grade: "B" },
-    { name: "Assignment 3", dueDate: "2021-09-15", grade: "C" },
-    // Add more assignment objects as needed
-  ]);
+  const [assignments, setAssignments] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
 
   const handleAssignmentClick = (assignment) => {
@@ -29,7 +23,7 @@ const AssignmentOverview = () => {
           );
         })}
       </div>
-      <div className="flex flex-col justify-evenly items-center w-full assignment-info bg-slate-400">
+      <div className="flex flex-col justify-evenly items-center text-black w-full assignment-info bg-slate-400">
         {selectedAssignment && (
           <>
             <h2>{selectedAssignment.name}</h2>

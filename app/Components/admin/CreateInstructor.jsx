@@ -48,5 +48,3 @@ function Modal({ isOpen, setIsOpen, children }) {
 //w - auto 1/2 1/4 2/4 fit max dvw lvw svw full
 
 export default Modal;
-
-// className={`modal ${openCreate ? "model-open " : ""}`}
