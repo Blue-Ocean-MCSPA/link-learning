@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal, { StudentModal } from "./CreateStudent";
 import { FaSearch } from "react-icons/fa";
-import RemoveBtn from "./RemoveBtn";
 
 //npm install react-icons
 
@@ -81,22 +80,22 @@ const SelectStudents = ({ setSelectedStudents }) => {
     <div className="h-screen">
       <div className="flex p-5 bg-light-foreground items-between">
         <div className="text-white">Students</div>
-          {/* putting the pop here for now  */}
-          <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-            <form onSubmit={handleSubmit}>
-              <h3 className="font-bold text-lg">Student Name</h3>
-              <div className="modal-action">
-                <input
-                  type="text"
-                  placeholder="type here..."
-                  className="input input-bordered w-full max-full"
-                />
-                <button type="submit" className="btn">
-                  Add
-                </button>
-              </div>
-            </form>
-          </Modal>
+        {/* putting the pop here for now  */}
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <form onSubmit={handleSubmit}>
+            <h3 className="font-bold text-lg">Student Name</h3>
+            <div className="modal-action">
+              <input
+                type="text"
+                placeholder="type here..."
+                className="input input-bordered w-full max-full"
+              />
+              <button type="submit" className="btn">
+                Add
+              </button>
+            </div>
+          </form>
+        </Modal>
         {/* inbetween ------------- */}
         <button className=" ml-10 text-white" onClick={handleClick}>
           Back to Dashboard
@@ -137,24 +136,26 @@ const SelectStudents = ({ setSelectedStudents }) => {
             </div>
           </div>
           {studentNames
-  .filter((student) => student.email.includes("student"))
-  .map((student, id) => {
-    return (
-      <StudentModal
-        key={id}
-        isOpen={modalStates[student.id] || false} // Use isOpen state corresponding to the student
-        setIsOpen={(isOpen) => setModalStates((prevModalStates) => ({
-          ...prevModalStates,
-          [student.id]: isOpen,
-        }))}
-        selectName={`${student.first_name} ${student.last_name}`}
-        email={student.email}
-        assignmentsCompleted={student.assignments_completed}
-        grade={student.grade}
-        onClick={() => handleClickStudents(student)}
-      />
-    );
-  })}
+            .filter((student) => student.email.includes("student"))
+            .map((student, id) => {
+              return (
+                <StudentModal
+                  key={id}
+                  isOpen={modalStates[student.id] || false} // Use isOpen state corresponding to the student
+                  setIsOpen={(isOpen) =>
+                    setModalStates((prevModalStates) => ({
+                      ...prevModalStates,
+                      [student.id]: isOpen,
+                    }))
+                  }
+                  selectName={`${student.first_name} ${student.last_name}`}
+                  email={student.email}
+                  assignmentsCompleted={student.assignments_completed}
+                  grade={student.grade}
+                  onClick={() => handleClickStudents(student)}
+                />
+              );
+            })}
         </div>
         {/* separate------------------------- */}
         <div className="border flex flex-col justify-evenly items-between w-full bg-gray-200">

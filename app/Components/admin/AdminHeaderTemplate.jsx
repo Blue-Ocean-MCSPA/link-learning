@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect } from "react";
-import { AppContext } from "../context/index";
+import { AppContext } from "../../context/index";
 import Link from "next/link";
 
 const HeaderTemplate = () => {
