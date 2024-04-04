@@ -1,46 +1,23 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../context/index";
 import Link from "next/link";
 
 const HeaderTemplate = () => {
-  //selected role need to be updated when the user logs in and
-  // then we can use the selected role state
-  //Header Template is wrapped in AppWrapper i just checked
-  const { selectedRole, users, setUsers, darkMode, toggleDarkMode } =
+  const { loggedInUser, darkMode, toggleDarkMode } =
     useContext(AppContext);
 
-  // putting the fetch in the useEffect so that there are no issues with state variables not being updated asap due to the async funtion.
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const response = await fetch("http://localhost:3000/api/users");
-        if (!response.ok) {
-          throw new Errow("Failed to fetch users");
-        }
-        const responseData = await response.json();
-        const userData = responseData.data.rows;
-        setUsers(userData);
-        console.log("Users fetched from header", userData);
-      } catch (error) {
-        console.log("Error fetching users:", error);
-        setUsers([]);
-      }
-    }
-    // calling to fetch the data within the use effect hook
-    fetchUsers();
-  }, []);
 
-  // going to make this a condition to prevent errows if the async doesnt populate. if it doesn't update the state varibale, then it will be an empty string rather than getting an error
-  const firstLetter = users.length > 0 ? users[0].first_name : "";
-
+  
   return (
     <>
-      <div className="banner flex justify-between items-center p-3 bg-slate-800">
-        <div className="left-div pl-2 text-2xl text-black">
+      <div className="banner flex justify-between items-center p-3 bg-light-inactive_selection">
+        <div className="left-div pl-2 text-2xl text-light-foreground">
           <Link href="/">LearningLink</Link>
         </div>
-        <h1 className="centered-div text-2xl text-black">{selectedRole}</h1>
+        <h1 className="centered-div text-2xl text-black">
+          Welcome {loggedInUser.first_name}!
+        </h1>
         {/* this is where the menu will be  -------------------------------*/}
         <ul className="flex-row menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
           <li className="flex">
