@@ -31,11 +31,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     fetchInstructors();
   }, []); // Empty dependency array ensures this effect runs only once
 
-  // Function to handle selecting a instructor to edit. save state for edit compoenent child
-  const handleSelelectedInstructorForEdit = (selectedInstructor) => {
-    setInstructor(selectedInstructor);
-  };
-
   function handleClick() {
     setSelectedInstructor(null);
   }
@@ -50,6 +45,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
 
   function updateInstructorState(input) {
     setInstructorNames(input);
+    console.log("array?", instructorNames);
   }
 
   async function handleSubmit(e) {
@@ -58,7 +54,6 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     console.log(data);
     await handleAddInstructor();
     setData({
-      ...data,
       firstName: "",
       lastName: "",
       email: "",
@@ -67,11 +62,10 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     });
     // setData("");
     setIsOpen(false);
-    router.refresh();
   }
   function onChange(e) {
     setData({ ...data, [e.target.id]: e.target.value });
-    console.log(data);
+    console.log("from onChange(e)", data);
   }
 
   const handleAddInstructor = async () => {
@@ -79,13 +73,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
       const response = await fetch(`/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: data.email,
-          first_name: data.firstName,
-          last_name: data.lastName,
-          password_hash: data.password,
-          roleid: data.roleid,
-        }),
+        body: JSON.stringify(data),
         cache: "no-store",
       }); // all the users
 
@@ -120,7 +108,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     }
   }
 
-  const fetchInstructors = async (value) => {
+  const fetchInstructors = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/users`); // all the users
       const data = await response.json();
@@ -193,11 +181,15 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
             </div>
           </div>
           {instructorNames
-            .filter(
-              (instructor) =>
-                instructor.email.toLowerCase().includes("instructor") ||
-                instructor.roleid.includes("2")
-            )
+            .filter((instructor) => {
+              console.log("Instructor:", instructor);
+              return (
+                (instructor.email &&
+                  instructor.email.toLowerCase().includes("instructor")) ||
+                (instructor.roleid && instructor.roleid.includes("2"))
+              );
+            })
+
             .map((instructor, id) => {
               return (
                 <div
@@ -234,11 +226,11 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                         className="mask mask-star-2 bg-orange-400"
                       />
                     </div>
-                    <Edit key={id} instructor={instructor} data={data} />
-                    {/* {instructors &&
-                        instructors.map((instructor, id) => (
-                          <Edit key={id} instructor={instructor} data={data} />
-                        ))} */}
+                    <Edit
+                      key={id}
+                      instructorNames={instructorNames}
+                      setInstructorNames={setInstructorNames}
+                    />
                   </div>
                 </div>
               );
