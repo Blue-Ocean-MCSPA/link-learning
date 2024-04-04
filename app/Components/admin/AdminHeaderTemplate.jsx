@@ -36,14 +36,14 @@ const HeaderTemplate = () => {
   return (
     <>
       <div className="banner flex justify-between items-center p-12 bg-light-inactive_selection">
-        <div className="left-div pl-2 text-2xl text-light-foreground">
+        <div className="left-div text-2xl text-light-foreground">
           <Link href="/">LearningLink</Link>
         </div>
         <h1 className="centered-div text-2xl text-black">{selectedRole}</h1>
         {/* this is where the menu will be  -------------------------------*/}
         <ul
-          className="flex-row py-2 px-12 bg-base-600 lg:menu-horizontal rounded-box shadow-2xl "
-          style={{ maxWidth: "200px" }}
+          className="flex-row py-2 px-6 bg-base-600 lg:menu-horizontal rounded-box shadow-2xl "
+          style={{ maxWidth: "300px" }}
         >
           <li className="inline-flex items-center">
             <Link href="/msg">
@@ -61,7 +61,7 @@ const HeaderTemplate = () => {
           <li className="inline-flex items-center ">
             <a>
               <div
-                className="h-8 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
+                className="h-8 w-8 border rounded-full hover:border-2 border-light-background dark:bg-dark-foreground dark:border dark:border-dark-foreground dark:rounded-full dark:hover:border-2 dark:hover:border-dark-numbers cursor-pointer"
                 onClick={toggleDarkMode}
               >
                 <img
