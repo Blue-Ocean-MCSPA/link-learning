@@ -21,7 +21,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
           placeholder="Last Name here..."
           className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
           onChange={onChange}
-          value={data.LastName}
+          value={data.lastName}
         />
         <label htmlFor="email">Email</label>
         <input

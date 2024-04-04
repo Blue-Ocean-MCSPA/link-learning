@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Users from "../../Components/msg/users"; // Adjust the import path as necessary
 import MessageThread from "../../Components/msg/messagethread"; // Adjust the import path as necessary

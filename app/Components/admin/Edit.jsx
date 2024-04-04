@@ -3,10 +3,8 @@ import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import Modal from "./CreateInstructor";
-import { useRouter } from "next/navigation";
 
-export default function Edit({ data, instructorNames, setInstructorNames }) {
-  const router = useRouter();
+export default function Edit({ instructor }) {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [toEdit, setToEdit] = useState({
@@ -21,7 +19,11 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
   function handleSubmitEdit(e) {
     e.preventDefault();
     setOpenModalEdit(false);
-    fetchEdit(instructorNames);
+    fetchEdit();
+  }
+  function onChange(e) {
+    setToEdit({ ...toEdit, [e.target.id]: e.target.value });
+    // console.log(toEdit);
   }
   // console.log(instructorNames);  -> consoles the array from database
 
@@ -37,13 +39,13 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
           email: toEdit.email,
           first_name: toEdit.firstName,
           last_name: toEdit.lastName,
+          password: toEdit.password,
         }),
         cache: "no-store",
       });
       if (res.ok) {
         //handle success response
         console.log("Instructor updated success");
-        router.refresh(); //refresh the instructor list
       } else {
         console.error("failed to updated instructors");
       }
@@ -95,13 +97,8 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
               type="text"
               placeholder="First Name here..."
               className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-              onChange={(e) =>
-                setInstructorNames({
-                  ...instructorNames,
-                  first_name: e.target.value,
-                })
-              }
-              value={instructorNames.first_name}
+              onChange={onChange}
+              value={toEdit.firstName}
             />
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -109,13 +106,8 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
               type="text"
               placeholder="Last Name here..."
               className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-              onChange={(e) =>
-                setInstructorNames({
-                  ...instructorNames,
-                  last_name: e.target.value,
-                })
-              }
-              value={instructorNames.last_name}
+              onChange={onChange}
+              value={toEdit.lastName}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -123,13 +115,8 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
               type="text"
               placeholder="Email here..."
               className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-              onChange={(e) =>
-                setInstructorNames({
-                  ...instructorNames,
-                  email: e.target.value,
-                })
-              }
-              value={instructorNames.email}
+              onChange={onChange}
+              value={toEdit.email}
             />
             <label htmlFor="email">Tempory Password</label>
             <input
@@ -137,13 +124,8 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
               type="text"
               placeholder="Temp Password here..."
               className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-              onChange={(e) =>
-                setInstructorNames({
-                  ...instructorNames,
-                  password_hashed: e.target.value,
-                })
-              }
-              value={instructorNames.password_hashed}
+              onChange={onChange}
+              value={toEdit.password}
             />
             <button type="submit" className="btn mt-20">
               Submit
@@ -172,158 +154,3 @@ export default function Edit({ data, instructorNames, setInstructorNames }) {
     </div>
   );
 }
-
-// export default Edit;
-
-// export function Edit({
-//   isOpen,
-//   setIsOpen,
-//   selectFirstName,
-//   selectLastName,
-//   email,
-//   assignmentsCompleted,
-//   grade,
-//   student,
-// }) {
-//   const [firstName, setFirstName] = useState(selectFirstName); // Initialize name state with selectName
-//   const [lastName, setLastName] = useState(selectLastName); // Initialize name state with selectName
-//   const [updatedEmail, setEmail] = useState(email); // Initialize email state with email
-//   const [updatedAssignmentsCompleted, setAssignmentsCompleted] =
-//     useState(assignmentsCompleted); // Initialize assignmentsCompleted state with assignmentsCompleted
-//   const [updatedGrade, setGrade] = useState(grade); // Initialize grade state with grade
-
-//   // useEffect(()=> {
-
-//   // }, [])
-
-//   const toggleModal = () => {
-//     setIsOpen(!isOpen);
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     const updatedUser = {
-//       id: student.id,
-//       email: updatedEmail,
-//       first_name: firstName,
-//       last_name: lastName,
-//       grade: updatedGrade,
-//       assignments_completed: updatedAssignmentsCompleted,
-//     };
-
-//     try {
-//       const response = await fetch(`/api/users`, {
-//         method: "PATCH",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ updatedUser }),
-//       });
-
-//       if (!response.ok) {
-//         throw new Error("Failed to update student");
-//       }
-
-//       // Close the modal
-//       toggleModal();
-
-//       // Handle the response to update the state in the Edit component
-//       const data = await response.json();
-//     } catch (error) {
-//       console.error("Error updating student:", error.message);
-//       // Handle error
-//     }
-//   };
-
-//   return (
-//     <div className="text-sm text-light-foreground bg-light-background border border-b-1 border-light-inactive_selection">
-//       <label
-//         htmlFor=""
-//         className="flex py-2 hover:cursor-pointer"
-//         onClick={toggleModal} // Open and close modal
-//       >
-//         <div className="pl-5 w-1/5">{selectFirstName}</div>
-//         <div className="pl-5 w-1/5">{selectLastName}</div>
-//         <div className="w-1/5">{email}</div>
-//         <div className="w-1/5 text-center">{assignmentsCompleted}</div>
-//         <div className="w-1/5 text-center">{grade}</div>
-//       </label>
-//       <input
-//         type="checkbox"
-//         id="modal-toggle"
-//         className="modal-toggle bg-white"
-//         checked={isOpen}
-//         onChange={toggleModal}
-//       />
-//       {isOpen && (
-//         <div className="modal" role="dialog">
-//           <div className="modal-box border border-light-cursor bg-light-background">
-//             <form onSubmit={handleSubmit}>
-//               <div>
-//                 <label htmlFor="name">First Name:</label>
-//                 <input
-//                   type="text"
-//                   id="name"
-//                   value={firstName}
-//                   onChange={(e) => setFirstName(e.target.value)}
-//                   className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label htmlFor="name">Last Name:</label>
-//                 <input
-//                   type="text"
-//                   id="name"
-//                   value={lastName}
-//                   onChange={(e) => setLastName(e.target.value)}
-//                   className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label htmlFor="email">Email:</label>
-//                 <input
-//                   type="email"
-//                   id="email"
-//                   value={updatedEmail}
-//                   onChange={(e) => setEmail(e.target.value)}
-//                   className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label htmlFor="assignmentsCompleted">
-//                   Assignments Completed:
-//                 </label>
-//                 <input
-//                   type="number"
-//                   id="assignmentsCompleted"
-//                   value={updatedAssignmentsCompleted}
-//                   onChange={(e) => setAssignmentsCompleted(e.target.value)}
-//                   className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-//                 />
-//               </div>
-//               <div>
-//                 <label htmlFor="grade">Grade:</label>
-//                 <input
-//                   type="text"
-//                   id="grade"
-//                   value={updatedGrade}
-//                   onChange={(e) => setGrade(e.target.value)}
-//                   className="m-2 px-2 bg-light-background border border-1 border-light-foreground rounded-full"
-//                 />
-//               </div>
-//               <div className="modal-action">
-//                 <button type="submit" className="btn">
-//                   Save
-//                 </button>
-//                 <button type="button" className="btn" onClick={toggleModal}>
-//                   Close
-//                 </button>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }

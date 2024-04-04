@@ -30,8 +30,11 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
     // fetchInstructors();
     axios
       .get("http://localhost:3000/api/users")
-      .then((res) => setInstructorNames(res.data.data.rows))
-      .then((err) => console.log(err));
+      .then((res) => {
+        console.log(res.data);
+        setInstructorNames(res.data.data.rows);
+      })
+      .catch((err) => console.log(err));
   }, []); // Empty dependency array ensures this effect runs only once
   console.log(instructorNames);
 
@@ -168,8 +171,9 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
           {instructorNames
             .filter(
               (instructor) =>
-                instructor.email.toLowerCase().includes("instructor") ||
-                instructor.roleid.includes("2")
+                instructor.email.toLowerCase().includes("instructor") &&
+                instructor.roleid && // Check if roleid exists
+                instructor.roleid.includes("2") // Check roleid for '2'
             )
             .map((instructor, id) => {
               return (
@@ -208,11 +212,7 @@ const SelectInstructors = ({ setSelectedInstructor }) => {
                           className="mask mask-star-2 bg-orange-400"
                         />
                       </div>
-                      <Edit
-                        data={data}
-                        instructorNames={instructorNames}
-                        setInstructorNames={setInstructorNames}
-                      />
+                      <Edit instructor={instructor} />
                     </div>
                   </div>
                 </>
