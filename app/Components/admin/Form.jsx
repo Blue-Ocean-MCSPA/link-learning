@@ -4,7 +4,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
       <h3 className="font-bold text-lg text-black mt-8">
         Add new Instructor's Information
       </h3>
-      <div className="modal-actiont ext-sm text-light-foreground bg-light-background border border-b-1 border-light-inactive_selection">
+      <div className="modal-action flex-col text-sm text-light-foreground bg-light-background border border-b-1 border-light-inactive_selection">
         <label htmlFor="firstName">First Name</label>
         <input
           id="firstName"
@@ -53,7 +53,7 @@ function Form({ data, handleSubmit, onChange, handleAddInstructor }) {
 
         <button
           type="submit"
-          className="btn"
+          className="btn mt-12"
           //   onClick={(handleSubmit, handleAddInstructor)}
         >
           Add
