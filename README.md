@@ -39,5 +39,17 @@ You need to have Node.js and npm installed on your machine. If you don't have th
 * <a href="https://www.w3.org/TR/CSS/#css" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" width="36" height="36" alt="CSS3" /> - Styling language</a>
 * <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" width="36" height="36" alt="TailwindCSS" /> - CSS tool used</a>
 
+## 👨‍🏫 Instructor view
 
+### Description
 
+The Instructor View is a component of our learning platform designed specifically for instructors. It provides tools and features to help instructors manage cohorts, track student progress, and facilitate effective teaching.
+
+### Key Features
+* **Student Analytics**: Monitor student progress, view grades, and track attendance to assess performance effectively.
+
+* **Edit Student Information**: Instructors have the ability to edit student details, including grades, attendance records, and personal information.
+
+* **Communication Tools**: Stay connected with students through built-in messaging features, allowing instructors to send announcements, reminders, and personalized messages directly to students.
+
+![Instructor View](./public/InstructorView.png)
