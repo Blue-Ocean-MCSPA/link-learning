@@ -119,7 +119,6 @@ const MessageThread = () => {
     setNewMessage(event.target.value); // Set new message text to whatever the user is typing. 
   };
 
-  // Function to format date and time
   // Function to format date without time
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
@@ -143,31 +142,35 @@ const MessageThread = () => {
             <div className={`flex ${index % 2 === 0 ? '' : 'flex-row-reverse'} space-x-3 space-x-reverse items-end`}>
               <img src="https://via.placeholder.com/50" alt="Avatar" className="w-10 h-10 rounded-full" />
               <div
-                className="relative max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg shadow"
+                className="flex flex-col relative max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg shadow"
                 style={{
                   backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#0084ff',
                   color: index % 2 === 0 ? '#000' : '#fff',
+                  minHeight: '100px', // Setting a minimum height for the message bubble
                 }}
               >
-                <div className="font-semibold">{message.senderName || "User"} <span className="font-normal">{formatDate(message.time_stamp)}</span></div>
-                {editingId === message.id ? (
-                  <input
-                    type="text"
-                    value={editMessageText}
-                    onChange={(e) => setEditMessageText(e.target.value)}
-                    className="mt-2 p-2 w-full rounded border-2 border-gray-300"
-                    style={{ color: '#000', backgroundColor: '#fff' }}
-                  />
-                ) : (
-                  <p className="mt-2">{message.message}</p>
-                )}
-                {message.edited && (
-                  <span className="text-xs" style={{ color: index % 2 === 0 ? '#555' : '#ccc' }}>
-                    (Edited)
-                  </span>
-                )}
+                <div className="flex-1">
+                  <div className="font-semibold">{message.senderName || "User"} <span className="font-normal">{formatDate(message.time_stamp)}</span></div>
+                  {editingId === message.id ? (
+                    <input
+                      type="text"
+                      value={editMessageText}
+                      onChange={(e) => setEditMessageText(e.target.value)}
+                      className="mt-2 p-2 w-full rounded border-2 border-gray-300"
+                      style={{ color: '#000', backgroundColor: '#fff' }}
+                    />
+                  ) : (
+                    <p className="mt-2">{message.message}</p>
+                  )}
+                  {message.edited && (
+                    <span className="text-xs" style={{ color: index % 2 === 0 ? '#555' : '#ccc' }}>
+                      (Edited)
+                    </span>
+                  )}
+                </div>
+                
                 {hoveredMessageId === message.id && (
-                  <div className="absolute top-0 right-0 mt-2 mr-2 flex space-x-2">
+                  <div className="mt-2 flex space-x-2">
                     {editingId === message.id ? (
                       <>
                         <button onClick={() => handleEditSubmit(message.id)} className="text-green-500">&#10003;</button>
