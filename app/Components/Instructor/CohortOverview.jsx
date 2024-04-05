@@ -31,14 +31,17 @@ const CohortOverview = () => {
   };
   const handleReturnToCohortClick = () => {
     setSelectedCohort(null);
+    console.log("seleclted chort clicked");
   };
 
   return (
     <div className="flex flex-col flex-grow text-white h-full">
       <div className="flex items-center p-4 bg-slate-500">
-        <div className="border rounded p-4">{selectedCohort.cohort_name}</div>
+        <div className="border rounded p-4">
+          {selectedCohort && selectedCohort.cohort_name}
+        </div>
         <button
-          className="m-2 p-4 border rounded"
+          className="m-2 p-4 border rounded border border-red-500"
           onClick={handleReturnToCohortClick}
         >
           Return to Cohort Selection
