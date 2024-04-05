@@ -31,7 +31,6 @@ You need to have Node.js and npm installed on your machine. If you don't have th
 ## 🛠️ Built With
 
 * <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="JavaScript" /> - Core language used</a>
-* <a href="https://reactjs.org/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" width="36" height="36" alt="React" /> - The web framework used</a>
 * <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg" width="36" height="36" alt="NodeJS" /> - JavaScript runtime</a>
 * <a href="https://nextjs.org/docs" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" width="36" height="36" alt="NextJs" /> - Node.js web application framework and build tool</a>
 * <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg" width="36" height="36" alt="PostgreSQL" /> - External relational database</a>
@@ -62,3 +61,17 @@ The login page allows the user to enter credentials as one of three roles - admi
 ![Login Page](public/login.png)
 
 ***
+## 👨‍🏫 Instructor view
+
+### Description
+
+The Instructor View is a component of our learning platform designed specifically for instructors. It provides tools and features to help instructors manage cohorts, track student progress, and facilitate effective teaching.
+
+### Key Features
+* **Student Analytics**: Monitor student progress, view grades, and track attendance to assess performance effectively.
+
+* **Edit Student Information**: Instructors have the ability to edit student details, including grades, attendance records, and personal information.
+
+* **Communication Tools**: Stay connected with students through built-in messaging features, allowing instructors to send announcements, reminders, and personalized messages directly to students.
+
+![Instructor View](./public/InstructorView.png)
