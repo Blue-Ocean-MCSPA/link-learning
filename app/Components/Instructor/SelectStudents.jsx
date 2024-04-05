@@ -226,7 +226,7 @@ const SelectStudents = ({ setSelectedStudents }) => {
         </div>
       </div>
       {/* this div is suppose to house the lower elements and flex them */}
-      <div className="h-screen">
+      <div className="min-h-screen bg-white">
         <div className="w-full">
           <div className="flex flex-col">
             <div className="flex text-light-background bg-light-cursor py-3">
