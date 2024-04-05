@@ -4,7 +4,7 @@ This project is a full-stack application that aims to simulate the business need
 
 ## 🚀 Getting Started
 
-To get a copy of the project up and running on your local machine for development and testing purposes, follow these steps [below]().
+To get a copy of the project up and running on your local machine for development and testing purposes, follow these steps [below](https://github.com/Blue-Ocean-MCSPA/link-learning/blob/main/README.md#-installing).
 
 ### 📋 Prerequisites
 
@@ -16,12 +16,16 @@ You need to have Node.js and npm installed on your machine. If you don't have th
 2. Navigate to the project directory.
 3. Run `npm install` to install the dependencies.
 4. Run `npm build` to build the project.
-5. Run `npm start` to start the server.
+5. Run `npm start` or `npm run dev` to start the server.
    
 ### 🔧 API
 
 #### GET
-* /api/item - Get a list of all items
+* /api/users - Get a list of all users
+* /api/reviews - Get a list of all reviews
+* /api/reviews - Get a list of all reviews
+* /api/reviews - Get a list of all reviews
+* /api/reviews - Get a list of all reviews
 * /api/reviews - Get a list of all reviews
 
 ## 🛠️ Built With
