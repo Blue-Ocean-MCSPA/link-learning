@@ -59,11 +59,11 @@ export function AppWrapper({ children }) {
         throw new Error("Failed to fetch enrollments");
       }
       const data = await response.json();
-      setEnrollments(data.data.rows[0]); 
+      setEnrollments(data.data.rows[0]);
       console.log("Enrollments fetched:", data.data.rows);
     } catch (error) {
       console.error("Error fetching enrollments:", error);
-      setEnrollments([]); 
+      setEnrollments([]);
     }
   };
 
@@ -74,11 +74,11 @@ export function AppWrapper({ children }) {
         throw new Error("Failed to fetch assignments");
       }
       const data = await response.json();
-      setAssignments(data.data.rows);
+      setAssignments(data.data.rows[0]);
       console.log("Assignments fetched:", data.data.rows);
     } catch (error) {
       console.error("Error fetching Assignments:", error);
-      setAssignments([]); 
+      setAssignments([]);
     }
   };
 
@@ -166,9 +166,10 @@ export function AppWrapper({ children }) {
         fetchEnrollments,
         enrollments,
         setEnrollments,
-        loggedInUser, 
+        loggedInUser,
         setLoggedInUser,
         fetchAssignments,
+        setAssignments,
         assignments,
       }}
     >

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AppContext } from "../../context/index";
+import { AppContext } from "@/app/context/index";
 
 //This screen ig is the clickable functionalilty
 // this page is the AdminDash and also Admin....
@@ -16,11 +16,12 @@ const AdminDash = ({
 
   const fetchCohorts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/cohort/");
+      const response = await fetch("http://localhost:3000/api/cohorts");
       if (!response.ok) {
         throw new Error("Failed to fetch cohorts");
       }
       const data = await response.json();
+      console.log(data.cohorts.rows);
       setCohorts(data.cohorts.rows);
     } catch (error) {
       console.error("Error fetching cohorts:", error);
@@ -54,7 +55,7 @@ const AdminDash = ({
             Instructors
           </button>
 
-          <button 
+          <button
             className="bg-transparent border border-1 border-light-foreground rounded-lg py-4 px-6 m-2 text-light-foreground hover:text-light-background hover:border-light-background hover:bg-light-comment"
             onClick={() => studentListClick()}
           >
@@ -62,17 +63,18 @@ const AdminDash = ({
           </button>
         </div>
         <div className="flex justify-center items-center p-4">
-          {cohorts.map((cohort, index) => {
-            return (
-              <button
-                key={index}
-                className="bg-slate-800 rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700"
-                onClick={() => cohortClick(cohort)}
-              >
-                <h2>{cohort.cohort_name}</h2>
-              </button>
-            );
-          })}
+          {cohorts &&
+            cohorts.map((cohort, index) => {
+              return (
+                <button
+                  key={index}
+                  className="bg-slate-800 rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700"
+                  onClick={() => cohortClick(cohort)}
+                >
+                  <h2>{cohort.cohort_name}</h2>
+                </button>
+              );
+            })}
         </div>
       </div>
     </>
