@@ -16,11 +16,11 @@ const StudentsOverview = () => {
   }, []);
 
   const [studentsOverviewSelected, setStudentsOverviewSelected] =
-    useState(true); // New state to track whether Assignments Overview is selected
+    useState(true); 
 
   const handleStudentClick = (student) => {
     setSelectedStudent(student);
-    setStudentsOverviewSelected(true); // Ensure that Assignments Overview remains selected
+    setStudentsOverviewSelected(true); 
     const contactInfo = JSON.parse(student.contact_info);
   };
 

@@ -1,8 +1,10 @@
+"use client";
 import React, { useState, useContext, useEffect } from "react";
 
-const Assignments = () => {
+const AssignmentOverview = () => {
   const [assignments, setAssignments] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  
 
   const handleAssignmentClick = (assignment) => {
     setSelectedAssignment(assignment);
@@ -18,17 +20,17 @@ const Assignments = () => {
               className="bg-slate-800 p-4 m-4"
               onClick={() => handleAssignmentClick(assignment)}
             >
-              <h2>{assignment.name}</h2>
+              <h2>{assignment.title}</h2>
             </div>
           );
         })}
       </div>
-      <div className="flex flex-col justify-evenly items-center text-black w-full assignment-info bg-slate-400">
+      <div className="flex flex-col justify-evenly items-center w-full assignment-info bg-slate-400">
         {selectedAssignment && (
           <>
-            <h2>{selectedAssignment.name}</h2>
-            <p>Due Date: {selectedAssignment.dueDate}</p>
-            <p>Grade: {selectedAssignment.grade}</p>
+            <h2>{selectedAssignment.title}</h2>
+            <p>Due Date: {selectedAssignment.due_date}</p>
+            <p>Description: {selectedAssignment.description}</p>
           </>
         )}
       </div>
@@ -36,4 +38,4 @@ const Assignments = () => {
   );
 };
 
-export default Assignments;
+export default AssignmentOverview;

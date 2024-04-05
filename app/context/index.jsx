@@ -69,9 +69,9 @@ export function AppWrapper({ children }) {
 
   const fetchAssignments = async () => {
     try {
-      const response = await fetch("/api/enrollments");
+      const response = await fetch("/api/assignments");
       if (!response.ok) {
-        throw new Error("Failed to fetch enrollments");
+        throw new Error("Failed to fetch assignments");
       }
       const data = await response.json();
       setAssignments(data.data.rows[0]);
@@ -168,6 +168,8 @@ export function AppWrapper({ children }) {
         setEnrollments,
         loggedInUser,
         setLoggedInUser,
+        fetchAssignments,
+        setAssignments,
         assignments,
       }}
     >
