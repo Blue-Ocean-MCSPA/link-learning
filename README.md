@@ -82,15 +82,32 @@ The login page allows the user to enter credentials as one of three roles - admi
 
 ### Description
 
-The Instructor View is a component of our learning platform designed specifically for instructors. It provides tools and features to help instructors manage cohorts, track student progress, and facilitate effective teaching.
+The Instructor View is a component of our learning platform designed specifically for instructors. It provides tools and features to help instructors manage cohorts, track student progress, and facilitate effective teaching. It is designed to provide instructors with a comprehensive set of tools to manage their classes effectively,
+
+* **Technology Stack**: Built using Next.js version 14, leveraging the new App router feautre for improved routing and nav. The frontend is develped with React, used for its powerful state management and component based architecture to create a dynamic and interactive user experience. Styling is done with ailwind CSS, which allows for rapid UI development with its utility-first approach.
+
+### File Structure
+* **app > Components > instructor**: The files for the Instructor Dashboard are organized wihtin the 'Components' folder, which is located inside the 'app' folder. This structure helps in keeping the dashboard-realted components separate from other parts of the app, ensuring maintanilbility and scalibility.
+![File Structure View](./public/file-structure.png)
 
 ### Key Features
 
-- **Student Analytics**: Monitor student progress, view grades, and track attendance to assess performance effectively.
+* **Student Analytics**: Instructors can view detailed analytics about student performance, including, grades, attendance, and assignment completion.
+![Student View](./public/student-view.png)
 
-- **Edit Student Information**: Instructors have the ability to edit student details, including grades, attendance records, and personal information.
+* **Cohort Management**:Instructors can manage different cohorts, view cohort details, and track overall cohort progress.
 
-- **Communication Tools**: Stay connected with students through built-in messaging features, allowing instructors to send announcements, reminders, and personalized messages directly to students.
+* **Assignment Overview**: A dedicated section for managing assignments, where instructors can view all assignments, their due dates, and grades.
+![Assignment View](./public/assingment-view.png)
+
+* **Communication Tools**: Built-in messaging features enable instructors to communicate with students directly, send announcements, and provide feedback.
+![Messages View](./public/messages-view.png)
+
+
+### Differences from Student Dashboard
+* **Cohort Management**: Instructors can manage multiple cohorts, whereas students only have access to their own cohort information.
+
+* **Edit Capabilities**: Instructors have the ability to edit student information, grades, and attendance records, which is not possible on the Student Dashboard.
 
 ![Instructor View](./public/InstructorView.png)
 
@@ -183,26 +200,6 @@ Consider the following folder structure in your API:
 
 Inside the route.js file, you can access the ID parameter from the request URL and process the request.
 
-## Request Handling
-
-Here are some examples on how you can implement each route in your route.js file
-
-- GET Request:
-
-- PATCH Request:
-- DELETE Request:
-
-### Example:
-
-```javascript
-// /api/[id]/route.js
-export async function GET(request, id) {
-  const data = await request.json();
-  id = parseInt(id.params.id) || data.id;
-  const result = ;
-  return NextResponse.json({ result }, { status: 200 });
-}
-```
 
 ### Note
 
@@ -235,6 +232,7 @@ The Admin View is a component of our learning platform designed specifically for
 The Admin adding a new instructor to the web application. This also saved the new instructors information to the DataBase
 
 <img src="./public/ListInst.png" width="900" height="300">
+
 
 <img src="./public/Adding.png" width="900" height="300">
 Displays the list of students with the same CRUD features as the instructors
