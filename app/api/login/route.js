@@ -10,13 +10,8 @@ export async function POST(request) {
     const { email, password } = await request.json();
     console.log(email, password)
     const data = await sql`SELECT * FROM users WHERE email = ${email}`;
-    console.log(data, 'data')
-        // if (data.rows[0].roleid === 2) {
-        //     const instructorData = await sql`SELECT * FROM instructors WHERE id = ${data.rows[0].id}`;
-        //     const cohortData = await sql`SELECT id FROM cohort WHERE instructorid = ${instructorData.rows[0].id}`
-        //     console.log(cohortData.rows[0].id, 'cohortData!!!!!!!!!!!!!!', data.rows[0].id)
+    // console.log(data, 'data')
 
-        // }
     if (data.rowCount == 0) {
         return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
@@ -31,7 +26,7 @@ export async function POST(request) {
     const user = data.rows[0];
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
     console.log(user.password_hash, password, passwordMatch)
-    console.log(user, 'user')
+    // console.log(user, 'user')
     
     if (!passwordMatch) {
         return NextResponse.json({ message: "Incorrect password" }, { status: 401 });
@@ -57,7 +52,6 @@ export async function POST(request) {
             }
         }   
         const decodedToken = await decodeToken(token);
-
         const cookie = `token=${token}; Path=/; HttpOnly`;
         return NextResponse.json({ user, token, decodedToken }, {
             status: 200,
