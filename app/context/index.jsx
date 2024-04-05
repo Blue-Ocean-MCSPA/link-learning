@@ -18,6 +18,11 @@ export function AppWrapper({ children }) {
   const [enrollments, setEnrollments] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [assignments, setAssignments] = useState([]);
+  const [showAssignments, setShowAssignments] = useState(false)
+
+  const handleBackToDashboard = () => {
+    setShowAssignments(false);
+};
 
   const changeLoggedInRole = (string) => {
     setLoggedInRole(string);
@@ -170,6 +175,9 @@ export function AppWrapper({ children }) {
         setLoggedInUser,
         fetchAssignments,
         setAssignments,
+        handleBackToDashboard,
+        showAssignments, 
+        setShowAssignments,
         assignments,
       }}
     >

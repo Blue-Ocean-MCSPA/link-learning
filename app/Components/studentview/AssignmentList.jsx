@@ -31,7 +31,7 @@ const AssignmentList = () => {
   };
 
   const handleClick = () => {
-    console.log("Dashboard clicked");
+    handleBackToDashboard();
   };
 
   console.log(assignments)

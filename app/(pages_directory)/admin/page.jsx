@@ -1,8 +1,9 @@
 "use client";
 import SwitchPanels from "../../Components/admin/SwitchPanels";
 import Header from "@/app/Components/Header";
+import withAuth from "@/app/Components/withAuth";
 
-export default function AdminPage() {
+function AdminPage() {
   return (
     <>
       <Header />
@@ -10,3 +11,5 @@ export default function AdminPage() {
     </>
   );
 }
+
+export default withAuth(AdminPage, [1]);

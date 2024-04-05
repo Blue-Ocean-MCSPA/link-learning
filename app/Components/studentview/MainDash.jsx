@@ -3,13 +3,14 @@ import { AppContext } from "../../context/index";
 import AssignmentList from "./AssignmentList"; 
 
 const MainDash = ({}) => {
-    
-    const [showAssignments, setShowAssignments] = useState(false);
+    const {handleBackToDashboard, showAssignments, setShowAssignments} = useContext(AppContext)
+
 
 
   const handleAssignmentClick = () => {
     setShowAssignments(true);
   };
+
 
   return (
     <div className="flex flex-col h-screen bg-light-background justify-center items-center">
@@ -24,7 +25,7 @@ const MainDash = ({}) => {
           </button>
         </div>
       )}
-      {showAssignments && <AssignmentList />} 
+      {showAssignments && <AssignmentList handleBackToDashboard={() => setShowAssignments(false)}  />} 
     </div>
   );
 };

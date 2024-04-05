@@ -4,8 +4,9 @@ import React from "react";
 import Header from "@/app/Components/Header";
 import SwitchPanels from "@/app/Components/studentview/SwitchPanels";
 import { AppWrapper } from "@/app/context";
+import withAuth from "@/app/Components/withAuth";
 
-export default function AdminPage() {
+function StudentPage() {
   return (
     <>
       <Header/>
@@ -14,4 +15,6 @@ export default function AdminPage() {
       </AppWrapper>
     </>
   );
+  
 }
+export default withAuth(StudentPage, [3]);

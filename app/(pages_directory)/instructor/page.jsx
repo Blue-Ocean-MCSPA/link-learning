@@ -3,8 +3,9 @@ import React from "react";
 import Header from "@/app/Components/Header";
 import SwitchPanels from "@/app/Components/Instructor/SwitchPanels";
 import { AppWrapper } from "@/app/context";
+import withAuth from "@/app/Components/withAuth";
 
-export default function InstructorHome() {
+function InstructorHome() {
   return (
     <div>
       <Header />
@@ -14,3 +15,4 @@ export default function InstructorHome() {
     </div>
   );
 }
+export default withAuth(InstructorHome, [2]);

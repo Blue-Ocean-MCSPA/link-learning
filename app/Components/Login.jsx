@@ -23,37 +23,54 @@ const Login = () => {
     try {
       const response = await fetch(`/api/users`); 
       const data = await response.json();
+      const test = await fetch('/api/login',  {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })        
+      })
+      const testData = await test.json();
+    //   console.log(testData)
+      if (testData.message == 'Incorrect password') {
+        alert('Incorrect password');
+      }
+      if (testData.token) {
+        localStorage.setItem('token', testData.token);
+      }
+    //   console.log(testData)
+      if (testData.decodedToken.payload.roleid == 1) {
+      router.push("/admin");
+      router.refresh();
+      } else if (testData.decodedToken.payload.roleid == 2) {
+      router.push("/instructor");
+      router.refresh();
+      } else if (testData.decodedToken.payload.roleid == 3) {
+      router.push("/student");
+      router.refresh();
+      }
       const matchedRows = data.data.rows.filter((row) => {
         return row.email === email && row.password_hash === password;
-      });
-      if (matchedRows.length > 0) {
-        setLoggedInUser(matchedRows[0]);
-        const newRole = await changeLoggedInRole(matchedRows[0].roleid);
+    });
+    
+    //   if (matchedRows.length > 0 || !testData.decodedToken) {
+    //     setLoggedInUser(matchedRows[0]);
+    //     const newRole = await changeLoggedInRole(matchedRows[0].roleid);
   
-        // Fetch enrollments for the logged-in student
-        const enrollmentsResponse = await fetch(`/api/enrollments`);
-        const enrollmentsData = await enrollmentsResponse.json();
-        const matchedEnrolled = data.data.rows.filter((row) => {
-          return row.userid === matchedRows.id && row.cohortid;
-        });
-        setEnrollments(enrollmentsData.data.rows);
-          console.log(enrollmentsData.data.rows)
-        if (newRole === "1") {
-          router.push("/admin");
-        } else if (newRole === "2") {
-          router.push("/instructor");
-        } else if (newRole === "3") {
-          router.push("/student");
+    //     // Fetch enrollments for the logged-in student
+    //     const enrollmentsResponse = await fetch(`/api/enrollments`);
+    //     const enrollmentsData = await enrollmentsResponse.json();
+    //     const matchedEnrolled = data.data.rows.filter((row) => {
+    //       return row.userid === matchedRows.id && row.cohortid;
+    //     });
+    //     setEnrollments(enrollmentsData.data.rows);
+    //         console.log(enrollmentsData.data.rows)
+    //     }
+
+        } catch (err) {
+        console.error(err);
         }
-      } else {
-        alert(
-          "STOP! You violated the law. Pay the court a fine or serve your sentence. Your stolen goods are now forfeit."
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    };
 
   return (
     <div className="flex">
