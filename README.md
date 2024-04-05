@@ -39,3 +39,26 @@ You need to have Node.js and npm installed on your machine. If you don't have th
 * <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" width="36" height="36" alt="HTML5" /> Markup language</a>
 * <a href="https://www.w3.org/TR/CSS/#css" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" width="36" height="36" alt="CSS3" /> - Styling language</a>
 * <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" width="36" height="36" alt="TailwindCSS" /> - CSS tool used</a>
+
+***
+
+### Landing Page
+
+The landing page for this project utilizes a minimalist approach with three colors selected from the VS Code Night Owl Light/Dark themes, as requested by the client. The dark mode toggle is located on the top right, alongside the login button. The login button routes the user to the login page.
+
+![Landing Page Light](public/landingpagelight.png)
+###### Light mode
+
+![Landing Page Dark](public/landingpagedark.png)
+
+###### Dark mode
+
+***
+
+### Login Page
+
+The login page allows the user to enter credentials as one of three roles - admin, instructor, or student. JWT and Bcrypt authentication is implemented in order to route the user to the appropriate view. The different functionalities located in each view is further elaborated in their respective sections below.
+
+![Login Page](public/login.png)
+
+***
