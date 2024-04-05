@@ -32,6 +32,13 @@ const Login = () => {
       })
       const testData = await test.json();
     //   console.log(testData)
+      if (testData.message == 'Incorrect password') {
+        alert('Incorrect password');
+      }
+      if (testData.token) {
+        localStorage.setItem('token', testData.token);
+      }
+    //   console.log(testData)
       if (testData.decodedToken.payload.roleid == 1) {
       router.push("/admin");
       router.refresh();

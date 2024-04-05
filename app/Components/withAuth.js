@@ -13,7 +13,7 @@ const withAuth = (WrappedComponent, allowedRoles = []) => {
         const decodeToken = async (token) => {
             try {
                 const decoded = await jwtVerify(token, getJwtSecretKey());
-                console.log(decoded, 'decodedasdSAdsadasdasdsadadas')
+                // console.log(decoded.payload);
                 // setRoleid(decoded.payload.roleid);
                 return decoded;
             } catch (error) {
@@ -30,29 +30,15 @@ const withAuth = (WrappedComponent, allowedRoles = []) => {
                 router.push('/login');
                 return;
             } else {
-                async function fetchData() {
-                    const payload = await decodeToken(token);
+                decodeToken(token)
+                .then(payload => {
+                    // console.log(payload.payload)    
+                    const userRole = payload.payload.roleid;
+                    setRoleid(userRole);
                     if (allowedRoles.length < 0 || payload.payload.exp < Date.now() / 1000) {
                         router.push('/login');
                     }
-                    console.log(payload, 'payload')
-                }
-                fetchData();
-                // decodeToken(token)
-                // .then(data => {
-                //     console.log(data, 'data')
-                //     const userRole = data.payload.roleid;
-                //     console.log(userRole, 'userRole')
-                //     setRoleid(userRole);
-                //     if (allowedRoles.length < 0 || payload.payload.exp < Date.now() / 1000) {
-                //         router.push('/login');
-                //     }
-                // })
-                // .catch(err => {
-                //     console.error(err);
-                //     router.push('/login');
-                
-                // })
+                })
             }
         },[]);
         // return <WrappedComponent {...props} roleid={roleid} />;

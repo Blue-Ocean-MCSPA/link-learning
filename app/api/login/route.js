@@ -20,12 +20,12 @@ export async function POST(request) {
     const saltRounds = 10;
     const plainTextPassword = `${password}`; // ${password}
     const hashedPassword = await bcrypt.hash(plainTextPassword, saltRounds);
-    console.log(hashedPassword, 'hashedPassword')
+    // console.log(hashedPassword, 'hashedPassword')
 
 
     const user = data.rows[0];
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
-    console.log(user.password_hash, password, passwordMatch)
+    // console.log(user.password_hash, password, passwordMatch)
     // console.log(user, 'user')
     
     if (!passwordMatch) {
