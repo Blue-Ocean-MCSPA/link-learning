@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "@/app/context/index";
-import AssignmentOverview from "./Assignments";
 
 const AssignmentList = () => {
   const { assignments, setAssignments } = useContext(AppContext);
@@ -55,7 +54,11 @@ const AssignmentList = () => {
             {loading ? (
               <p>Loading assignments...</p>
             ) : (
-              <AssignmentOverview/>
+              <ul className="text-black">
+                {assignments.map((assignment, index) => (
+                  <li key={index}>{assignment.title}</li>
+                ))}
+              </ul>
             )}
           </div>
         )}
