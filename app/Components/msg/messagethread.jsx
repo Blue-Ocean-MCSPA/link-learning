@@ -133,22 +133,27 @@ const MessageThread = () => {
     <div className="flex flex-col h-screen bg-gray-100 p-4">
       <div className="flex-1 overflow-auto">
         {messages.map((message, index) => (
-          <div
-            key={message.id}
-            className={`flex mb-4 ${index % 2 === 0 ? 'flex-col items-start' : 'flex-col items-end'}`}
-            onMouseEnter={() => setHoveredMessageId(message.id)}
-            onMouseLeave={() => setHoveredMessageId(null)}
-          >
-            <div className={`flex ${index % 2 === 0 ? '' : 'flex-row-reverse'} space-x-3 space-x-reverse items-end`}>
-              <img src="https://via.placeholder.com/50" alt="Avatar" className="w-10 h-10 rounded-full" />
-              <div
-                className="flex flex-col relative max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg shadow"
-                style={{
-                  backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#0084ff',
-                  color: index % 2 === 0 ? '#000' : '#fff',
-                  minHeight: '100px', // Setting a minimum height for the message bubble
-                }}
-              >
+           <div
+           key={message.id}
+           className={`flex mb-4 ${index % 2 === 0 ? 'flex-col items-start' : 'flex-col items-end'}`}
+           onMouseEnter={() => setHoveredMessageId(message.id)}
+           onMouseLeave={() => setHoveredMessageId(null)}
+         >
+           <div className={`flex ${index % 2 === 0 ? '' : 'flex-row-reverse'} space-x-3 space-x-reverse items-end`}>
+             <img src="https://via.placeholder.com/50" alt="Avatar" className="w-10 h-10 rounded-full" />
+             <div
+               className="flex flex-col relative max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-lg shadow dark:shadow-none"
+               style={{
+                 backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#0084ff',
+                 color: index % 2 === 0 ? '#000' : '#fff',
+                 // Applying dark mode styles using Tailwind's dark mode feature
+                 dark: {
+                   backgroundColor: index % 2 === 0 ? 'dark:background' : 'dark:foreground', // Replace with your dark mode colors
+                   color: index % 2 === 0 ? 'dark:foreground' : 'dark:background', // Adjust according to your color scheme
+                 },
+                 minHeight: '100px', // Setting a minimum height for the message bubble
+               }}
+             >
                 <div className="flex-1">
                   <div className="font-semibold">{message.senderName || "User"} <span className="font-normal">{formatDate(message.time_stamp)}</span></div>
                   {editingId === message.id ? (

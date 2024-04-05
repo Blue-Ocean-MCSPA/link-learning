@@ -75,3 +75,32 @@ The Instructor View is a component of our learning platform designed specificall
 * **Communication Tools**: Stay connected with students through built-in messaging features, allowing instructors to send announcements, reminders, and personalized messages directly to students.
 
 ![Instructor View](./public/InstructorView.png)
+
+***********************************************
+### MESSAGES
+The messages component provides capabilities for creating, retrieving, updating, and deleting messages within threads without the need for authentication. Here, you'll find essential information to get started with our API endpoints.
+
+### Key Features:
+GET: Retrieve messages from a specific thread or a list of all message threads.
+POST: Create a new message within a thread.
+PATCH: Update an existing message in a thread.
+DELETE: Remove a message from a thread.
+
+### All API requests should be made to the following base URL:
+http://localhost:3000/msg
+
+### Endpoints
+GET /messages 
+Description: Retrieve a list of all message threads.
+
+POST /messages
+Description: Create a new message within a specific thread.
+
+PATCH /{messageId}
+Description: Update an existing message in a thread.
+
+DELETE /{messageId}
+Description: Remove a message from a thread.
+
+
+
