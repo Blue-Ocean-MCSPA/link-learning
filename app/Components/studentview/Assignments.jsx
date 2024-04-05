@@ -1,34 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
+import { AppContext } from "@/app/context/index";
+import AssignmentList from "./AssignmentList";
 
-const Assignments = () => {
-  const [assignments, setAssignments] = useState([]);
+const AssignmentOverview = () => {
+  const { assignments } = useContext(AppContext);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
 
+
   const handleAssignmentClick = (assignment) => {
+    console.log("assignment clicked")
     setSelectedAssignment(assignment);
   };
 
   return (
     <div className="flex items-center bg-white">
-      <div className="assignment-listflex flex-col items-center bg-slate-600 ">
-        {assignments.map((assignment, index) => {
-          return (
-            <div
-              key={index}
-              className="bg-slate-800 p-4 m-4"
-              onClick={() => handleAssignmentClick(assignment)}
-            >
-              <h2>{assignment.name}</h2>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex flex-col justify-evenly items-center text-black w-full assignment-info bg-slate-400">
+      <AssignmentList />
+      <div className="flex flex-col justify-evenly items-center w-full assignment-info bg-slate-400">
         {selectedAssignment && (
           <>
-            <h2>{selectedAssignment.name}</h2>
-            <p>Due Date: {selectedAssignment.dueDate}</p>
-            <p>Grade: {selectedAssignment.grade}</p>
+            <h2>{selectedAssignment.title}</h2>
+            <p>Due Date: {selectedAssignment.due_date}</p>
+            <p>Description: {selectedAssignment.description}</p>
           </>
         )}
       </div>
@@ -36,4 +28,4 @@ const Assignments = () => {
   );
 };
 
-export default Assignments;
+export default AssignmentOverview;

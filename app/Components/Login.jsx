@@ -38,7 +38,6 @@ const Login = () => {
         });
         setEnrollments(enrollmentsData.data.rows);
           console.log(enrollmentsData.data.rows)
-
         if (newRole === "1") {
           router.push("/admin");
         } else if (newRole === "2") {

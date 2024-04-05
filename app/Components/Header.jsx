@@ -6,8 +6,10 @@ import Link from "next/link";
 const Header = () => {
   const { loggedInUser, darkMode, toggleDarkMode } =
     useContext(AppContext);
+
     let firstInitial = loggedInUser.first_name.charAt(0)
     let secondInital = loggedInUser.last_name.charAt(0)
+    
   
   return (
     <>
