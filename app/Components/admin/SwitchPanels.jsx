@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext, AppWrapper } from "../../context/index";
+import { AppContext, AppWrapper } from "@/app/context/index";
 
 import AdminDash from "./AdminDash";
 import CohortOverview from "./CohortOverview";
@@ -33,12 +33,14 @@ const SwitchPanels = () => {
           setSelectedStudents={setSelectedStudents}
         />
       ) : (
-        <AdminDash
-          selectedInstructor={selectedInstructor}
-          setSelectedInstructor={setSelectedInstructor}
-          selectedStudents={selectedStudents}
-          setSelectedStudents={setSelectedStudents}
-        />
+        <AppWrapper>
+          <AdminDash
+            selectedInstructor={selectedInstructor}
+            setSelectedInstructor={setSelectedInstructor}
+            selectedStudents={selectedStudents}
+            setSelectedStudents={setSelectedStudents}
+          />
+        </AppWrapper>
       )}
     </div>
   );

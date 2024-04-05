@@ -16,12 +16,13 @@ const AdminDash = ({
 
   const fetchCohorts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/cohorts/");
+      const response = await fetch("http://localhost:3000/api/cohorts");
       if (!response.ok) {
         throw new Error("Failed to fetch cohorts");
       }
       const data = await response.json();
-      setCohorts(data.rows);
+      console.log(data.cohorts.rows);
+      setCohorts(data.cohorts.rows);
     } catch (error) {
       console.error("Error fetching cohorts:", error);
       setCohorts([]);
@@ -62,17 +63,18 @@ const AdminDash = ({
           </button>
         </div>
         <div className="flex justify-center items-center p-4">
-          {cohorts.map((cohort, index) => {
-            return (
-              <button
-                key={index}
-                className="bg-slate-800 rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700"
-                onClick={() => cohortClick(cohort)}
-              >
-                <h2>{cohort.cohort_name}</h2>
-              </button>
-            );
-          })}
+          {cohorts &&
+            cohorts.map((cohort, index) => {
+              return (
+                <button
+                  key={index}
+                  className="bg-slate-800 rounded-lg py-4 px-6 m-2 text-white hover:bg-slate-700"
+                  onClick={() => cohortClick(cohort)}
+                >
+                  <h2>{cohort.cohort_name}</h2>
+                </button>
+              );
+            })}
         </div>
       </div>
     </>
