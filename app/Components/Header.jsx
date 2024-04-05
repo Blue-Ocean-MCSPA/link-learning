@@ -4,11 +4,21 @@ import { AppContext } from "../context/index";
 import Link from "next/link";
 
 const Header = () => {
-  const { loggedInUser, darkMode, toggleDarkMode } =
-    useContext(AppContext);
-    let firstInitial = loggedInUser.first_name.charAt(0)
-    let secondInital = loggedInUser.last_name.charAt(0)
-  
+  const { loggedInUser, darkMode, toggleDarkMode } = useContext(AppContext);
+
+  let firstInitial = "";
+  let secondInitial = "";
+
+  // Check if loggedInUser is not null before accessing its properties
+  if (loggedInUser) {
+    firstInitial = loggedInUser.first_name
+      ? loggedInUser.first_name.charAt(0)
+      : "";
+    secondInitial = loggedInUser.first_name
+      ? loggedInUser.last_name.charAt(0)
+      : "";
+  }
+
   return (
     <>
       <div className="banner flex justify-between items-center p-3 bg-light-inactive_selection">
@@ -16,7 +26,11 @@ const Header = () => {
           <Link href="/">LearningLink</Link>
         </div>
         <h1 className="centered-div text-2xl text-black">
-          Welcome {loggedInUser.first_name}!
+          Welcome{" "}
+          {loggedInUser && loggedInUser.first_name
+            ? loggedInUser.first_name
+            : ""}
+          !
         </h1>
         <ul className="flex-row menu bg-base-600 lg:menu-horizontal rounded-box shadow-2xl">
           <li className="flex">
@@ -53,7 +67,10 @@ const Header = () => {
             <Link href="/login">
               <div className="avatar online placeholder">
                 <div className="bg-neutral text-neutral-content rounded-full w-12">
-                  <span className="text-xl">{firstInitial}{secondInital}</span>
+                  <span className="text-xl">
+                    {firstInitial}
+                    {secondInitial}
+                  </span>
                 </div>
               </div>
             </Link>
