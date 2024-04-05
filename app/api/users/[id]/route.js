@@ -18,24 +18,6 @@ export async function DELETE(request, id) {
 export async function PATCH(request, id) {
   const data = await request.json();
   id = parseInt(id.params.id) || data.id;
-  console.log(id);
-  const {
-    email,
-    password_hash,
-    first_name,
-    last_name,
-    roleid,
-    contact_info,
-    certifications_and_training,
-    performance_metrics,
-    activity_log,
-    grade,
-    assignments_completed,
-    course_started,
-    course_ended,
-    absent_days,
-  } = data; // Destructure all properties directly
-  console.log(data.email);
   const result = await sql`
       UPDATE users
       SET email = COALESCE(${data.email}, email),
